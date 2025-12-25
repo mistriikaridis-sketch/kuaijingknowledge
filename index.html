@@ -3,172 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>块茎计划 | 超级个体成长指南</title>
-    <meta name="description" content="块茎计划 - 超级个体成长指南。汇集商业底层逻辑、思维模型、实战技能与身心疗愈的全方位成长地图。">
+    <title>块茎计划</title>
+    <meta name="description" content="超级个体成长指南 - 极简导航页">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;900&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background-color: #F8FAFC; /* 极淡的灰蓝色背景，专业且护眼 */
-            /* 背景纹理：极简的点阵 */
-            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-color: #FFFFFF; /* 纯白背景 */
+            color: #1A1A1A;
         }
         
-        /* 品牌字体 */
-        .font-brand {
-            font-family: 'ZCOOL KuaiLe', cursive;
+        /* 卡片过渡动画 */
+        .card-transition {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        /* 卡片悬停特效：上浮 + 阴影加深 */
-        .module-card {
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .module-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        /* 隐藏滚动条 */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
         }
     </style>
 </head>
-<body class="text-slate-700 antialiased min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col items-center justify-center p-6 md:p-12">
 
-    <header class="w-full py-20 text-center px-4 relative overflow-hidden bg-white/80 backdrop-blur-sm border-b border-slate-200">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-50 -z-10"></div>
-
-        <div class="inline-block bg-slate-900 text-white px-4 py-1 rounded-full text-xs font-bold tracking-[0.2em] mb-6 uppercase shadow-lg">
+    <header class="w-full max-w-6xl mb-12 md:mb-20 text-center">
+        <p class="text-xs font-bold tracking-[0.3em] text-gray-300 uppercase mb-3 select-none">
             Rhizome Plan
-        </div>
+        </p>
         
-        <h1 class="font-brand text-6xl md:text-7xl text-slate-900 mb-6 tracking-wide drop-shadow-sm">
-            超级个体成长指南
+        <h1 class="text-4xl md:text-5xl font-black tracking-tight text-gray-900 mb-3">
+            块茎计划
         </h1>
         
-        <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
-            从商业逻辑到内在心法，构建不可替代的个体竞争力系统。
+        <p class="text-lg md:text-2xl text-gray-500 font-light tracking-widest">
+            超级个体 成长指南
         </p>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-16">
-        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <main class="w-full max-w-6xl">
+        <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             
             </div>
     </main>
 
-    <footer class="w-full py-10 text-center text-slate-400 text-sm border-t border-slate-200 bg-white">
-        <p class="font-brand text-lg text-slate-800 mb-2">Rhizome Plan</p>
-        <p>&copy; 2026 块茎计划 · All Rights Reserved</p>
+    <footer class="w-full max-w-6xl mt-16 pt-8 border-t border-gray-50 text-center">
+        <p class="text-[10px] text-gray-300 tracking-widest uppercase">
+            &copy; 2026 Rhizome Plan · Keep It Simple
+        </p>
     </footer>
 
     <script>
-        // 👇👇👇 请在这里修改您的各个模块信息 👇👇👇
-        // 格式说明：
-        // { 
-        //    title: "卡片标题", 
-        //    desc: "卡片描述", 
-        //    icon: "图标(emoji)", 
-        //    color: "装饰颜色(blue, green, purple, orange, teal, rose)", 
-        //    link: "对应的HTML文件名.html" 
-        // },
-        
-        const modules = [
+        // 👇 数据配置
+        const data = [
             {
-                title: "商业实战逻辑",
-                desc: "拒绝伪勤奋。拆解个体商业的底层逻辑，涵盖创业、流量与产品闭环。",
-                icon: "🚀",
-                color: "blue",
-                link: "商业底层那些事.html"
+                title: "商业底层",
+                desc: "拒绝伪勤奋。拆解商业闭环与底层逻辑。",
+                link: "商业底层那些事.html",
+                color: "blue" 
             },
             {
-                title: "你也可以小而美",
-                desc: "一人公司实战指南。不必做大，但求做强，探索极简创业的生存美学。",
-                icon: "🌱",
-                color: "teal",
-                link: "你也可以小而美.html"
+                title: "思维模型",
+                desc: "查理·芒格的智慧遗产。看透复杂世界的本质。",
+                link: "思维模型.html",
+                color: "purple"
             },
             {
-                title: "零售实战通关",
-                desc: "从摆摊到开店。10个关卡打通线下商业任督二脉，掌握供应链与成交。",
-                icon: "🏪",
-                color: "green",
-                link: "零售实战.html"
+                title: "零售实战",
+                desc: "从摆摊到开店。10关打通线下商业任督二脉。",
+                link: "零售实战.html",
+                color: "green"
             },
             {
-                title: "认知思维模型",
-                desc: "查理·芒格的智慧遗产。掌握顶级思维模型，看透复杂世界背后的本质。",
-                icon: "🧠",
-                color: "purple",
-                link: "思维模型.html"
+                title: "小而美",
+                desc: "一人公司实战指南。探索极简创业的生存美学。",
+                link: "你也可以小而美.html",
+                color: "teal"
+            },
+            {
+                title: "疗愈身心",
+                desc: "身心是革命的本钱。科学睡眠与正念冥想。",
+                link: "疗愈身心.html",
+                color: "pink"
             },
             {
                 title: "心法与原则",
-                desc: "内在的秩序与力量。在不确定的时代，构建一个内核稳定的自我系统。",
-                icon: "🧘",
-                color: "slate",
-                link: "心法.html"
-            },
-            {
-                title: "身心疗愈",
-                desc: "身心是革命的本钱。科学睡眠、正念冥想与杏仁核急救，为长期主义供能。",
-                icon: "🔋",
-                color: "rose",
-                link: "疗愈身心.html"
+                desc: "内在的秩序。在不确定的时代构建内核稳定。",
+                link: "心法.html",
+                color: "orange"
             }
         ];
 
-        // 👆👆👆 修改结束 👆👆👆
+        // ================= 渲染逻辑 =================
+        const container = document.getElementById('grid-container');
 
-        // ================= 自动生成代码逻辑 (无需修改) =================
-        const container = document.getElementById('cards-container');
-
-        // 颜色映射表，用于生成 Tailwind 类名
-        const colorMap = {
-            blue:   { border: 'border-blue-500',   bg: 'bg-blue-50',   text: 'text-blue-600',   btn: 'hover:bg-blue-600' },
-            green:  { border: 'border-green-500',  bg: 'bg-green-50',  text: 'text-green-600',  btn: 'hover:bg-green-600' },
-            purple: { border: 'border-purple-500', bg: 'bg-purple-50', text: 'text-purple-600', btn: 'hover:bg-purple-600' },
-            orange: { border: 'border-orange-500', bg: 'bg-orange-50', text: 'text-orange-600', btn: 'hover:bg-orange-600' },
-            teal:   { border: 'border-teal-500',   bg: 'bg-teal-50',   text: 'text-teal-600',   btn: 'hover:bg-teal-600' },
-            rose:   { border: 'border-rose-500',   bg: 'bg-rose-50',   text: 'text-rose-600',   btn: 'hover:bg-rose-600' },
-            slate:  { border: 'border-slate-500',  bg: 'bg-slate-100', text: 'text-slate-600',  btn: 'hover:bg-slate-600' },
+        // 定义极简多巴胺配色 (淡雅版)
+        const theme = {
+            blue:   { bg: 'bg-blue-50',   hover: 'hover:bg-blue-100',   text: 'text-blue-900', bar: 'bg-blue-200' },
+            green:  { bg: 'bg-emerald-50',hover: 'hover:bg-emerald-100',text: 'text-emerald-900', bar: 'bg-emerald-200' },
+            purple: { bg: 'bg-violet-50', hover: 'hover:bg-violet-100', text: 'text-violet-900', bar: 'bg-violet-200' },
+            orange: { bg: 'bg-amber-50',  hover: 'hover:bg-amber-100',  text: 'text-amber-900', bar: 'bg-amber-200' },
+            teal:   { bg: 'bg-teal-50',   hover: 'hover:bg-teal-100',   text: 'text-teal-900', bar: 'bg-teal-200' },
+            pink:   { bg: 'bg-rose-50',   hover: 'hover:bg-rose-100',   text: 'text-rose-900', bar: 'bg-rose-200' }
         };
 
-        modules.forEach((item) => {
-            // 获取对应的颜色配置，如果没有默认用 blue
-            const theme = colorMap[item.color] || colorMap['blue'];
+        data.forEach(item => {
+            const style = theme[item.color] || theme.blue;
 
-            const cardHTML = `
-                <a href="${item.link}" target="_blank" class="module-card block bg-white rounded-2xl border border-slate-200 p-8 relative overflow-hidden group h-full flex flex-col">
-                    
-                    <div class="absolute top-0 left-0 w-full h-1.5 ${theme.bg.replace('bg-', 'bg-').replace('50', '500')}"></div>
-
-                    <div class="absolute -right-4 -top-4 text-9xl text-slate-50 font-black opacity-50 select-none z-0 group-hover:opacity-100 transition-opacity">
-                        ${item.icon}
-                    </div>
-
-                    <div class="relative z-10 flex flex-col h-full">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 flex items-center justify-center ${theme.bg} ${theme.text} text-3xl rounded-xl border border-slate-100 shadow-sm group-hover:scale-110 transition-transform duration-300">
-                                ${item.icon}
+            const html = `
+                <a href="${item.link}" target="_blank" class="block group h-full">
+                    <article class="h-full p-8 rounded-xl ${style.bg} ${style.hover} card-transition cursor-pointer flex flex-col justify-between min-h-[200px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-6">
+                                <div class="w-8 h-1 rounded-full ${style.bar} opacity-60 group-hover:opacity-100 transition-opacity"></div>
+                                <span class="text-xl opacity-0 group-hover:opacity-100 transform translate-x-[-5px] group-hover:translate-x-0 transition-all duration-300 ${style.text}">
+                                    &nearr;
+                                </span>
                             </div>
-                            <h2 class="font-brand text-2xl text-slate-800 group-hover:${theme.text} transition-colors">
+                            
+                            <h2 class="text-xl font-bold mb-3 ${style.text} tracking-tight">
                                 ${item.title}
                             </h2>
+                            
+                            <p class="text-sm font-medium leading-relaxed opacity-60 ${style.text}">
+                                ${item.desc}
+                            </p>
                         </div>
-                        
-                        <p class="text-slate-500 text-sm leading-relaxed mb-8 flex-grow font-medium">
-                            ${item.desc}
-                        </p>
-                        
-                        <div class="mt-auto w-full py-3 bg-slate-900 text-white font-bold rounded-lg text-center ${theme.btn} transition-colors duration-300 shadow-md flex items-center justify-center gap-2 group-hover:gap-3">
-                            进入专题 <span>→</span>
-                        </div>
-                    </div>
+                    </article>
                 </a>
             `;
-            container.innerHTML += cardHTML;
+            container.innerHTML += html;
         });
     </script>
 </body>
