@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.7：线下流量选址</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;
+            --purple: #673AB7; /* 商业流 */
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--purple);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--purple);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.7</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">📍 客流热力图与点位策略</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">动线分析</div>
+            <p><strong>流量大不等于生意好。</strong> 你需要的是“有效滞留区”，而不是“快速通过区”。</p>
+            <ul style="margin-top:10px;">
+                <li>❌ <strong>斑马线正对面：</strong> 只有通过流量，没有停留流量。</li>
+                <li>✅ <strong>拐角内侧：</strong> 视野开阔，且步伐自然减慢。</li>
+                <li>✅ <strong>热门门店旁：</strong> 借力互补业态（如奶茶店旁卖小吃）。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-visual" style="text-align:center; padding:20px; background:#F3E5F5; border-radius:8px;">
+            <svg viewBox="0 0 200 150">
+                <rect x="20" y="50" width="60" height="60" fill="#fff" stroke="#2B2B2B" stroke-width="2"/>
+                <text x="50" y="85" text-anchor="middle" font-size="10">热门商铺</text>
+                
+                <rect x="120" y="50" width="60" height="60" fill="#fff" stroke="#2B2B2B" stroke-width="2"/>
+                <text x="150" y="85" text-anchor="middle" font-size="10">热门商铺</text>
+                
+                <circle cx="100" cy="80" r="15" fill="#FFC000" stroke="#2B2B2B" stroke-width="2"/>
+                <text x="100" y="115" text-anchor="middle" font-weight="bold">你的位置</text>
+                <text x="100" y="30" text-anchor="middle" font-size="20">🤝 流量互补</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="panel-tag">共生策略</div>
+            <p><strong>案例：</strong> 小杨选择在麻辣烫店和奶茶店中间设点。这三者互为<strong>互补品</strong>，而非竞争品。</p>
+            <p style="font-size:0.9rem; color:#666; margin-top:5px;">这种“寄生策略”能让你以极低成本获取精准客流。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 终极挑战</h2>
+            <p><strong>点位复盘任务：</strong></p>
+            <ul style="margin-top:10px; padding-left:20px; line-height:1.8;">
+                <li>观察你的目标点位：是“过路人”多，还是“买东西的人”多？</li>
+                <li>你背后的门店卖什么？你们是竞争还是互补？</li>
+                <li><strong>行动：</strong> 寻找一家互补门店，与店主建立良好关系，探索合作可能。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

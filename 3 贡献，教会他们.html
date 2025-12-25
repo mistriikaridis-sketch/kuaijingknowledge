@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简创业：贡献与教学</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Zcool+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案 C：智慧电光 (Electric Wisdom) */
+            --bg-color: #DFE6E9;       /* 浅灰底 (用于衬托紫色) */
+            --dot-color: #A29BFE;      /* 浅紫波点 */
+            --main-accent: #6C5CE7;    /* 皇家紫 (主视觉) */
+            
+            --card-bg: #FFFFFF;
+            --text-main: #2D3436;
+            --border-color: #2D3436;
+            
+            --highlight-pink: #FD79A8; /* 强调/魔力 */
+            --highlight-cyan: #00CEC9; /* 教学/传播 */
+            --highlight-yellow: #FFEAA7; /* 财富/价值 */
+
+            --shadow-offset: 8px;
+            --border-width: 3px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* 方形波点纹理 */
+            background-image: 
+                linear-gradient(45deg, var(--dot-color) 25%, transparent 25%, transparent 75%, var(--dot-color) 75%, var(--dot-color)),
+                linear-gradient(45deg, var(--dot-color) 25%, transparent 25%, transparent 75%, var(--dot-color) 75%, var(--dot-color));
+            background-position: 0 0, 20px 20px;
+            background-size: 40px 40px;
+            
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            padding: 30px 20px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Zcool KuaiLe', cursive;
+            line-height: 1.3;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+            position: relative;
+        }
+
+        header h1 { 
+            font-size: 3.2rem;
+            color: var(--main-accent);
+            text-shadow: 3px 3px 0px white, 6px 6px 0px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .header-tag {
+            background: var(--highlight-pink);
+            color: white;
+            font-size: 1.2rem;
+            padding: 8px 20px;
+            border: 3px solid black;
+            box-shadow: 4px 4px 0px black;
+            display: inline-block;
+            transform: rotate(-3deg);
+            font-weight: bold;
+        }
+
+        /* Card System */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 20px 4px 20px 4px; /* 不对称圆角 */
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--main-accent);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .panel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0px var(--main-accent);
+        }
+
+        /* Layout */
+        .panel-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        @media (max-width: 700px) {
+            .panel-content { flex-direction: column-reverse; }
+            .illustration { width: 100%; margin-bottom: 15px; }
+            header h1 { font-size: 2.5rem; }
+        }
+
+        .text-col { flex: 3; }
+        .img-col { flex: 2; display: flex; justify-content: center; }
+
+        /* SVG */
+        .illustration { width: 100%; max-width: 220px; height: auto; }
+        svg { overflow: visible; }
+
+        /* Highlights */
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, var(--highlight-cyan) 100%);
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
+        /* Interactive Buttons */
+        .btn-magic {
+            background: var(--main-accent);
+            color: white;
+            font-family: 'Zcool KuaiLe', cursive;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: 3px solid black;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.1s;
+            box-shadow: 5px 5px 0px black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-magic:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px black;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 25px;
+            border: 3px solid black;
+            padding: 20px;
+            border-radius: 12px;
+            background: #FAFAFA;
+            position: relative;
+        }
+        
+        .hidden-content::after {
+            content: "";
+            position: absolute;
+            top: 5px; right: 5px; bottom: 5px; left: 5px;
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .show { display: block; animation: expand 0.4s ease-out; }
+        @keyframes expand { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Animations */
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        .anim-twinkle { animation: twinkle 1.5s infinite; }
+
+        /* List Styling */
+        .magic-list li {
+            list-style: none;
+            margin-bottom: 15px;
+            background: var(--highlight-yellow);
+            padding: 10px;
+            border: 2px solid black;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="illustration" style="height: 110px; margin: 0 auto;">
+            <svg viewBox="0 0 100 60">
+                <rect x="20" y="40" width="40" height="10" transform="rotate(-45 40 45)" fill="#2D3436"/>
+                <rect x="50" y="10" width="10" height="20" transform="rotate(-45 55 20)" fill="#FFF"/> <path d="M70,10 L72,15 L77,17 L72,19 L70,24 L68,19 L63,17 L68,15 Z" fill="#FD79A8" stroke="black" stroke-width="1.5" class="anim-twinkle"/>
+                <path d="M85,30 L87,35 L92,37 L87,39 L85,44 L83,39 L78,37 L83,35 Z" fill="#00CEC9" stroke="black" stroke-width="1.5" class="anim-twinkle" style="animation-delay: 0.5s"/>
+            </svg>
+        </div>
+        <h1>贡献：教会他们</h1>
+        <div class="header-tag">
+            从“旁观者”变成“引路人”
+        </div>
+    </header>
+
+    <div class="panel">
+        <h3>📊 互联网的 1% 法则</h3>
+        <div class="panel-content">
+            <div class="img-col">
+                <svg viewBox="0 0 120 100" class="illustration">
+                    <polygon points="10,90 110,90 60,10" fill="none" stroke="black" stroke-width="3"/>
+                    <line x1="25" y1="65" x2="95" y2="65" stroke="black" stroke-width="2"/>
+                    <text x="60" y="82" text-anchor="middle" font-size="12" fill="#888">90% 内容消费者</text>
+                    <line x1="42" y1="38" x2="78" y2="38" stroke="black" stroke-width="2"/>
+                    <text x="60" y="55" text-anchor="middle" font-size="12" fill="#6C5CE7">9% 内容创作者</text>
+                    <polygon points="42,38 78,38 60,10" fill="#FD79A8" stroke="none"/>
+                    <text x="60" y="30" text-anchor="middle" font-size="14" fill="white" font-weight="bold">1%</text>
+                </svg>
+            </div>
+            <div class="text-col">
+                <p>绝大多数人都在“消费内容”。<br>
+                如果你开始贡献（评论、发帖、教学），你的曝光度将瞬间变成普通用户的 <strong>10倍</strong> 甚至 <strong>90倍</strong>。</p>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                    * 即使你觉得自己没准备好，也要去贡献。<b>如果不去分享你知道的，那其实是一种知识的浪费！</b>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background: #E8F0FE; border-color: var(--highlight-cyan);">
+        <h3>⚙️ 教，是最好的学</h3>
+        <div class="panel-content">
+            <div class="text-col">
+                <p>人们开始记得你的名字，并 @你 寻求建议。这就是社区建立的开始。</p>
+                <div style="background: white; border: 2px solid var(--highlight-cyan); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                    <strong>Nathan Barry 的三条铁律：</strong>
+                    <ul style="margin-left: 20px; margin-top: 5px;">
+                        <li>在公众视野下工作 (Build in Public)</li>
+                        <li>教你所知道的一切</li>
+                        <li>保持持续输出</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="img-col">
+                <svg viewBox="0 0 100 100" class="illustration">
+                    <path d="M30,80 Q30,40 50,40 Q70,40 70,80" fill="none" stroke="black" stroke-width="3"/>
+                    <circle cx="50" cy="30" r="15" fill="#FFEAA7" stroke="black" stroke-width="3" class="anim-twinkle"/>
+                    <line x1="50" y1="30" x2="50" y2="10" stroke="black" stroke-width="2"/>
+                    <line x1="50" y1="30" x2="30" y2="20" stroke="black" stroke-width="2"/>
+                    <line x1="50" y1="30" x2="70" y2="20" stroke="black" stroke-width="2"/>
+                    <path d="M75,60 Q85,60 85,70" fill="none" stroke="#6C5CE7" stroke-width="3"/>
+                    <path d="M80,55 Q95,55 95,75" fill="none" stroke="#6C5CE7" stroke-width="3"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="box-shadow: 8px 8px 0px var(--highlight-pink); border-color: var(--highlight-pink);">
+        <h3>🆚 为什么他获得了早期支持？</h3>
+        <p>两个技术相当的设计师：Nathan 和 Chris。<br>
+        Nathan 总是闷头干活交付项目；而 Chris 总是把每一个步骤都写成教程分享出来。</p>
+        
+        <button class="btn-magic" onclick="toggleSecret()">
+            <span>✨ 揭示结果与真相</span>
+        </button>
+        
+        <div id="secret-box" class="hidden-content">
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <div style="flex:1; text-align:center; padding: 10px; background: #ddd; border-radius: 8px;">
+                    Nathan<br><b>0 支持</b>
+                </div>
+                <div style="flex:1; text-align:center; padding: 10px; background: var(--highlight-yellow); border-radius: 8px; border: 2px solid black;">
+                    Chris<br><b>大量预购</b>
+                </div>
+            </div>
+            <p><strong>区别在于：</strong>Chris 分享了他知道的每一件事。社区信任他，愿意支持他。</p>
+            <hr style="border: 1px dashed #ccc; margin: 15px 0;">
+            <p style="font-size: 0.9rem;">
+                Nathan 领悟到这一点后，也开始毫无保留地分享。现在，他的公司 ConvertKit 年营收已突破 <b>千万级规模</b>。
+            </p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>🎯 不知道教什么？</h3>
+        <p>你不需要成为世界权威。你只需要比你的受众<b>“多懂一步”</b>。</p>
+        <div style="margin-top: 15px;">
+            <p>最好的个人品牌存在于两个话题的<b>重叠区域</b>：</p>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg viewBox="0 0 150 80" style="width: 200px;">
+                    <circle cx="50" cy="40" r="35" fill="rgba(108, 92, 231, 0.5)" stroke="black" stroke-width="2"/>
+                    <circle cx="100" cy="40" r="35" fill="rgba(0, 206, 201, 0.5)" stroke="black" stroke-width="2"/>
+                    <text x="25" y="45" font-size="10" font-weight="bold">你的技能</text>
+                    <text x="105" y="45" font-size="10" font-weight="bold">你的兴趣</text>
+                    <text x="75" y="45" font-size="10" font-weight="bold" fill="white">★</text>
+                </svg>
+            </div>
+            <p><strong>行动建议：</strong><br>当你学习绘画、编码或写作时，把你的学习过程公开化。你的社区成员会成为你的第一批潜在用户。</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSecret() {
+            const box = document.getElementById('secret-box');
+            const btn = document.querySelector('.btn-magic');
+            
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                btn.innerHTML = '<span>✨ 揭示结果与真相</span>';
+            } else {
+                box.style.display = 'block';
+                box.classList.add('show');
+                btn.innerHTML = '<span>🔮 收起故事</span>';
+                if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.6：动态库存管理</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;
+            --blue: #2196F3;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--blue);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--blue);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 气象卡片 */
+        .weather-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .weather-card {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            width: 30%;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .weather-card.active {
+            border-color: var(--blue);
+            background: #E3F2FD;
+            box-shadow: 0 4px 6px rgba(33, 150, 243, 0.2);
+        }
+        .weather-detail {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--blue);
+        }
+        .weather-detail.show { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.6</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">📊 数据驱动的订货策略</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">环境因素分析</div>
+            <p>零售不是靠运气。<strong>天气数据</strong>直接决定了你的动销率。请点击下方图标进行模拟：</p>
+            
+            <div class="weather-grid">
+                <div class="weather-card" onclick="showWeather('sunny')">
+                    <div style="font-size:2rem">☀️</div>
+                    <div>晴天</div>
+                </div>
+                <div class="weather-card" onclick="showWeather('rainy')">
+                    <div style="font-size:2rem">🌧️</div>
+                    <div>雨天</div>
+                </div>
+                <div class="weather-card" onclick="showWeather('cold')">
+                    <div style="font-size:2rem">❄️</div>
+                    <div>降温</div>
+                </div>
+            </div>
+
+            <div id="w-sunny" class="weather-detail">
+                <strong>策略：</strong> 人流量大，属于销售黄金期。<br>
+                <strong>行动：</strong> 备足高毛利产品，延长营业时间。
+            </div>
+            <div id="w-rainy" class="weather-detail">
+                <strong>策略：</strong> 户外客流骤减。<br>
+                <strong>行动：</strong> 启动社群/线上预订，或减少生鲜类进货，避免损耗。
+            </div>
+            <div id="w-cold" class="weather-detail">
+                <strong>策略：</strong> "温暖经济"爆发。<br>
+                <strong>行动：</strong> 主推围巾、热饮、关东煮等御寒商品。
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">市场波动响应</div>
+            <p>当某类商品（如小龙虾）批发价剧烈波动时，如何调整？</p>
+            
+            <div style="margin:20px 0;">
+                <label>假设进货价波动幅度：</label>
+                <input type="range" min="-30" max="30" value="0" step="10" style="width:100%" oninput="updateStrategy(this.value)">
+                <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#666;">
+                    <span>-30% (暴跌)</span>
+                    <span>0%</span>
+                    <span>+30% (暴涨)</span>
+                </div>
+            </div>
+            
+            <div id="strategy-box" style="font-weight:bold; text-align:center; padding:15px; background:#eee; border-radius:8px;">
+                👆 拖动滑块查看应对策略
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 课后作业</h2>
+            <p><strong>建立你的决策清单：</strong></p>
+            <ul style="margin-top:10px; padding-left:20px; line-height:1.8;">
+                <li>查看未来3天天气预报。</li>
+                <li>查看日历，是否有即将到来的节日/节气？</li>
+                <li><strong>行动：</strong> 根据以上数据，修正你明日的采购订单。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 天气交互
+    function showWeather(type) {
+        document.querySelectorAll('.weather-detail').forEach(el => el.classList.remove('show'));
+        document.querySelectorAll('.weather-card').forEach(el => el.classList.remove('active'));
+        
+        document.getElementById('w-' + type).classList.add('show');
+        event.currentTarget.classList.add('active');
+        
+        if(navigator.vibrate) navigator.vibrate(20);
+    }
+
+    // 价格波动交互
+    function updateStrategy(val) {
+        const box = document.getElementById('strategy-box');
+        const v = parseInt(val);
+        
+        if (v <= -20) {
+            box.innerText = "📉 价格异常下跌：警惕品质问题或市场滞销，少量试单。";
+            box.style.color = "#FF6B35";
+        } else if (v <= -10) {
+            box.innerText = "↘ 成本降低：机会窗口！适量增加库存，做促销引流。";
+            box.style.color = "#4CAF50";
+        } else if (v >= 20) {
+            box.innerText = "📈 成本激增：暂停采购该品类，寻找替代品。";
+            box.style.color = "#D32F2F";
+        } else {
+            box.innerText = "➡️ 价格平稳：按正常周转周期补货。";
+            box.style.color = "#333";
+        }
+    }
+</script>
+
+</body>
+</html>

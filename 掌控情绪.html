@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>掌控情绪：成事者的修行（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：火焰与冰山 (Fire & Ice) */
+            --bg-color: #ff7675;       /* 情绪红背景 */
+            --dot-color: #d63031;      /* 深红波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2d3436;     /* 深灰文字 */
+            --border-color: #2d3436;   /* 粗边框色 */
+            
+            --accent-blue: #74b9ff;    /* 冷静蓝 (修养) */
+            --accent-yellow: #ffeaa7;  /* 警示黄 (舆情) */
+            --accent-green: #55efc4;   /* 治愈绿 (爱好) */
+            
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 优化点：增加全局行高和字间距 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            /* 优化点：加宽容器至 800px */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action, .golden-sentence {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 优化点：标题类字体字间距加大 */
+            letter-spacing: 0.12em;
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px; /* 增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+            /* 优化点：防止大标题被截断 */
+            line-height: 1.3;
+            padding: 10px;
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.6rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* SVG 动画 */
+        .shake {
+            animation: shake 2s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* 章节标签 */
+        .section-tag {
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            padding: 12px 35px;
+            color: var(--text-color);
+            border: 3px solid var(--border-color);
+            font-weight: bold;
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+
+        /* 确保标题显示完整 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 8px solid var(--accent-yellow);
+            padding: 25px;
+            margin: 30px 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* 对比表格 */
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .vs-item {
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .vs-item h4 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 35px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f1f2f6;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: expand 0.4s ease-out;
+        }
+
+        @keyframes expand {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 列表样式 */
+        ul.retro-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.retro-list li {
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        ul.retro-list li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: var(--text-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: 2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        /* 底部金句样式 */
+        .quote-bubble {
+            position: relative;
+            background: white;
+            border: 4px solid var(--border-color);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .quote-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 30px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-bottom: 4px solid var(--border-color);
+            border-right: 4px solid var(--border-color);
+            transform: rotate(45deg);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>掌控情绪</h1>
+        <div class="subtitle">做事，不生气，不着急</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="120" height="100" viewBox="0 0 100 80" class="shake">
+                <path d="M10,40 Q25,10 40,40 T70,40 T100,40" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round"/>
+                <path d="M10,50 Q25,20 40,50 T70,50 T100,50" fill="none" stroke="#2d3436" stroke-width="3" opacity="0.6"/>
+                <circle cx="20" cy="30" r="3" fill="#d63031"/>
+                <circle cx="80" cy="20" r="4" fill="#d63031"/>
+                <text x="50" y="75" text-anchor="middle" font-size="12" font-weight="bold">NOISE</text>
+            </svg>
+        </div>
+        <div class="quote-bubble">
+            “不做事，你妈烦你。做了事，世界烦你。”
+        </div>
+        <p>如果你干好了，有人会妒忌你，说你走邪门歪道。你做得越好，负面消息越多。<strong>这就是成事的代价。</strong></p>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-yellow);">01 管理流言</div>
+        <h3>🌪 面对骂声，你选哪条路？</h3>
+        <p>曾国藩一生被骂无数。他总结了面对“莫名其妙的诽谤”的两种态度：</p>
+        
+        <div class="vs-grid">
+            <div class="vs-item" style="background: #fab1a0;">
+                <h4>🐯 有才者</h4>
+                <p><strong>悍然不顾</strong></p>
+                <p style="font-size:1rem; color:#444;">"关你屁事，我就这样！"</p>
+                <div style="margin-top:15px; font-weight:bold; color:#d63031;">后果：谤且日腾<br>(越骂越凶)</div>
+            </div>
+            <div class="vs-item" style="background: #74b9ff;">
+                <h4>🐢 有德者</h4>
+                <p><strong>抑然自修</strong></p>
+                <p style="font-size:1rem; color:#444;">"闭嘴，检讨自己"</p>
+                <div style="margin-top:15px; font-weight:bold; color:#0984e3;">后果：谤亦日熄<br>(慢慢没了)</div>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--text-color);">
+            🛡 点击获取：舆情管理三板斧
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <ul class="retro-list">
+                <li>🛑 <strong>1. 消灭于无形：</strong> 在负面消息萌芽时就预判并解决。</li>
+                <li>🤐 <strong>2. 淡定不回应：</strong> 唾面自干，等闲话自己散去（推荐策略）。</li>
+                <li>📢 <strong>3. 正面刚 (最后手段)：</strong> 如果实在散不去，就树立自己的声音。“你能写，我也能写。”</li>
+            </ul>
+            <p style="font-size: 1.1rem; background: white; padding: 15px; border-radius: 8px; margin-top: 20px;">
+                💡 <strong>心得：</strong> 年轻气盛时可以拎起键盘干嘴仗；知天命后，不争不吵也是一种智慧。
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: #d63031; color: white;">02 壮士断腕</div>
+        <h3>🐍 怒气就是毒蛇</h3>
+        <p>事不顺，话难听。曾国藩说自己都快被气抑郁了，何况前线的弟弟。</p>
+        <p>怎么治？<strong>没有药吃，只能自己动手。</strong></p>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <svg width="140" height="140" viewBox="0 0 100 100">
+                <path d="M30,80 Q20,50 40,40 T70,30 Q90,20 80,50 T50,80" fill="none" stroke="#d63031" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="75" cy="35" r="3" fill="#000"/>
+                <path d="M10,10 L90,90" stroke="#2d3436" stroke-width="6" stroke-linecap="round"/>
+                <text x="50" y="95" text-anchor="middle" font-size="12" font-weight="bold">斩断怒气</text>
+            </svg>
+        </div>
+
+        <div class="highlight-box">
+            “视恼怒如蝮蛇，去之不可不勇。”<br>
+            毒蛇咬手，壮士断腕，是为了保命。
+        </div>
+
+        <button class="btn-action" onclick="toggleContent('content2', this)" style="background: #d63031; border-color: #d63031;">
+            🔥 点击查看：如何“断腕”？
+        </button>
+
+        <div id="content2" class="hidden-content">
+            <h4 style="font-size: 1.4rem; margin-bottom: 20px;">🧘‍♂️ 止怒两步法</h4>
+            <ol style="padding-left: 20px; font-size: 1.15rem; line-height: 1.8;">
+                <li style="margin-bottom: 15px;">
+                    <strong>先“觉”：</strong> 觉悟的觉。你要意识到“我在生气”，意识到怒气会伤身（血压、血糖、血脂）。
+                </li>
+                <li>
+                    <strong>能行能藏：</strong> 做事不是一直勇往直前。“潜龙勿用”也是成事的一部分。
+                </li>
+            </ol>
+            <hr style="border: 2px dashed #ccc; margin: 25px 0;">
+            <h4 style="font-size: 1.4rem; margin-bottom: 15px;">🛹 终极建议：找个爱好</h4>
+            <p>当你不得不“藏”的时候，抓起你的爱好（健身、读书、写字）。<strong>得志行天下，不得志独善其身。</strong></p>
+        </div>
+    </div>
+
+    <footer>
+        <p class="golden-sentence" style="font-size: 1.8rem;">“听拉拉蛄叫，还不种庄稼了？”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            if(id === 'content1') btn.innerHTML = "🛡 点击获取：舆情管理三板斧";
+            if(id === 'content2') btn.innerHTML = "🔥 点击查看：如何“断腕”？";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

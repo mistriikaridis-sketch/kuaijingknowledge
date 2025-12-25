@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专注力黑客：大脑自动驾驶指南</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 配色方案：深海流心 (Deep Flow) */
+            --bg-color: #F5F6FA;      /* 极简灰白背景，护眼 */
+            --dot-color: #DCDDE1;     /* 浅色波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #192A56;  /* 深夜蓝 - 高对比度边框 */
+            
+            --color-focus: #273C75;   /* 核心主色 - 专注蓝 */
+            --color-light: #4CD137;   /* 亮色点缀 - 觉醒绿 */
+            --color-distract: #E84118;/* 警示色 - 干扰红 */
+            
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 8px;
+            --card-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 3px, transparent 3px);
+            background-size: 30px 30px;
+            color: var(--border-color);
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            border-radius: 16px;
+            padding: 50px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: var(--border-color);
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 3.8rem; margin-bottom: 10px; }
+        h3 { font-size: 2.2rem; margin-bottom: 25px; }
+        p { margin-bottom: 20px; font-weight: 500; } /* 正文稍微加粗以提升清晰度 */
+
+        /* ---------------- Header 优化 ---------------- */
+        .header {
+            text-align: center;
+            background: var(--color-focus);
+            padding: 60px 20px;
+            border-bottom: 6px solid var(--border-color);
+            /* 居中 flex 布局，为了让内部盒子居中 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* 新增：标题文本框容器 */
+        .header-content-box {
+            background: #fff;
+            border: 4px solid var(--border-color);
+            padding: 30px 40px;
+            border-radius: 20px;
+            max-width: 600px; /* 【重点修改】限制宽度 */
+            width: 100%;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 { 
+            color: var(--color-focus); 
+            font-size: 3rem; /* 字体稍微调小适应窄框 */
+        }
+        
+        .header h3 {
+            color: var(--color-distract);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header-tag {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: var(--border-color);
+            color: #fff;
+            padding: 8px 25px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-top-container {
+            margin-bottom: -30px; /* 让图标稍微压住下面的框 */
+            position: relative;
+            z-index: 20;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes scan { 0% { transform: translateX(-20px); } 50% { transform: translateX(20px); } 100% { transform: translateX(-20px); } }
+        @keyframes seesaw { 0% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
+
+        .anim-float { animation: float 3s ease-in-out infinite; }
+        .anim-scan { animation: scan 2s linear infinite; }
+        .anim-seesaw { transform-origin: center bottom; animation: seesaw 5s ease-in-out infinite; }
+
+        /* ---------------- Panel 1: The Drift ---------------- */
+        .drift-illustration {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px;
+            border: 3px dashed var(--border-color);
+            border-radius: 15px;
+            background: #F0F9FF; /* 极淡蓝 */
+            margin-bottom: 20px;
+        }
+
+        .thought-bubble {
+            background: var(--color-distract);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            position: relative;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            border: 3px solid var(--border-color);
+        }
+
+        /* ---------------- Panel 2: Energy Chart ---------------- */
+        .energy-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 60px;
+            height: 250px;
+            margin-top: 40px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid var(--border-color);
+        }
+
+        .bar {
+            width: 120px;
+            background: #fff;
+            border: 3px solid var(--border-color);
+            border-bottom: none;
+            position: relative;
+            transition: height 1s;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        /* 填充颜色的内部块 */
+        .bar-inner {
+            width: 100%;
+            background: var(--color-focus);
+            border-top: 2px solid var(--border-color);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -60px;
+            width: 180px;
+            left: -30px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        /* ---------------- Panel 3: Seesaw ---------------- */
+        .network-box {
+            background: #F1F2F6;
+        }
+
+        .seesaw-container {
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin: 50px 0;
+        }
+        
+        .seesaw-plank {
+            width: 400px;
+            height: 12px;
+            background: var(--border-color);
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .seesaw-pivot {
+            width: 0; 
+            height: 0; 
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid var(--border-color);
+            margin: 0 auto;
+        }
+
+        .network-ball {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 4px solid var(--border-color);
+            position: absolute;
+            top: -70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: #fff;
+        }
+
+        /* ---------------- Panel 4: Action ---------------- */
+        .btn-action {
+            background: var(--color-light); /* 使用亮绿色作为行动按钮 */
+            color: var(--border-color);
+            border: 4px solid var(--border-color);
+            padding: 20px 40px;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 12px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s;
+            box-shadow: 6px 6px 0 rgba(25, 42, 86, 0.2);
+        }
+
+        .btn-action:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 rgba(25, 42, 86, 0.4);
+            background: #44bd32;
+        }
+
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out;
+            background: #fff;
+            border-radius: 15px;
+            border: 4px solid var(--border-color);
+            margin-top: 0;
+            opacity: 0;
+        }
+
+        .hidden-content.active {
+            max-height: 1200px;
+            margin-top: 20px;
+            padding: 40px;
+            opacity: 1;
+        }
+
+        .rat-maze {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            align-items: center;
+            background: #dff9fb;
+            padding: 30px;
+            border-radius: 12px;
+            border: 3px solid var(--border-color);
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 4px dashed #bdc3c7;
+        }
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--color-focus);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-top-container">
+            <svg width="120" height="120" viewBox="0 0 100 100" class="anim-float">
+                <circle cx="50" cy="50" r="45" fill="#fff" stroke="#192A56" stroke-width="4"/>
+                <path d="M50 20 L50 40 M50 60 L50 80 M20 50 L40 50 M60 50 L80 50" stroke="#E84118" stroke-width="4"/>
+                <circle cx="50" cy="50" r="10" fill="#273C75"/>
+                <circle cx="50" cy="50" r="30" fill="none" stroke="#273C75" stroke-width="3" stroke-dasharray="5,5"/>
+            </svg>
+        </div>
+        
+        <div class="header-content-box">
+            <h1>专注力黑客</h1>
+            <h3>驯服大脑自动驾驶</h3>
+            <div class="header-tag">为什么你总是走神？</div>
+        </div>
+    </header>
+
+    <section class="card">
+        <h3>☁️ 身体在开会，灵魂在度假</h3>
+        <p>上一秒还在听报告，下一秒已经在思考“晚上吃什么”。这种走神（Mind Wandering）每天可能发生上百次。</p>
+        
+        <div class="drift-illustration">
+            <div style="text-align:center;">
+                <svg width="80" height="80" viewBox="0 0 60 60">
+                    <rect x="10" y="10" width="40" height="40" rx="5" fill="#273C75" stroke="#192A56" stroke-width="3"/>
+                    <line x1="20" y1="25" x2="40" y2="25" stroke="#fff" stroke-width="3"/>
+                    <line x1="20" y1="35" x2="40" y2="35" stroke="#fff" stroke-width="3"/>
+                </svg>
+                <p style="margin:5px 0 0 0; font-size:1rem; font-weight:bold; color:var(--color-focus);">正在阅读</p>
+            </div>
+            
+            <div style="font-size:2.5rem; color:var(--border-color); opacity: 0.5;" class="anim-scan">〰️〰️〰️</div>
+
+            <div class="thought-bubble">
+                🍔 昨天的汉堡...
+            </div>
+        </div>
+
+        <p><strong>残酷真相：</strong> 大脑极其厌恶“一成不变”。就像皮肤感觉不到衣服一样，大脑会自动忽略持续不变的任务刺激。</p>
+    </section>
+
+    <section class="card">
+        <h3>🧠 发呆 = 高能耗？</h3>
+        <p>你以为发呆时大脑在休息？错！神经科学发现，<strong>发呆时的脑耗能，几乎和背古诗一样高！</strong></p>
+
+        <div class="energy-chart">
+            <div class="bar" style="height: 180px;">
+                <div class="bar-inner" style="height: 100%;"></div>
+                <div style="position:absolute; top:-40px; left:0; width:100%; text-align:center; font-weight:bold; color:var(--color-focus);">100%</div>
+                <div class="bar-label">解复杂的<br>数学题</div>
+            </div>
+            <div class="bar" style="height: 170px;">
+                <div class="bar-inner" style="height: 95%; background: var(--color-distract);"></div>
+                <div style="position:absolute; top:-40px; left:0; width:100%; text-align:center; font-weight:bold; color:var(--color-distract);">~95%</div>
+                <div class="bar-label">发呆<br>(默认模式网络)</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card network-box">
+        <h3>⚖️ 大脑里的跷跷板</h3>
+        <p><strong>专注网络</strong>和<strong>默认网络(DMN)</strong> 就像跷跷板的两端，此消彼长。</p>
+
+        <div class="seesaw-container">
+            <div class="seesaw-plank anim-seesaw">
+                <div class="network-ball" style="left: 0; border-color:var(--color-distract); color:var(--color-distract);">😴</div>
+                <div class="network-ball" style="right: 0; border-color:var(--color-focus); color:var(--color-focus);">🧐</div>
+            </div>
+            <div class="seesaw-pivot"></div>
+        </div>
+        
+        <p style="text-align: center;"><strong>走神原因：</strong> 能量低了或任务无聊，“专注网络”压不住，“默认网络”就自动弹起来接管身体。</p>
+    </section>
+
+    <section class="card">
+        <h3>🔘 如何按下重启键？</h3>
+        <p>伊利诺伊大学研究：长时间做同一件事，效率必降。但只要<strong>“稍微打断一下”</strong>，专注力就能复活。</p>
+
+        <button class="btn-action" onclick="toggleContent('tactic-content')">
+            🧪 点击揭秘：小白鼠实验
+        </button>
+
+        <div id="tactic-content" class="hidden-content">
+            <div class="rat-maze">
+                <div style="font-size:3rem;">🐭</div>
+                <div>
+                    <strong>实验组 (成功)：</strong> 走完迷宫休息一会儿。<br>
+                    <span style="color:var(--color-focus); font-weight:bold;">结果：</span> 大脑自动“回放”刚才的路线，记忆力暴涨。
+                </div>
+            </div>
+            <div class="rat-maze" style="background:#ffdddd; border-color:var(--color-distract);">
+                <div style="font-size:3rem;">🐭</div>
+                <div>
+                    <strong>对照组 (失败)：</strong> 马上做下一个任务。<br>
+                    <span style="color:var(--color-distract); font-weight:bold;">结果：</span> 没时间回放，学习效率低下。
+                </div>
+            </div>
+
+            <hr style="border-top: 3px dashed var(--border-color); margin: 30px 0;">
+
+            <h3>🚀 你的行动清单：</h3>
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 25px; display: flex; align-items: center; gap: 20px;">
+                    <span style="font-size: 2.5rem;">🧮</span>
+                    <span><strong>插入“异质”任务：</strong> 写累了文章？做两道简单的口算题。每隔 20-30 分钟刻意“换个脑子”。</span>
+                </li>
+                <li style="margin-bottom: 25px; display: flex; align-items: center; gap: 20px;">
+                    <span style="font-size: 2.5rem;">🔋</span>
+                    <span><strong>物理检查：</strong> 饿了吗？困了吗？坐姿对吗？(大脑供血不足 = 强制关机)</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="quote">“走神不是错误，它是大脑的本能。学会与它共舞，而不是对抗。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isActive = content.classList.contains('active');
+        
+        content.classList.toggle('active');
+        
+        if (!isActive) {
+            setTimeout(() => {
+                content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        }
+
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
+    }
+</script>
+
+</body>
+</html>

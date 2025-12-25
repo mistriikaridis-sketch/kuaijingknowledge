@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.1：市场需求与赛道分析</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+            --shadow-active: 2px 2px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--yellow);
+            background-image: radial-gradient(var(--orange) 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--orange);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .option-card {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color:var(--black); }
+        
+        .hidden-content { display: none; margin-top: 10px; padding-top:10px; border-top:1px dashed #ccc; font-size:0.9rem; color:#555; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.1</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">🔍 选品逻辑与赛道定位</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">三大核心赛道</div>
+            <p>选品不是拍脑袋，而是基于<strong>用户需求分析</strong>。请点击下方卡片，查看你的适合赛道：</p>
+            
+            <div class="option-card" onclick="toggleContent('opt1')">
+                <strong>📦 刚性需求赛道</strong>
+                <div id="opt1" class="hidden-content">
+                    <strong>特点：</strong> 高频、刚需（如早餐、纸巾）。<br>
+                    <strong>关键：</strong> 选址便利性 > 营销技巧。<br>
+                    <strong>策略：</strong> 建立长期信任，做复购生意。
+                </div>
+            </div>
+
+            <div class="option-card" onclick="toggleContent('opt2')">
+                <strong>🎉 情绪价值赛道</strong>
+                <div id="opt2" class="hidden-content">
+                    <strong>特点：</strong> 冲动消费（如鲜花、玩具、创意礼品）。<br>
+                    <strong>关键：</strong> 视觉陈列 > 产品本身。<br>
+                    <strong>策略：</strong> 营造节日氛围，激发购买欲。
+                </div>
+            </div>
+
+            <div class="option-card" onclick="toggleContent('opt3')">
+                <strong>🛠 专业技能赛道</strong>
+                <div id="opt3" class="hidden-content">
+                    <strong>特点：</strong> 技能变现（如贴膜、修鞋、素描）。<br>
+                    <strong>关键：</strong> 技术壁垒 > 价格竞争。<br>
+                    <strong>策略：</strong> 靠口碑传播，建立个人品牌。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background: var(--orange); color: var(--white); border-color: var(--white);">
+        <div class="panel-text">
+            <h2 style="margin-top:0; font-family:'Zcool KuaiLe'">🔥 你的行动挑战</h2>
+            <p><strong>纸上得来终觉浅：</strong></p>
+            <div style="background:rgba(255,255,255,0.2); padding:10px; border-radius:10px; margin-top:10px;">
+                拿出纸笔，盘点你手上的资源（时间/资金/技能），在上述三个赛道中，圈出最适合你启动的一个方向。
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        var content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思维模型：逆向思维</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 核心配色：逆向/反转/赛博主题 */
+            --bg-color: #2D0036; /* 深邃紫背景 */
+            --card-bg: #F3E5F5; /* 浅薰衣草白卡片 */
+            --border: 3px solid #000000; /* 纯黑粗边框 */
+            
+            /* 辅助色 */
+            --primary: #FF007F; /* 霓虹粉 (反向/警示) */
+            --secondary: #00E5FF; /* 赛博蓝 (正向/目标) */
+            --accent: #FFD700; /* 金色 (成功/顶峰) */
+            
+            --shadow: 6px 6px 0px rgba(255, 0, 127, 0.4); /* 粉色硬阴影 */
+            --text-main: #212121;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 保留波点背景，调整为微弱的光点 */
+            background-image: radial-gradient(rgba(255,255,255,0.15) 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* 顶部标题 - 霓虹风格 */
+        .main-header {
+            background: var(--card-bg);
+            border: var(--border);
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transform: rotate(-1deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 2.8rem;
+            margin: 0;
+            color: var(--primary);
+            text-shadow: 2px 2px 0px #000;
+            /* 简单的故障文字效果 */
+            position: relative;
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+            background: #000;
+            padding: 5px 20px;
+            border-radius: 20px;
+            transform: rotate(1deg);
+        }
+
+        /* 通用卡片 */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.5s ease-out backwards;
+        }
+
+        /* 视觉区 */
+        .panel-visual {
+            height: 180px;
+            background: #E1BEE7;
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景变体 */
+        .bg-pink { background: #F8BBD0; }
+        .bg-blue { background: #B3E5FC; }
+        .bg-dark { background: #4A148C; }
+
+        /* 文字区 */
+        .panel-text {
+            padding: 20px;
+        }
+
+        /* 歪斜章节标题 */
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0 30px 0;
+        }
+
+        .section-title {
+            background: var(--primary);
+            color: white;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.8rem;
+            padding: 12px 40px;
+            border: var(--border);
+            transform: skewX(-15deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title span {
+            display: block;
+            transform: skewX(15deg);
+        }
+
+        /* 标签 */
+        .tag {
+            background: #000;
+            color: var(--secondary);
+            padding: 4px 12px;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1rem;
+            border-radius: 0px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid var(--primary);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            transform: rotate(-1deg);
+        }
+
+        /* 重点高亮 */
+        strong {
+            color: var(--primary);
+            background: rgba(0, 229, 255, 0.2);
+            padding: 0 4px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* 按钮 */
+        .btn-action {
+            background: var(--secondary);
+            color: #000;
+            border: var(--border);
+            padding: 12px;
+            width: 100%;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0 #000;
+            transition: all 0.1s;
+        }
+        
+        .btn-action:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #000;
+        }
+
+        .hidden-content {
+            display: none;
+            background: #fff;
+            border: 2px dashed var(--primary);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes flip {
+            0% { transform: scaleX(1); }
+            50% { transform: scaleX(-1); }
+            100% { transform: scaleX(1); }
+        }
+        .flip-anim { animation: flip 3s infinite; }
+
+        /* SVG 通用 */
+        svg { width: 100%; height: 100%; max-width: 320px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="main-header">
+        <h1>思维模型：逆向思维</h1>
+        <div class="subtitle">🙃 反其道而思之</div>
+    </header>
+
+    <div class="panel" style="animation-delay: 0.1s;">
+        <div class="panel-visual bg-dark">
+            <svg viewBox="0 0 200 150">
+                <text x="100" y="60" text-anchor="middle" font-size="20" fill="#fff">Thinking...</text>
+                <text x="100" y="100" text-anchor="middle" font-size="20" fill="#FF007F" transform="scale(1, -1) translate(0, -160)" opacity="0.7">Thinking...</text>
+                <line x1="40" y1="80" x2="160" y2="80" stroke="#00E5FF" stroke-width="2"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">查理·芒格的秘诀</div>
+            <p><strong>“不要想着如何成功，而是思考如何避免失败。”</strong></p>
+            <p>逆向思维，就是从问题的对立面或相反面来探索答案。它能帮我们开山、破局、发现新物种。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>原理：消失的岔路</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.2s;">
+        <div class="panel-visual bg-pink">
+            <svg viewBox="0 0 200 150">
+                <circle cx="20" cy="75" r="10" fill="#212121"/>
+                <text x="20" y="105" text-anchor="middle" font-size="10">起点</text>
+                
+                <rect x="170" y="65" width="20" height="20" fill="#FFD700" stroke="#000"/>
+                <text x="180" y="105" text-anchor="middle" font-size="10">终点</text>
+                
+                <path d="M30 75 L60 75 L80 40 L120 40" fill="none" stroke="#555" stroke-width="2"/>
+                <path d="M60 75 L80 110 L120 110" fill="none" stroke="#555" stroke-width="2"/>
+                <path d="M60 75 L100 75 L140 75" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="4"/>
+                
+                <text x="100" y="30" text-anchor="middle" font-size="12" fill="#FF007F" font-weight="bold">干扰!</text>
+                <text x="100" y="130" text-anchor="middle" font-size="12" fill="#FF007F" font-weight="bold">走偏!</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">正向推进</div>
+            <p>从起点出发，你会遇到无数干扰因素和岔路，很容易走偏、走弯、甚至走错。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.3s;">
+        <div class="panel-visual bg-blue">
+            <svg viewBox="0 0 200 150">
+                 <circle cx="20" cy="75" r="10" fill="#212121" opacity="0.3"/>
+                <rect x="170" y="65" width="20" height="20" fill="#FFD700" stroke="#000"/>
+                
+                <line x1="170" y1="75" x2="30" y2="75" stroke="#FF007F" stroke-width="4" marker-end="url(#arrow)"/>
+                <circle cx="100" cy="75" r="30" fill="none" stroke="#00E5FF" stroke-width="2"/>
+                <text x="100" y="120" text-anchor="middle" font-size="12" font-weight="bold">一览无余</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">逆向视角</div>
+            <p><strong>站在终点，反看起点。</strong></p>
+            <p>当你从终点往回看时，那些正向推进时的“死胡同”和“干扰项”自然就看不见了，路径变得无比清晰。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>实战：怎么用？</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.4s;">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150">
+                <text x="50" y="80" font-size="30">📝</text>
+                <text x="100" y="80" font-size="30" class="flip-anim">❤️</text>
+                <text x="150" y="80" font-size="30">🛑</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>与其想做什么，不如先想<strong>不该做什么</strong>。</p>
+            <div class="btn-action" onclick="toggleContent('exam-tips')">👉 考试/学习 (点击翻转)</div>
+            <div id="exam-tips" class="hidden-content">
+                <strong>正向：</strong> 如何多得分？（很难，无从下手）<br>
+                <strong>逆向：</strong> 如何少失分？（查缺补漏，避免低级错误）
+            </div>
+            
+            <div class="btn-action" onclick="toggleContent('love-tips')">👉 感情/人际 (点击翻转)</div>
+            <div id="love-tips" class="hidden-content">
+                <strong>正向：</strong> 怎么做感动对方的事？<br>
+                <strong>逆向：</strong> 只要不互相伤害，感情往往就能长久。<br>
+                知道“不该做什么”比“该做什么”更重要。
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title" style="background: #2D0036;"><span>进阶：殊途同归</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.5s;">
+        <div class="panel-visual bg-dark">
+            <svg viewBox="0 0 200 150">
+                <path d="M100 20 L180 130 L20 130 Z" fill="#4A148C" stroke="#00E5FF" stroke-width="2"/>
+                <path d="M100 20 L100 5" stroke="#FFD700" stroke-width="2"/>
+                <rect x="100" y="5" width="20" height="15" fill="#FFD700"/>
+                
+                <circle cx="40" cy="120" r="8" fill="#FF007F"/>
+                <text x="40" y="145" text-anchor="middle" fill="#fff" font-size="10">你 (起点A)</text>
+                
+                <circle cx="160" cy="120" r="8" fill="#00E5FF"/>
+                <text x="160" y="145" text-anchor="middle" fill="#fff" font-size="10">他 (起点B)</text>
+                
+                <path d="M40 120 L100 30" stroke="#FF007F" stroke-width="2" stroke-dasharray="4"/>
+                <path d="M160 120 L100 30" stroke="#00E5FF" stroke-width="2" stroke-dasharray="4"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">Q: 倒着看就没有岔路吗？</div>
+            <p><strong>A: 有，但与你无关。</strong></p>
+            <p>逆向看到的岔路，其实是别人的“正路”。因为起点不同（资源、认知不同），路径自然不同。你们只是<strong>殊途同归</strong>，在顶峰相见。</p>
+            <p>当然，你也可以利用逆向思维，换个更适合自己的新起点！</p>
+        </div>
+    </div>
+
+    <div class="panel" style="background: #000; color: #fff; border: 3px solid #FF007F; margin-top: 40px;">
+        <div class="panel-text">
+            <h2 style="font-family:'Zcool KuaiLe'; color: #FF007F; margin-top:0;">⚡ 总结</h2>
+            <p>当正向思考走不通时，试着<strong>翻转你的世界</strong>。</p>
+            <ul>
+                <li>遇到难题：从对立面找答案。</li>
+                <li>达成目标：站在终点反推路径。</li>
+                <li>规避风险：先想如何避免失败。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        var content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+            // 震动反馈
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

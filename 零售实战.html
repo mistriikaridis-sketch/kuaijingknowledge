@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块茎计划 | 零售实战通关指南</title>
+    <meta name="description" content="块茎计划 - 零售实战系列。从选品、进货到陈列、成交，10关打通线下商业闭环。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F0FDF4; /* 浅绿色背景，对应零售/生机 */
+            /* 背景网格纹理 */
+            background-image: radial-gradient(#BBF7D0 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* 品牌字体 */
+        .font-brand {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+        /* 卡片悬停特效 */
+        .level-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .level-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #166534; /* 悬停时边框变深绿 */
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full py-16 text-center px-4 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-green-200 rounded-full blur-3xl opacity-30 -z-10"></div>
+
+        <div class="inline-block bg-green-800 text-white px-4 py-1 rounded-full text-xs font-bold tracking-[0.2em] mb-6 uppercase shadow-lg">
+            Rhizome Plan
+        </div>
+        
+        <h1 class="font-brand text-6xl md:text-7xl text-green-900 mb-4 tracking-wide drop-shadow-sm">
+            零售实战
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">
+            从摆摊到开店。10个关卡，打通线下商业的任督二脉。
+        </p>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 pb-24">
+        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            
+            </div>
+    </main>
+
+    <footer class="w-full py-8 text-center text-slate-400 text-sm border-t border-green-200 bg-white/60 backdrop-blur-sm">
+        <p>&copy; 2026 块茎计划 · 实战产生价值</p>
+    </footer>
+
+    <script>
+        // 🛠️ 请在这里修改您的关卡信息
+        // 格式：{ icon: "表情图标", title: "显示标题", desc: "简短介绍", link: "您的文件名.html" },
+        
+        const levels = [
+            {
+                icon: "🔍",
+                title: "Ep.1 市场分析",
+                desc: "36步通关选品指南。刚需、情绪与技能，找到属于你的赛道。",
+                link: "第一关.html"
+            },
+            {
+                icon: "🏭",
+                title: "Ep.2 供应链",
+                desc: "寻找源头工厂与拿货避坑指南。建立你的价格优势护城河。",
+                link: "第二关.html"
+            },
+            {
+                icon: "🏷️",
+                title: "Ep.3 定价策略",
+                desc: "定价定生死。如何设计引流款、利润款与锚点款的组合拳？",
+                link: "第三关.html"
+            },
+            {
+                icon: "💰",
+                title: "Ep.4 资金管理",
+                desc: "科学管钱术。分清流水与利润，建立抗风险的资金蓄水池。",
+                link: "第四关.html"
+            },
+            {
+                icon: "📉",
+                title: "Ep.5 成本控制",
+                desc: "精益启动思维。如何用0成本验证想法，抠出第一桶金？",
+                link: "第五关.html"
+            },
+            {
+                icon: "📊",
+                title: "Ep.6 库存管理",
+                desc: "动态订货算法。结合天气与节气，数据化决策进货量。",
+                link: "第六关.html"
+            },
+            {
+                icon: "📍",
+                title: "Ep.7 流量选址",
+                desc: "寻找黄金点位。读懂客流热力图，利用互补业态借力打力。",
+                link: "第七关.html"
+            },
+            {
+                icon: "👥",
+                title: "Ep.8 商圈洞察",
+                desc: "识别高价值客群。从小区户型判断消费潜力，锁定黄金菜市场。",
+                link: "第八关.html"
+            },
+            {
+                icon: "🎨",
+                title: "Ep.9 视觉陈列",
+                desc: "陈列魔法师。利用VMD原理，打造让顾客忍不住“拿起来”的摊位。",
+                link: "第九关.html"
+            },
+            {
+                icon: "🤝",
+                title: "Ep.10 销售闭环",
+                desc: "成交的秘密。从引起注意到临门一脚，完整的销售转化心法。",
+                link: "第十关.html"
+            }
+        ];
+
+        // ================= 自动生成代码逻辑 (无需修改) =================
+        const container = document.getElementById('cards-container');
+
+        levels.forEach((item, index) => {
+            // 生成卡片 HTML
+            const cardHTML = `
+                <a href="${item.link}" target="_blank" class="level-card block bg-white rounded-2xl border-2 border-slate-100 p-6 relative overflow-hidden group h-full flex flex-col">
+                    
+                    <div class="absolute -right-4 -top-6 text-8xl font-black text-slate-50 opacity-50 z-0 group-hover:text-green-50 transition-colors pointer-events-none">
+                        ${index + 1}
+                    </div>
+
+                    <div class="relative z-10 flex flex-col h-full">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 flex items-center justify-center bg-green-100 text-2xl rounded-xl group-hover:scale-110 transition-transform duration-300">
+                                ${item.icon}
+                            </div>
+                            <h2 class="font-brand text-2xl text-slate-800 group-hover:text-green-700 transition-colors">
+                                ${item.title}
+                            </h2>
+                        </div>
+                        
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6 flex-grow">
+                            ${item.desc}
+                        </p>
+                        
+                        <div class="mt-auto flex items-center text-green-600 font-bold text-sm group-hover:translate-x-2 transition-transform">
+                            开始学习 <span class="ml-2">→</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    </script>
+</body>
+</html>

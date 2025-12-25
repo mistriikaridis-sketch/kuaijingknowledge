@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：高效学习系统</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 学霸酸性配色 (Academic Acid Pop) */
+            --bg-color: #FDFBF7;      /* 护眼米白背景 */
+            --dot-color: #E0E0E0;     /* 浅灰波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #000000;  /* 纯黑硬边框 */
+            
+            --color-highlight: #FFEB3B; /* 荧光笔黄 - 重点/价值 */
+            --color-ink: #2962FF;       /* 墨水蓝 - 深度/逻辑 */
+            --color-mark: #FF1744;      /* 批改红 - 行动/警示 */
+            --color-growth: #00C853;    /* 生长绿 - 变现 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #2d3436;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-ink); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .btn-filter {
+            background: var(--color-mark);
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid black;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 4px 4px 0 black;
+        }
+        .btn-filter:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 black; }
+
+        .hidden-content { display: none; margin-top: 20px; }
+        
+        .bad-q { color: #aaa; text-decoration: line-through; font-size: 0.9rem; }
+        .good-q { color: var(--color-ink); font-weight: bold; margin-bottom: 10px; }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: var(--color-ink); color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>认知升级</h1>
+        <p style="font-weight:bold; color:#666;">Cognitive Upgrade System</p>
+    </header>
+
+    <section class="card">
+        <h2>📚 误区：松鼠症</h2>
+        <p>收藏了=学会了？买课了=掌握了？</p>
+        <p>这是典型的<strong>“低效勤奋”</strong>。在商业世界里，衡量学习成果的唯一标准是：</p>
+        <p style="background:var(--color-highlight); display:inline-block; padding:2px 5px; font-weight:bold; transform:rotate(-1deg);">
+            “你是否输出了具体的价值？”
+        </p>
+    </section>
+
+    <section class="card" style="border-color: var(--color-mark);">
+        <h2 style="color:var(--color-mark);">🎯 功利性学习法</h2>
+        <p>不要为了“提升自我”而学习，要为了<strong>“解决具体问题”</strong>而学习。</p>
+        
+        <button class="btn-filter" onclick="toggleContent()">👇 点击：问题过滤漏斗</button>
+        
+        <div id="filter-content" class="hidden-content">
+            <div style="display:grid; gap:15px;">
+                <div style="border-bottom:1px dashed #ccc; padding-bottom:10px;">
+                    <div class="bad-q">❌ 如何提升审美？(太抽象)</div>
+                    <div class="good-q">✅ 小红书封面点击率怎么做到 10%？(具体)</div>
+                </div>
+                <div style="border-bottom:1px dashed #ccc; padding-bottom:10px;">
+                    <div class="bad-q">❌ 如何实现财富自由？(太宏大)</div>
+                    <div class="good-q">✅ 如何把这一单的转化率从 2% 提升到 5%？(可执行)</div>
+                </div>
+                <div>
+                    <div class="bad-q">❌ 如何成为更好的自己？(无标准)</div>
+                    <div class="good-q">✅ 标杆账号的开头5秒是怎么设计的？(可模仿)</div>
+                </div>
+            </div>
+            <p style="margin-top:20px; background:#E3F2FD; padding:10px; border-radius:5px; text-align:center; font-size:0.9rem;">
+                <strong>结论：</strong> 当你开始解决一个个具体的小问题时，认知和能力自然就提升了。
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p style="font-family:'ZCOOL KuaiLe'; font-size:1.5rem;">“拒绝伪勤奋”</p>
+        <p style="opacity:0.9; margin-top:10px;">知识本身不是力量，<br>行动中的知识才是。</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent() {
+        const content = document.getElementById('filter-content');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+            if (navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

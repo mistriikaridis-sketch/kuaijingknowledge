@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>造你想住的房子 - 极简企业文化</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-blueprint: #2c3e50; /* 蓝图深蓝 */
+            --bg-grid: #34495e;      /* 网格线颜色 */
+            --card-paper: #f7f1e3;   /* 绘图纸米色 */
+            --ink-color: #2c3e50;
+            
+            --accent-orange: #e17055; /* 施工橙 */
+            --accent-yellow: #fdcb6e; /* 警示黄 */
+            --accent-white: #ffffff;
+            
+            --border-width: 3px;
+            --shadow-hard: 8px 8px 0px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-blueprint);
+            /* 蓝图网格背景 */
+            background-image: 
+                linear-gradient(var(--bg-grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--ink-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .comic-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* Header: 施工牌风格 */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .site-sign {
+            background: var(--accent-orange);
+            color: white;
+            border: 4px solid white;
+            display: inline-block;
+            padding: 15px 40px;
+            transform: skew(-10deg);
+            box-shadow: var(--shadow-hard);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        
+        .sub-sign {
+            background: var(--accent-yellow);
+            color: var(--ink-color);
+            display: inline-block;
+            padding: 5px 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            transform: skew(-10deg);
+            border: 2px solid white;
+        }
+
+        /* 卡片基础 */
+        .card {
+            background: var(--card-paper);
+            border: var(--border-width) solid var(--ink-color);
+            margin-bottom: 40px;
+            position: relative;
+            padding: 30px;
+            /* 蓝图风格虚线边框效果 */
+            outline: 2px dashed var(--ink-color);
+            outline-offset: -10px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
+        }
+
+        /* 胶带效果装饰 */
+        .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-left: 2px dotted rgba(0,0,0,0.1);
+            border-right: 2px dotted rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        h2 {
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 1.8rem;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+        }
+
+        /* 01. 凯勒之问 */
+        .blueprint-box {
+            background: #2980b9;
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            font-family: monospace;
+            border: 2px solid white;
+            position: relative;
+        }
+        .blueprint-box::before {
+            content: 'ARCHITECTURAL PLAN';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: var(--accent-yellow);
+            color: black;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            font-weight: bold;
+        }
+
+        /* 02. 屋子隐喻 */
+        .house-metaphor {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .house-state {
+            flex: 1;
+            text-align: center;
+            border: 2px solid var(--ink-color);
+            padding: 15px;
+            background: white;
+        }
+        .state-icon { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+
+        /* 03. 互动翻转卡 (Code vs Culture) */
+        .flip-container {
+            perspective: 1000px;
+            margin-top: 20px;
+            height: 180px; /* 固定高度 */
+            cursor: pointer;
+        }
+        
+        .flipper {
+            transition: 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            height: 100%;
+        }
+        
+        .flip-container.hover .flipper {
+            transform: rotateY(180deg);
+        }
+
+        .front, .back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* 包含 padding */
+            height: 100%;
+            border: 2px solid var(--ink-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box; /* 关键修复 */
+            text-align: center;
+        }
+
+        .front {
+            background: #dfe6e9;
+            z-index: 2;
+        }
+
+        .back {
+            background: var(--accent-orange);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* 重点高亮 */
+        .highlight {
+            background: var(--accent-yellow);
+            padding: 0 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="site-sign">
+                <h1 class="comic-font">🚧 造你想住的房子</h1>
+            </div>
+            <br>
+            <div class="sub-sign">先建立文化，再邀请客人</div>
+        </header>
+
+        <div class="card">
+            <div class="tape"></div>
+            <h2>📐 设计图的核心 (The One Thing)</h2>
+            <p>在决定招人之前，先问自己 Gary Keller 的这个问题：</p>
+            
+            <div class="blueprint-box">
+                "哪一件事情是你做过以后，<br>
+                能够使其他事情变得<span style="border-bottom: 2px solid var(--accent-yellow);">更容易</span>或者<span style="border-bottom: 2px solid var(--accent-yellow);">不必再做</span>的？"
+            </div>
+            
+            <p style="margin-top: 15px;">
+                <strong>答案：设定价值观。</strong><br>
+                这就好比建筑的地基。地基打好了，后面的砖块（员工决策）会自动对齐；地基歪了，后面不仅要修补，可能还要推倒重来。
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="tape"></div>
+            <h2>🏠 派对隐喻</h2>
+            <p>Sahil 说：<strong>“我从未见过家里派对结束时比开始时更干净的情况。”</strong></p>
+            <p>招聘就是邀请客人来你的“公司小屋”。</p>
+
+            <div class="house-metaphor">
+                <div class="house-state">
+                    <span class="state-icon">🗑️</span>
+                    <strong>招聘前：乱糟糟</strong>
+                    <p style="font-size:0.8rem; color:#636e72;">
+                        如果不先整理流程和文化，就像在垃圾堆里开派对。
+                    </p>
+                </div>
+                <div class="house-state" style="background: #e1ffe1; border-color: #00b894;">
+                    <span class="state-icon">🧹</span>
+                    <strong>招聘前：大扫除</strong>
+                    <p style="font-size:0.8rem; color: #006064;">
+                        先确立“我们怎么做事”，客人（员工）进来后才会遵守规则。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="tape"></div>
+            <h2>🔧 代码 vs. 人 (惨痛的领悟)</h2>
+            <p>2014年，Sahil 试图将公司从“独角兽模式”转型为“可持续模式”。他发现了一个残酷的真理。</p>
+
+            <div class="flip-container" onclick="this.classList.toggle('hover')">
+                <div class="flipper">
+                    <div class="front">
+                        <div style="font-size:3rem;">💻</div>
+                        <h3>修复代码 (Fixing Code)</h3>
+                        <p>逻辑清晰、成本低廉、立竿见影。</p>
+                        <div class="click-hint">点击查看对比 👆</div>
+                    </div>
+                    <div class="back">
+                        <div style="font-size:3rem;">❤️‍🩹</div>
+                        <h3>修复文化 (Fixing Culture)</h3>
+                        <p>“比写代码难得多，情绪化得多，也昂贵得多。”</p>
+                        <p style="font-size:0.9rem; margin-top:10px; border-top:1px dashed white; padding-top:10px;">
+                            因为人类不是计算机，我们是情绪化的生物。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="comic-font">
+                “在邀请任何人到家里来之前，<br>你需要先整理你的屋子。”
+            </p>
+            <div style="margin-top: 10px;">🚧 Safety First: Hire Slow, Fix Culture Fast.</div>
+        </footer>
+
+    </div>
+
+    <script>
+        // 添加简单的点击交互提示震动
+        document.querySelector('.flip-container').addEventListener('click', function() {
+            if(navigator.vibrate) navigator.vibrate(20);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正视评价：名声的代价（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：名利与阴影 (Fame & Shadow) */
+            --bg-color: #f1c40f;       /* 金色背景 (象征名利) */
+            --dot-color: #f39c12;      /* 深金波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2c3e50;     /* 深蓝灰文字 */
+            --border-color: #2c3e50;   /* 粗边框色 */
+            
+            --accent-red: #e74c3c;     /* 欲望红 (权钱色) */
+            --accent-purple: #8e44ad;  /* 高贵紫 (名声) */
+            --accent-green: #27ae60;   /* 治愈绿 (作品) */
+            
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 优化点：增加全局行高和字间距 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            /* 优化点：加宽容器至 800px */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action, .golden-sentence {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 优化点：标题类字体字间距加大 */
+            letter-spacing: 0.12em;
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px; /* 增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+            /* 优化点：防止大标题被截断 */
+            line-height: 1.3;
+            padding: 10px;
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.6rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 确保标题显示完整 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* SVG 动画 */
+        .shine {
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 章节标题 */
+        .section-tag {
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            padding: 12px 35px;
+            color: white;
+            border: 3px solid var(--border-color);
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff;
+            border-left: 8px solid var(--border-color);
+            padding: 25px;
+            margin: 30px 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 35px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f1f2f6;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 列表样式 */
+        ul.retro-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.retro-list li {
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        ul.retro-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: 2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        /* 底部金句样式 */
+        .golden-sentence {
+            display: inline-block;
+            font-size: 2rem;
+            background: white;
+            padding: 20px 40px;
+            border: 5px solid var(--border-color);
+            transform: rotate(1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5em;
+        }
+
+        /* 欲望清单 */
+        .desire-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .desire-item {
+            border: 3px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            background: #fff;
+        }
+        .desire-item.solved {
+            background: #dfe6e9;
+            color: #b2bec3;
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>正视评价</h1>
+        <div class="subtitle">不要脸是最难的修行</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="120" height="120" viewBox="0 0 100 100">
+                <path d="M20,60 L10,30 L35,45 L50,15 L65,45 L90,30 L80,60 Z" fill="#f1c40f" stroke="#2c3e50" stroke-width="3"/>
+                <rect x="20" y="60" width="60" height="10" fill="#f1c40f" stroke="#2c3e50" stroke-width="3"/>
+                <ellipse cx="50" cy="85" rx="40" ry="10" fill="#2c3e50" opacity="0.3"/>
+            </svg>
+        </div>
+        <h2 style="text-align: center;">你到底贪什么？</h2>
+        <p>到了知天命之年（50岁），贪欲不全是坏事，它是成事的动力。人最容易贪三样东西：权、钱、色。</p>
+        
+        <div class="desire-grid">
+            <div class="desire-item solved">
+                <h3>权</h3>
+                <span style="font-size:0.9rem">风险太大<br>不敢碰</span>
+            </div>
+            <div class="desire-item solved">
+                <h3>钱</h3>
+                <span style="font-size:0.9rem">够花就行<br>麻烦多</span>
+            </div>
+            <div class="desire-item solved">
+                <h3>色</h3>
+                <span style="font-size:0.9rem">激素下降<br>人畜无害</span>
+            </div>
+        </div>
+
+        <p>如果这三样都克服了，还贪什么？<strong>贪名声。</strong></p>
+        <p>想流芳百世，想用文字打败时间，想修苏堤，想创东坡肉...这背后都是一个字——<strong>“名”</strong>。</p>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-purple);">01 名是一个宝物</div>
+        <h3>💎 欲戴皇冠，必承其重</h3>
+        <p>当你终于红了，千百双手在你面前挥舞，你会发现：<strong>名声是宝物，因为很多人惦记，所以必然招黑、招恨。</strong></p>
+        
+        <div class="highlight-box">
+            “我有美名，则人必有受不美之名者。相形之际，盖难为情。” —— 曾国藩
+        </div>
+        <p>你成事了，有名有利了，必然有人失败了。他们说点小话、捅点小刀，理所当然，你就受着呗。</p>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-green);">02 五点心法</div>
+        <h3>🛡 如何面对黑你的人？</h3>
+        <p>基数大了，一定有几万人觉得你是傻子。这是成名的代价。</p>
+
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--text-color);">
+            🤐 点击查看：应对策略
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <ul class="retro-list">
+                <li><strong>1. 保持要名的心：</strong> 想成大事，就得要名。别躲，承认它。</li>
+                <li><strong>2. 理解黑你的人：</strong> 恨人有，笑人无。他们是正常人，这是人性弱点。</li>
+                <li><strong>3. 不要反驳 (重要三遍)：</strong> 别在公共场合争辩。不给他们这个脸，也是你的风度。</li>
+                <li><strong>4. 推功揽过：</strong> 功劳给团队，大过自己担。保长远之名，弃一时之名。</li>
+                <li><strong>5. 夯实基础 (用作品说话)：</strong> 把骂声当动力。写长篇，写专栏，用作品打他们的脸。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="golden-sentence">
+            “不着急，不害怕，不要脸”
+        </div>
+        <p style="margin-top: 20px; font-size: 1.1rem; color: #666;">（“不要脸”不是没底线，而是不在意评价）</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            // 恢复按钮文字
+            if(id === 'content1') btn.innerHTML = "🤐 点击查看：应对策略";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            // 自动滚动到内容处
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

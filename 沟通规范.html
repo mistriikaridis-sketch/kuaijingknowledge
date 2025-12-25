@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职场沟通：十三法则（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：沟通与逻辑 (Communication & Logic) */
+            --bg-color: #00d2d3;       /* 清爽薄荷绿 */
+            --dot-color: #01a3a4;      /* 深绿波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2d3436;     /* 深灰文字 */
+            --border-color: #2d3436;   /* 粗边框色 */
+            
+            --accent-purple: #5f27cd;  /* 逻辑紫 */
+            --accent-yellow: #feca57;  /* 能量黄 */
+            --accent-pink: #ff9ff3;    /* 柔和粉 (环境) */
+            
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 修改点1：加大行高和字间距，提升清晰度 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 修改点2：标题类字体字间距更大 */
+            letter-spacing: 0.1em; 
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px; /* 稍微增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 10px;
+            transform: rotate(-2deg);
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 8px 30px;
+            font-size: 1.4rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 修改点3：确保卡片内标题完整显示，增加行高 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* SVG 动画 */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 章节标签 */
+        .section-tag {
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            padding: 10px 30px;
+            color: white;
+            border: 3px solid var(--border-color);
+            transform: rotate(-3deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+            font-size: 1.4rem;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 8px solid var(--accent-yellow);
+            padding: 20px;
+            margin: 25px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 30px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: #f1f2f6;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: expand 0.4s ease-out;
+        }
+
+        @keyframes expand {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 列表样式 */
+        .check-list {
+            list-style: none;
+            padding: 0;
+        }
+        .check-list li {
+            margin-bottom: 15px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+        .check-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+            font-size: 1.3rem;
+            top: -2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        /* 修改点4：优化底部金句样式，删除多余署名 */
+        .golden-sentence {
+            display: inline-block;
+            font-size: 1.8rem;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            background: white;
+            padding: 15px 30px;
+            border: 4px solid var(--border-color);
+            transform: rotate(1deg);
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.1);
+            color: var(--text-color);
+            letter-spacing: 0.1em;
+        }
+
+        p {
+            margin-bottom: 1.5em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>职场沟通</h1>
+        <div class="subtitle">十三条铁律</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="120" height="120" viewBox="0 0 100 100" class="pulse">
+                <path d="M30,20 Q70,10 70,50 Q70,90 40,90 Q20,90 20,70" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round"/>
+                <path d="M40,35 Q55,35 55,50 Q55,65 40,65" fill="none" stroke="#2d3436" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="20" cy="50" r="5" fill="#feca57"/>
+                <text x="85" y="55" text-anchor="middle" font-size="30" font-weight="bold">?</text>
+            </svg>
+        </div>
+        <h2 style="text-align: center; font-size: 2.2rem;">为什么沟通这么难？</h2>
+        <p style="font-size: 1.2rem;">一半以上的困难，来自<strong>不去倾听</strong>。</p>
+        <p>沟通不是为了证明“我对你错”，而是为了构建理解的基础。不要总想着自己要说什么，先听听别人在想什么。</p>
+        
+        <div class="highlight-box" style="text-align: center;">
+            诀窍：在发表意见之前，先问三个问题。
+        </div>
+
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--accent-purple);">
+            🎁 点击领取：三个神奇问题
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <h4 style="color: var(--accent-purple); font-size: 1.4rem; margin-bottom: 20px;">下次开口前，先问这三句：</h4>
+            <ul class="check-list">
+                <li><strong>1.</strong> 你对这个问题是怎么想的？</li>
+                <li><strong>2.</strong> 你为什么这样想？（了解背景/诉求）</li>
+                <li><strong>3.</strong> 有没有其他解决方案？</li>
+            </ul>
+            <p style="font-size: 1rem; margin-top: 20px; background: #eef; padding: 15px; border-radius: 8px;">坚持这么做，你的沟通能力会瞬间上一个台阶。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-yellow); color: var(--text-color);">02 逻辑与条理</div>
+        <h3>📐 金字塔原则</h3>
+        <p>大家时间都很宝贵。如果对方只有“洗手那20秒”的时间给你，你能不能把事说清楚？</p>
+        
+        <div style="display: flex; align-items: center; justify-content: center; margin: 30px 0;">
+            <svg width="140" height="120" viewBox="0 0 120 100">
+                <polygon points="60,10 10,90 110,90" fill="none" stroke="#2d3436" stroke-width="4"/>
+                <line x1="35" y1="50" x2="85" y2="50" stroke="#2d3436" stroke-width="3"/>
+                <line x1="23" y1="70" x2="97" y2="70" stroke="#2d3436" stroke-width="3"/>
+                <circle cx="60" cy="30" r="5" fill="#5f27cd"/>
+                <circle cx="45" cy="60" r="5" fill="#5f27cd"/>
+                <circle cx="75" cy="60" r="5" fill="#5f27cd"/>
+            </svg>
+        </div>
+
+        <p><strong>多条理：</strong> 1、2、3点列清楚，不重不漏（MECE）。</p>
+        <p><strong>少大言：</strong> 不要用套话。结论是什么？原因是什么？具体措施是什么？<strong>事实 > 观点</strong>。</p>
+        <p><strong>可长可短：</strong> 既能讲2小时细节，也能做20秒电梯演讲。</p>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-pink); color: var(--text-color);">03 环境与情绪</div>
+        <h3>🥂 创造“对”的状态</h3>
+        <p>会议室里的一杯白水，往往不如跑步时或酒桌上的一瓶啤酒来得真实、放松。</p>
+        <p><strong>找对方状态最好的时候：</strong></p>
+        <ul style="list-style: none; padding-left: 15px; border-left: 5px solid var(--accent-pink); margin: 20px 0;">
+            <li style="margin-bottom: 15px;">🏊‍♂️ 比如那位游完泳后心情愉快的法国合伙人。</li>
+            <li>🍰 比如那位吃了坚果甜点后血糖回升的胖领导。</li>
+        </ul>
+        <p style="margin-top: 25px; font-weight: bold;">切记：不要在对方极度疲惫、饥饿或愤怒时谈复杂的事。</p>
+    </div>
+
+    <div class="card" style="border-color: var(--accent-purple);">
+        <h3 style="text-align: center; color: var(--accent-purple); font-size: 2rem;">📑 沟通核对清单</h3>
+        <p style="text-align: center; font-size: 1.2rem;">如果你觉得沟通卡住了，对照这张表检查一下：</p>
+
+        <button class="btn-action" onclick="toggleContent('content2', this)" style="background: var(--text-color);">
+            👇 展开：十三条沟通铁律
+        </button>
+
+        <div id="content2" class="hidden-content">
+            <ul class="check-list" style="font-size: 1.1rem;">
+                <li><strong>1. 倾听：</strong> 先听再把脉。</li>
+                <li><strong>2. 理解诉求：</strong> 换位思考，他为什么这么想？</li>
+                <li><strong>3. 开放：</strong> 别预设答案，别觉得自己一定对。</li>
+                <li><strong>4. 平等：</strong> 一线员工可能比你更懂细节。</li>
+                <li><strong>5. 多条理：</strong> 善用金字塔原则。</li>
+                <li><strong>6. 少大言：</strong> 说人话，讲具体措施。</li>
+                <li><strong>7. 创造环境：</strong> 约个饭，约个跑。</li>
+                <li><strong>8. 就事论事：</strong> 别带个人恩怨和荣辱。</li>
+                <li><strong>9. 可长可短：</strong> 适应对方的时间表。</li>
+                <li><strong>10. 多讲事实：</strong> 少讲“我喜欢”，多讲“数据显示”。</li>
+                <li><strong>11. 不要庞杂：</strong> 放下手机，专注这5分钟。</li>
+                <li><strong>12. 少口头禅：</strong> 别轻易说“没问题，我搞定”。</li>
+                <li><strong>13. 少情绪化：</strong> 压住火，低声调，别吵架。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="golden-sentence">
+            “先问三个问题，再发表意见”
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            if(id === 'content1') btn.innerHTML = "🎁 点击领取：三个神奇问题";
+            if(id === 'content2') btn.innerHTML = "👇 展开：十三条沟通铁律";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            // 自动滚动到内容处
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

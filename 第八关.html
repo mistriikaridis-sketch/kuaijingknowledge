@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.8：社区商圈洞察</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 保持系列色系 */
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;   /* 警示 */
+            --green: #4CAF50; /* 生鲜/健康 */
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--green);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--green);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 房屋选择交互 */
+        .house-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .building {
+            width: 45%;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .building:hover { transform: translateY(-3px); border-color: var(--black); }
+        .building.active {
+            border-color: var(--green);
+            background: #E8F5E9;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tip-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            border: 2px dashed #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.8</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">🥬 社区商圈与客群画像</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">流量性质分析</div>
+            <p><strong>为什么首选生鲜市集？</strong></p>
+            <p>不同于商场的“闲逛流量”，生鲜市集拥有极其稳定的<strong>“复购流量”</strong>。在这里，用户的购买目的性极强，转化率通常是其他商圈的 3-5 倍。</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">人口结构调研</div>
+            <p>不是所有小区都能支撑零售业务。请点击下方户型，查看<strong>客群消费潜力</strong>：</p>
+            
+            <div class="house-grid">
+                <div class="building" onclick="checkHouse(this, 'loft')">
+                    <div style="font-size:2.5rem;">🏢</div>
+                    <strong>LOFT公寓</strong>
+                </div>
+                <div class="building" onclick="checkHouse(this, '3room')">
+                    <div style="font-size:2.5rem;">🏡</div>
+                    <strong>三居室小区</strong>
+                </div>
+            </div>
+
+            <div id="house-tip" class="tip-box"></div>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 终极挑战</h2>
+            <p><strong>商圈实地调研任务：</strong></p>
+            <ul style="margin-top:10px; padding-left:20px; line-height:1.8;">
+                <li>打开地图，锁定一个周边全是“成熟住宅区”的生鲜市场。</li>
+                <li><strong>观察秩序：</strong> 门口停车是否混乱？（反映了物业管理水平与客流密度）。</li>
+                <li><strong>调研价值：</strong> 询问周边商铺的租金趋势。（租金上涨通常意味着商业活力强）。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function checkHouse(element, type) {
+        // 重置样式
+        document.querySelectorAll('.building').forEach(el => el.classList.remove('active'));
+        element.classList.add('active');
+        
+        const tipBox = document.getElementById('house-tip');
+        tipBox.style.display = 'block';
+        
+        if (type === 'loft') {
+            tipBox.innerHTML = "❌ <strong>低频消费群：</strong><br>住户多为单身青年，外卖依赖度高，生鲜/日用采购需求极低。非理想商圈。";
+            tipBox.style.color = "#D32F2F";
+            tipBox.style.borderColor = "#D32F2F";
+        } else if (type === '3room') {
+            tipBox.innerHTML = "✅ <strong>优质家庭客群：</strong><br>多代同堂，家庭烹饪频率高，日用品消耗快。<strong>极具商业价值！</strong>";
+            tipBox.style.color = "#2E7D32";
+            tipBox.style.borderColor = "#2E7D32";
+        }
+        
+        if(navigator.vibrate) navigator.vibrate(20);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思维模型：PDCA循环（四色版）</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 浅色波点 + 四色循环配色 */
+            --bg-color: #F9FAFB; /* 极简白灰 */
+            --dot-color: #E5E7EB; /* 浅波点 */
+            --card-bg: #FFFFFF; /* 纯白卡片 */
+            --border: 3px dashed #64748B; /* 蓝灰虚线边框 */
+            
+            /* PDCA 四色系统 */
+            --p-color: #00BFA5; /* 青色 (Plan/策略) */
+            --d-color: #2979FF; /* 蓝色 (Do/执行) */
+            --c-color: #7C4DFF; /* 紫色 (Check/反思) */
+            --a-color: #FF4081; /* 粉红 (Act/改进) */
+            
+            --text-main: #374151; /* 深灰文本 */
+            --shadow: 6px 6px 0px rgba(100, 116, 139, 0.15);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 浅色波点背景 */
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* 顶部标题 */
+        .main-header {
+            background: #fff;
+            border: var(--border);
+            padding: 30px 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transform: rotate(-1deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 顶部四色装饰条 */
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                var(--p-color) 0%, var(--p-color) 25%,
+                var(--d-color) 25%, var(--d-color) 50%,
+                var(--c-color) 50%, var(--c-color) 75%,
+                var(--a-color) 75%, var(--a-color) 100%
+            );
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 2.8rem;
+            margin: 10px 0 0 0;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            color: #fff;
+            background: var(--text-main);
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            transform: rotate(1deg);
+        }
+
+        /* 通用卡片 */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.5s ease-out backwards;
+        }
+
+        /* 视觉区 */
+        .panel-visual {
+            height: 200px;
+            background: #F8FAFC;
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景变体 */
+        .bg-grid { 
+            background-image: linear-gradient(#E2E8F0 1px, transparent 1px), linear-gradient(90deg, #E2E8F0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .bg-gradient { background: linear-gradient(135deg, #F0FDFA 0%, #FDF2F8 100%); }
+
+        /* 文字区 */
+        .panel-text {
+            padding: 25px;
+        }
+
+        /* 章节标题 */
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0 30px 0;
+            position: relative;
+        }
+
+        .section-title {
+            background: var(--text-main);
+            color: white;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.6rem;
+            padding: 10px 40px;
+            transform: skewX(-10deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        }
+
+        .section-title span {
+            display: block;
+            transform: skewX(10deg);
+        }
+
+        /* 标签 */
+        .tag {
+            background: #fff;
+            color: var(--text-main);
+            padding: 4px 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid var(--text-main);
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        /* 重点高亮系统 */
+        .hl-p { color: var(--p-color); border-bottom: 2px solid var(--p-color); background: rgba(0, 191, 165, 0.1); padding: 0 4px; }
+        .hl-d { color: var(--d-color); border-bottom: 2px solid var(--d-color); background: rgba(41, 121, 255, 0.1); padding: 0 4px; }
+        .hl-c { color: var(--c-color); border-bottom: 2px solid var(--c-color); background: rgba(124, 77, 255, 0.1); padding: 0 4px; }
+        .hl-a { color: var(--a-color); border-bottom: 2px solid var(--a-color); background: rgba(255, 64, 129, 0.1); padding: 0 4px; }
+
+        /* 按钮 */
+        .btn-action {
+            background: #fff;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+            padding: 12px;
+            width: 100%;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+            transition: all 0.1s;
+            border-radius: 8px;
+        }
+        
+        .btn-action:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        .hidden-content {
+            display: none;
+            background: #F3F4F6;
+            border: 2px dashed var(--text-main);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border-radius: 8px;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes rotate-cycle {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .cycle-anim { animation: rotate-cycle 10s linear infinite; }
+
+        /* SVG 通用 */
+        svg { width: 100%; height: 100%; max-width: 320px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="main-header">
+        <h1>思维模型：PDCA</h1>
+        <div class="subtitle">🔄 螺旋上升 · 持续优化</div>
+    </header>
+
+    <div class="panel" style="animation-delay: 0.1s;">
+        <div class="panel-visual bg-grid">
+            <svg viewBox="0 0 200 150">
+                <g transform="translate(100,75)">
+                    <path d="M-60 -60 A60 60 0 0 1 60 -60 L0 0 Z" transform="rotate(225)" fill="var(--p-color)" opacity="0.9"/>
+                    <path d="M-60 -60 A60 60 0 0 1 60 -60 L0 0 Z" transform="rotate(315)" fill="var(--d-color)" opacity="0.9"/>
+                    <path d="M-60 -60 A60 60 0 0 1 60 -60 L0 0 Z" transform="rotate(45)" fill="var(--c-color)" opacity="0.9"/>
+                    <path d="M-60 -60 A60 60 0 0 1 60 -60 L0 0 Z" transform="rotate(135)" fill="var(--a-color)" opacity="0.9"/>
+                    
+                    <text x="-30" y="-20" fill="#fff" text-anchor="middle" font-weight="bold">P</text>
+                    <text x="30" y="-20" fill="#fff" text-anchor="middle" font-weight="bold">D</text>
+                    <text x="30" y="40" fill="#fff" text-anchor="middle" font-weight="bold">C</text>
+                    <text x="-30" y="40" fill="#fff" text-anchor="middle" font-weight="bold">A</text>
+                </g>
+                <circle cx="100" cy="75" r="15" fill="#fff"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">戴明环</div>
+            <p><strong>PDCA循环</strong>：质量管理大师戴明推广的经典模型。</p>
+            <p>它不是原地转圈，而是像爬楼梯一样，每一轮循环都能让你站得更高（螺旋上升）。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.2s;">
+        <div class="panel-text">
+            <h3 style="margin-top:0;">📋 循环四步走</h3>
+            <ul style="padding-left: 20px; line-height: 1.8;">
+                <li><strong class="hl-p">P (Plan) 计划：</strong> 分析情况，确认目标，制订计划。</li>
+                <li><strong class="hl-d">D (Do) 执行：</strong> 围绕目标，采取措施，落实计划。</li>
+                <li><strong class="hl-c">C (Check) 检查：</strong> 评估效果，分析原因，总结经验。</li>
+                <li><strong class="hl-a">A (Act) 处理：</strong> 标准化有效方法，改进问题，进入下一轮。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>进阶：嵌套循环</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.3s;">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150">
+                <circle cx="100" cy="75" r="65" fill="none" stroke="#64748B" stroke-width="1" stroke-dasharray="4"/>
+                <text x="100" y="25" text-anchor="middle" font-size="10" fill="#64748B">年度战略 (大环)</text>
+                
+                <circle cx="100" cy="75" r="40" fill="#F0FDFA" stroke="var(--p-color)" stroke-width="2"/>
+                <text x="100" y="60" text-anchor="middle" font-size="10" fill="var(--p-color)">大型项目 (中环)</text>
+                
+                <circle cx="100" cy="90" r="15" fill="#F0F9FF" stroke="var(--d-color)" stroke-width="2" class="cycle-anim"/>
+                <text x="100" y="94" text-anchor="middle" font-size="8" fill="var(--d-color)">每日工作</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">分形结构</div>
+            <p>PDCA不仅可以单独用，还可以<strong>大环套小环</strong>。</p>
+            <p>大型项目（中环）的执行阶段（Do），可能包含着无数个每日工作（小环）的PDCA。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title" style="background: var(--c-color);"><span>破局：拉直了看</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.4s;">
+        <div class="panel-visual bg-grid">
+            <svg viewBox="0 0 200 150" id="timeline-view">
+                <g id="circle-mode">
+                    <path d="M100 25 A50 50 0 1 1 100 125 A50 50 0 1 1 100 25" fill="none" stroke="#E2E8F0" stroke-width="10"/>
+                    <text x="100" y="80" text-anchor="middle" fill="#9CA3AF" font-size="12">Do和Act分不清？</text>
+                    <text x="100" y="100" text-anchor="middle" fill="#9CA3AF" font-size="10">点击拉直看看 ↓</text>
+                </g>
+                
+                <g id="line-mode" style="display:none">
+                    <line x1="20" y1="75" x2="180" y2="75" stroke="#374151" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <rect x="25" y="55" width="35" height="40" rx="4" fill="#F0FDFA" stroke="var(--p-color)" stroke-width="2"/>
+                    <text x="42" y="80" text-anchor="middle" fill="var(--p-color)" font-weight="bold">P</text>
+                    <text x="42" y="45" text-anchor="middle" font-size="10">计划</text>
+                    
+                    <rect x="65" y="55" width="35" height="40" rx="4" fill="#F0F9FF" stroke="var(--d-color)" stroke-width="2"/>
+                    <text x="82" y="80" text-anchor="middle" fill="var(--d-color)" font-weight="bold">D</text>
+                    <text x="82" y="110" text-anchor="middle" font-size="10">执行</text>
+                    
+                    <rect x="105" y="55" width="35" height="40" rx="4" fill="#F5F3FF" stroke="var(--c-color)" stroke-width="2"/>
+                    <text x="122" y="80" text-anchor="middle" fill="var(--c-color)" font-weight="bold">C</text>
+                    <text x="122" y="45" text-anchor="middle" font-size="10">反思</text>
+                    
+                    <rect x="145" y="55" width="35" height="40" rx="4" fill="#FDF2F8" stroke="var(--a-color)" stroke-width="2"/>
+                    <text x="162" y="80" text-anchor="middle" fill="var(--a-color)" font-weight="bold">A</text>
+                    <text x="162" y="110" text-anchor="middle" font-size="10">处理</text>
+                </g>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>PDCA本质是平衡<strong>思考</strong>与<strong>行动</strong>：</p>
+            <div class="btn-action" onclick="showTimeline()">👉 点击拉直时间线</div>
+            <div id="timeline-text" class="hidden-content">
+                <strong>时间线逻辑：</strong><br><br>
+                <span style="color:var(--p-color)">P (想)：</span> 思考未来，怎么做。<br>
+                <span style="color:var(--d-color)">D (做)：</span> 按照计划，做下来。<br>
+                <span style="color:var(--c-color)">C (想)：</span> 思考过去，做咋样。<br>
+                <span style="color:var(--a-color)">A (做)：</span> 基于反思，做改进。
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.5s;">
+        <div class="panel-visual bg-gradient">
+            <svg viewBox="0 0 200 150">
+                <path d="M100 130 L100 40" stroke="#374151" stroke-width="2"/>
+                <path d="M60 130 L140 130" stroke="#374151" stroke-width="2"/>
+                
+                <path d="M40 50 L160 50" stroke="#374151" stroke-width="2"/>
+                
+                <path d="M40 50 L20 90 L60 90 Z" fill="#F5F3FF" stroke="var(--c-color)"/>
+                <text x="40" y="80" text-anchor="middle" font-size="10" fill="var(--c-color)">计划+反思</text>
+                
+                <path d="M160 50 L140 90 L180 90 Z" fill="#F0F9FF" stroke="var(--d-color)"/>
+                <text x="160" y="80" text-anchor="middle" font-size="10" fill="var(--d-color)">执行+改进</text>
+                
+                <text x="100" y="30" text-anchor="middle" font-weight="bold" font-size="14">思维平衡</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">避免瞎忙</div>
+            <p>PDCA做到了两个平衡：</p>
+            <ul>
+                <li>平衡 <strong>事前计划</strong> 与 <strong>事后总结</strong></li>
+                <li>平衡 <strong>理性思考</strong> 与 <strong>具体执行</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel" style="background: var(--text-main); color: #fff; border: 3px dashed var(--p-color); margin-top: 40px;">
+        <div class="panel-text">
+            <h2 style="font-family:'Zcool KuaiLe'; color: var(--p-color); margin-top:0;">🌟 结语</h2>
+            <p>无论PDCA多么强大，它总要有一个起点。</p>
+            <p style="text-align:center; font-size:1.4rem; margin: 20px 0; color: var(--p-color); font-weight:bold;">这个起点就是“行动”</p>
+            <p>边做边总结，边总结边进步，这就是螺旋升维的奥秘。</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showTimeline() {
+        document.getElementById('circle-mode').style.display = 'none';
+        document.getElementById('line-mode').style.display = 'block';
+        document.getElementById('timeline-text').style.display = 'block';
+        // 震动反馈
+        if(navigator.vibrate) navigator.vibrate(20);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思维模型：课题分离</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 核心配色：边界/自由/冷静 */
+            --bg-color: #37474F; /* 蓝灰深色背景 */
+            --card-bg: #ECEFF1; /* 极浅蓝灰卡片 */
+            --border: 3px solid #263238; /* 深色边框 */
+            
+            /* 辅助色 */
+            --primary: #00BCD4; /* 自由青 (我的课题/自由) */
+            --other: #FF7043; /* 冲突橙 (别人的课题/干扰) */
+            --wall: #607D8B; /* 墙壁色 */
+            
+            --shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
+            --text-main: #37474F;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 波点背景 */
+            background-image: radial-gradient(rgba(0, 188, 212, 0.15) 15%, transparent 15%);
+            background-size: 24px 24px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* 顶部标题 - 隔离感 */
+        .main-header {
+            background: var(--card-bg);
+            border: var(--border);
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transform: rotate(1deg);
+            position: relative;
+            z-index: 5;
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 2.8rem;
+            margin: 0;
+            color: var(--bg-color);
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+            background: var(--primary);
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--bg-color);
+            box-shadow: 3px 3px 0 var(--bg-color);
+        }
+
+        /* 通用卡片 */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.5s ease-out backwards;
+        }
+
+        /* 视觉区 */
+        .panel-visual {
+            height: 180px;
+            background: #CFD8DC;
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景变体 */
+        .bg-cool { background: #E0F7FA; }
+        .bg-conflict { background: #FFCCBC; }
+        .bg-split { background: linear-gradient(90deg, #E0F7FA 50%, #FFCCBC 50%); }
+
+        /* 文字区 */
+        .panel-text {
+            padding: 20px;
+        }
+
+        /* 章节标题 */
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0 30px 0;
+        }
+
+        .section-title {
+            background: var(--wall);
+            color: white;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.8rem;
+            padding: 12px 40px;
+            border: var(--border);
+            transform: skewX(-15deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title span {
+            display: block;
+            transform: skewX(15deg);
+        }
+
+        /* 标签 */
+        .tag {
+            background: var(--bg-color);
+            color: var(--primary);
+            padding: 4px 12px;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid var(--primary);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+            transform: rotate(-1deg);
+        }
+
+        /* 重点高亮 */
+        strong {
+            color: var(--bg-color);
+            background: rgba(0, 188, 212, 0.3);
+            padding: 0 4px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        /* 按钮 */
+        .btn-action {
+            background: var(--primary);
+            color: #fff;
+            border: var(--border);
+            padding: 12px;
+            width: 100%;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+            transition: all 0.1s;
+        }
+        
+        .btn-action:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        .hidden-content {
+            display: none;
+            background: #fff;
+            border: 2px dashed var(--primary);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes struggle {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-2px) rotate(-1deg); }
+            75% { transform: translateX(2px) rotate(1deg); }
+            100% { transform: translateX(0); }
+        }
+        .shake-anim { animation: struggle 0.2s infinite; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .float-anim { animation: float 3s infinite; }
+
+        /* SVG 通用 */
+        svg { width: 100%; height: 100%; max-width: 320px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="main-header">
+        <h1>思维模型：课题分离</h1>
+        <div class="subtitle">🛡️ 被讨厌的勇气</div>
+    </header>
+
+    <div class="panel" style="animation-delay: 0.1s;">
+        <div class="panel-visual bg-conflict">
+            <svg viewBox="0 0 200 150">
+                <circle cx="80" cy="75" r="15" fill="#37474F" class="shake-anim"/>
+                <circle cx="120" cy="75" r="15" fill="#FF7043" class="shake-anim" style="animation-delay:0.1s"/>
+                <line x1="80" y1="75" x2="120" y2="75" stroke="#000" stroke-width="2"/>
+                <text x="100" y="50" text-anchor="middle" font-size="12" font-weight="bold">内耗</text>
+                <path d="M70 40 L60 30 M130 40 L140 30" stroke="#000" stroke-width="2"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">烦恼的根源</div>
+            <p>阿德勒认为：<strong>一切烦恼都来自人际关系。</strong></p>
+            <p>我们精神世界里有两个“小人儿”在不断拉扯，导致精神内耗，心理资源被大大消耗。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.2s;">
+        <div class="panel-visual bg-split">
+            <svg viewBox="0 0 200 150">
+                <line x1="100" y1="20" x2="100" y2="130" stroke="#37474F" stroke-width="4" stroke-dasharray="8"/>
+                
+                <text x="50" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#00BCD4">我的事</text>
+                <text x="150" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#FF7043">别人的事</text>
+                
+                <circle cx="50" cy="110" r="10" fill="#00BCD4"/>
+                <circle cx="150" cy="110" r="10" fill="#FF7043"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">灵丹妙药</div>
+            <p><strong>课题分离：</strong>分清楚谁的课题。</p>
+            <p>如果将自己与别人的人生课题隔离开，不干涉别人，也不让别人干涉自己，烦恼就会消失。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>实战：借钱的烦恼</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.3s;">
+        <div class="panel-visual bg-conflict">
+            <svg viewBox="0 0 200 150">
+                <text x="50" y="80" font-size="30">😫</text>
+                <text x="150" y="80" font-size="30">🙏</text>
+                <text x="100" y="60" text-anchor="middle" font-size="10">"借我点钱"</text>
+                <text x="100" y="100" text-anchor="middle" font-size="10" fill="#D32F2F">怕影响关系...</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>朋友找你借钱，不想借又怕得罪人？请使用课题分离刀法：</p>
+            <div class="btn-action" onclick="toggleContent('money-case')">👉 一刀切下去 (点击)</div>
+            <div id="money-case" class="hidden-content">
+                <ul>
+                    <li><strong>你的课题：</strong> 决定要不要借，该不该帮。</li>
+                    <li><strong>他的课题：</strong> 怎么看你，是否觉得你见死不救。</li>
+                </ul>
+                <p style="margin-top:10px; color:#00BCD4; font-weight:bold;">结论：他怎么想，与你无关！</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.4s;">
+        <div class="panel-visual bg-cool">
+            <svg viewBox="0 0 200 150">
+                <text x="100" y="70" font-size="40">🗣️</text>
+                <circle cx="100" cy="70" r="50" fill="none" stroke="#00BCD4" stroke-width="2"/>
+                <line x1="65" y1="105" x2="135" y2="35" stroke="#00BCD4" stroke-width="2"/>
+                <text x="160" y="100" font-size="20">😎</text>
+                <text x="100" y="130" text-anchor="middle" font-size="10">屏蔽杂音</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">面对差评</div>
+            <p>别人说你不好？那是<strong>他在用他的标准</strong>看你，这是他的课题。</p>
+            <p>你的课题是：清楚什么是好坏，坚持什么，摒弃什么。不要去背别人的课题。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>职场：拒绝内耗</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.5s;">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150">
+                <rect x="40" y="60" width="40" height="40" fill="#FF7043" stroke="#000"/>
+                <text x="60" y="85" text-anchor="middle" fill="#fff" font-size="20">😡</text>
+                
+                <rect x="120" y="60" width="40" height="40" fill="#00BCD4" stroke="#000"/>
+                <text x="140" y="85" text-anchor="middle" fill="#fff" font-size="20">💻</text>
+                
+                <line x1="85" y1="80" x2="115" y2="80" stroke="#37474F" stroke-width="2" stroke-dasharray="4"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>同事不喜欢你？那是他的事。你的任务是把项目做好，领工资。</p>
+            <p>甚至当他因为你不帮忙而愤怒时，<strong>那个愤怒也是他的课题</strong>，你不需要为此负责。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.6s;">
+        <div class="panel-visual bg-cool">
+            <svg viewBox="0 0 200 150">
+                <text x="50" y="80" font-size="30">👏</text>
+                <text x="150" y="80" font-size="30">😌</text>
+                <path d="M80 80 L120 80" stroke="#00BCD4" stroke-width="3" stroke-dasharray="2"/>
+                <text x="100" y="60" text-anchor="middle" font-size="10">冷静！</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">反向应用</div>
+            <p>别人夸你，也需要分离！</p>
+            <p>他表扬我，是他觉得我厉害（他的事）。我对自己是否满意（我的事）。这样想，能避免被捧杀。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title" style="background: #00BCD4;"><span>终极：两句真言</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.7s;">
+        <div class="panel-visual bg-split">
+            <svg viewBox="0 0 200 150">
+                <rect x="20" y="40" width="70" height="70" fill="#37474F" rx="10"/>
+                <text x="55" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">关我</text>
+                <text x="55" y="100" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">什么事</text>
+                
+                <rect x="110" y="40" width="70" height="70" fill="#FF7043" rx="10"/>
+                <text x="145" y="85" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">关你</text>
+                <text x="145" y="100" text-anchor="middle" fill="#fff" font-size="12" font-weight="bold">什么事</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>世间烦恼大多可用两句话解决：</p>
+            <ul style="list-style: none; padding: 0; text-align: center; font-size: 1.2rem; font-weight: bold;">
+                <li style="color: #00BCD4; margin-bottom: 10px;">“关我什么事”</li>
+                <li style="color: #FF7043;">“关你什么事”</li>
+            </ul>
+            <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">有人说这样很讨厌？<br><strong>那是他觉得讨厌，关我什么事呢？</strong> 😎</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.8s;">
+        <div class="panel-text">
+            <div class="tag">如果分不开怎么办？</div>
+            <p>工作伙伴犯错、孩子教育...有时候课题确实是纠缠的。怎么办？</p>
+            <div class="btn-action" onclick="toggleContent('meta-separate')">👉 套娃式分离 (点击)</div>
+            <div id="meta-separate" class="hidden-content">
+                <strong>分离“课题分离”！</strong><br>
+                用课题分离来分离“课题分离”这件事本身。<br>
+                能用就用，用了有惊喜；不好用就保持现状，不用也没损失。<br>
+                毕竟，结果如何，也不是完全由你控制的。
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background: #37474F; color: #fff; border: 3px solid #00BCD4; margin-top: 40px;">
+        <div class="panel-text">
+            <h2 style="font-family:'Zcool KuaiLe'; color: #00BCD4; margin-top:0;">🗝️ 结语</h2>
+            <p>拥有<strong>被讨厌的勇气</strong>，才能拥抱自由的人生。</p>
+            <p>第一步：区分是谁的课题。<br>第二步：拒绝掌控和介入。</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        var content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+            // 震动反馈
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

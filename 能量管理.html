@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>能量管理：持续成事的发动机（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：能量与耐力 (Energy & Endurance) */
+            --bg-color: #20bf6b;       /* 活力绿背景 */
+            --dot-color: #26de81;      /* 浅绿波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2d3436;     /* 深灰文字 */
+            --border-color: #2d3436;   /* 粗边框色 */
+            
+            --accent-orange: #fa8231;  /* 能量橙 */
+            --accent-blue: #3867d6;    /* 冷静蓝 (司马懿) */
+            --accent-red: #eb3b5a;     /* 耗竭红 (诸葛亮) */
+            
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 优化点：增加全局行高和字间距 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            /* 优化点：加宽容器至 800px */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action, .golden-sentence {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 优化点：标题类字体字间距加大 */
+            letter-spacing: 0.12em; 
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px; /* 增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+            /* 优化点：防止大标题被截断 */
+            line-height: 1.3;
+            padding: 10px; 
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.6rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 确保标题显示完整 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* SVG 动画 */
+        .charge {
+            animation: charge 2s infinite alternate;
+        }
+
+        @keyframes charge {
+            0% { transform: scale(1); fill: #fa8231; }
+            100% { transform: scale(1.1); fill: #f7b731; }
+        }
+
+        /* 章节标题 */
+        .section-tag {
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            padding: 12px 35px;
+            color: white;
+            border: 3px solid var(--border-color);
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff;
+            border-left: 8px solid var(--border-color);
+            padding: 25px;
+            margin: 30px 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 35px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f1f2f6;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 列表样式 */
+        ul.retro-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.retro-list li {
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        ul.retro-list li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: 2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        /* 底部金句样式 */
+        .golden-sentence {
+            display: inline-block;
+            font-size: 2rem;
+            background: white;
+            padding: 20px 40px;
+            border: 5px solid var(--border-color);
+            transform: rotate(1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5em;
+        }
+
+        /* 对话框样式 */
+        .dialogue-box {
+            border: 3px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+        .dialogue-sima {
+            background-color: #dff9fb;
+            border-color: var(--accent-blue);
+        }
+        .dialogue-zhuge {
+            background-color: #ffcccc;
+            border-color: var(--accent-red);
+        }
+        .dialogue-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>能量管理</h1>
+        <div class="subtitle">曾国藩：蓄不竭之气</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="100" height="120" viewBox="0 0 100 120">
+                <rect x="20" y="20" width="60" height="90" rx="5" fill="none" stroke="#2d3436" stroke-width="4"/>
+                <rect x="35" y="5" width="30" height="15" fill="#2d3436"/>
+                <rect x="25" y="80" width="50" height="25" fill="#fa8231" class="charge"/>
+                <rect x="25" y="50" width="50" height="25" fill="#fa8231" class="charge" style="animation-delay: 0.5s"/>
+                <rect x="25" y="25" width="50" height="20" fill="#fa8231" class="charge" style="animation-delay: 1s"/>
+                <text x="50" y="75" text-anchor="middle" font-size="20" font-weight="bold" fill="white">⚡</text>
+            </svg>
+        </div>
+        <h2 style="text-align: center;">为什么必须管理能量？</h2>
+        <p>如果想成事，不仅要有资源、有风口，更要看那个做事的人（你）有没有<strong>持续的能量</strong>。</p>
+        <ul class="retro-list">
+            <li><strong>做基业长青的事：</strong> 我们的目标不是干一票就跑，而是十年磨一剑。</li>
+            <li><strong>防风险：</strong> 纯粹的工作狂像一把刀，不仅伤身，还可能给组织带来风险。</li>
+            <li><strong>为了打仗而休息：</strong> 麦肯锡强制高管休假，不仅为了身心平衡，更是为了内控和组织安全。</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-orange);">01 能量六法</div>
+        <h3>🔋 如何让能量持续输出？</h3>
+        <p>成事是一场马拉松，不是百米冲刺。不要总想着“毕其功于一役”。</p>
+        
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--accent-orange);">
+            📖 点击翻阅：能量管理手册
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <ul class="retro-list">
+                <li><strong>1. 胜算大才博：</strong> 全力一搏的事三五年做一次就好。平时多做稳赢的项目，积蓄信心。</li>
+                <li><strong>2. 慢一点：</strong> 前五千米压住速度。猛跑必不持久。</li>
+                <li><strong>3. 维持平衡：</strong> 只有在平稳状态下，才能实现“飞行中换引擎”。</li>
+                <li><strong>4. 留出犯错空间：</strong> 给自己和团队试错的机会，别把路走绝了。</li>
+                <li><strong>5. 及时微调：</strong> 发现偏了，稍微调一下方向盘，别等跑远了再大转弯。</li>
+                <li><strong>6. 等待团队成长：</strong> 人才培养需要时间。哪怕你很强，也要给别人犯错的时间。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-blue);">02 史诗对决</div>
+        <h3>⚔️ 司马懿为什么能熬死诸葛亮？</h3>
+        <p>五丈原之战，不仅仅是军事的较量，更是<strong>能量管理</strong>的巅峰对决。</p>
+        <p>诸葛亮送女人衣服激将，司马懿坚壁清野就是不打。他是怎么看穿诸葛亮的？</p>
+
+        <button class="btn-action" onclick="toggleContent('content2', this)" style="background: var(--accent-blue);">
+            🕵️‍♂️ 点击还原：两军阵前的对话
+        </button>
+
+        <div id="content2" class="hidden-content">
+            <div class="dialogue-box dialogue-sima">
+                <div class="dialogue-title">🔵 司马懿问蜀国使者：</div>
+                <p>“诸葛公每天吃多少饭？军中事务怎么处理？”</p>
+            </div>
+            
+            <div class="dialogue-box dialogue-zhuge">
+                <div class="dialogue-title">🔴 使者答：</div>
+                <p>“吃得很少（三四升）。打三十军棍以上的处罚，丞相都亲自批阅。”</p>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>司马懿断言：“孔明食少事烦，其能久乎？”</strong></p>
+                <p>果然，诸葛亮不久后病逝五丈原，享年54岁。而司马懿活到了72岁。</p>
+            </div>
+
+            <p style="font-size:1.1rem; margin-top:20px;">
+                <strong>司马懿评诸葛亮：</strong> “志大而不见机（不懂战机），多谋而少决（想得多做得少），好兵而无权（没有足够权力）。”
+            </p>
+            <p style="font-size:1.1rem; color: #666; background: #fff; padding: 15px; border-radius: 8px;">
+                💡 <strong>启示：</strong> 主帅如果吃得少、管得细、睡得差，这仗根本没法打。能量耗尽，再大的志向也是空谈。
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="golden-sentence">
+            “凡行兵须蓄不竭之气，留有余之力”
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            // 恢复按钮文字
+            if(id === 'content1') btn.innerHTML = "📖 点击翻阅：能量管理手册";
+            if(id === 'content2') btn.innerHTML = "🕵️‍♂️ 点击还原：两军阵前的对话";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            // 自动滚动到内容处
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

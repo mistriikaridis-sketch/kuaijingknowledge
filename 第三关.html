@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.3：定价策略学</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--orange); 
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--orange);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        th { text-align: left; border-bottom: 2px solid #ccc; padding: 5px; }
+        td { padding: 8px 5px; border-bottom: 1px dashed #eee; }
+
+        .toggle-btn {
+            background: var(--black);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        
+        .hidden-content {
+            display: none;
+            background: #FFEBEE;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 2px dashed var(--orange);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.3</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">🏷️ 商业定价与利润模型</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">定价心理学</div>
+            <p>不要只卖一样东西。成熟的商业模型需要三种产品角色组合：</p>
+            <table>
+                <tr>
+                    <th>角色</th>
+                    <th>目的</th>
+                    <th>定价策略</th>
+                </tr>
+                <tr>
+                    <td><strong>流量款</strong></td>
+                    <td>吸引客流</td>
+                    <td style="color:var(--red)">微利/成本价</td>
+                </tr>
+                <tr>
+                    <td><strong>利润款</strong></td>
+                    <td>创造营收</td>
+                    <td>正常倍率</td>
+                </tr>
+                <tr>
+                    <td><strong>锚点款</strong></td>
+                    <td>衬托性价比</td>
+                    <td>高价展示</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">组合拳战术</div>
+            <p><strong>案例：</strong> 西瓜摊如何运用“组合定价”？</p>
+            <table>
+                <tr>
+                    <td>🍉 <strong>切块西瓜</strong></td>
+                    <td style="color:red">↘ 2元/盒</td>
+                    <td>吸引路人停步 (流量)</td>
+                </tr>
+                <tr>
+                    <td>🍉 <strong>整个西瓜</strong></td>
+                    <td>正常市价</td>
+                    <td>主要利润来源</td>
+                </tr>
+            </table>
+            <div style="background:#FFF3E0; padding:10px; margin-top:10px; border-radius:5px; border:1px solid #FFE0B2;">
+                <strong>核心逻辑：</strong> <br>
+                用低门槛产品建立连接，用高价值产品完成转化。
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">库存去化</div>
+            <p><strong>季末商品如何处理？</strong></p>
+            <div class="toggle-btn" onclick="document.getElementById('clearance-tip').style.display='block'">👉 查看商业策略</div>
+            <div id="clearance-tip" class="hidden-content">
+                一旦<strong>销售总额 > 采购总成本</strong>，剩余库存即为纯利润。<br>
+                此时应采用<strong>极速周转策略</strong>，通过降价快速回笼资金，投入下一轮选品。
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 课后作业</h2>
+            <p>拿出你的一款核心产品，根据成本价（假设10元），制定三套价格体系：</p>
+            <ul style="margin-top:10px; padding-left:20px;">
+                <li>引流价（哪怕不赚）</li>
+                <li>常规零售价</li>
+                <li>打包组合价（买二送一等）</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

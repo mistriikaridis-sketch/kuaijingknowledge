@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.4：财务管理基础</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;
+            --green: #4CAF50;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--green); 
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--green);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .pool-container {
+            border: 2px solid var(--black);
+            height: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #eee;
+            margin-top: 10px;
+        }
+        .water {
+            height: 100%;
+            background: var(--green);
+            width: 15%;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.4</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">📈 现金流与利润分配</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">三份资金法则</div>
+            <p>当你有了一笔收入（Revenue），不要急着消费。将其分为三份：</p>
+            <ul style="line-height: 1.8;">
+                <li><strong>40% 补货金：</strong> 雷打不动，用于下一轮循环。</li>
+                <li><strong>40% 运营金：</strong> 场地费、交通、吃饭。</li>
+                <li><strong>20% 发展储备：</strong> 存起来，用于扩大规模。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">复利效应</div>
+            <p><strong>不要小看那20%的储备金。</strong> 它是你未来开设分店、升级设备的资本。</p>
+            
+            <div class="pool-container">
+                <div class="water" id="savings-bar">15%</div>
+            </div>
+            <button onclick="increaseSavings()" style="margin-top:10px; padding:8px 20px; background:var(--black); color:#fff; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">👆 点击模拟：3个月后</button>
+            <p style="font-size:0.8rem; margin-top:5px; color:#666;">这笔资金将成为你的“抗风险护城河”。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 终极挑战</h2>
+            <p>假设你要把手里价值300元的货物售出：</p>
+            <ul style="margin-top:10px; padding-left:20px; line-height:1.8;">
+                <li>列出所有<strong>变动成本</strong>（进货费、包装耗材）。</li>
+                <li>列出<strong>固定成本</strong>（日均设备折旧、交通）。</li>
+                <li><strong>计算毛利：</strong> 收入 - 变动成本 - 固定成本 = 净利润。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 简单的交互脚本：增加储备比例
+    let percentage = 15;
+    function increaseSavings() {
+        if(percentage < 100) {
+            percentage += 25;
+            if(percentage > 100) percentage = 100;
+            document.getElementById('savings-bar').style.width = percentage + '%';
+            document.getElementById('savings-bar').innerText = percentage + '%';
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块茎计划 | 商业实战导航</title>
+    <meta name="description" content="块茎计划 - 商业底层逻辑实战指南。汇集创业、产品、流量、变现等核心商业认知专题。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F3F4F6; /* 浅灰背景，护眼且专业 */
+            /* 背景纹理 */
+            background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .font-brand {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+        /* 卡片悬停时的轻微上浮动画 */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full py-16 text-center px-4">
+        <div class="inline-block bg-slate-900 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest mb-6 uppercase shadow-lg">
+            RHIZOME PLAN
+        </div>
+        <h1 class="font-brand text-5xl md:text-7xl text-slate-900 mb-4 tracking-wide drop-shadow-sm">
+            商业底层那些事
+        </h1>
+        <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-light">
+            拒绝伪勤奋，掌握个体商业的实战逻辑与闭环思维。
+        </p>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 pb-20">
+        <div id="card-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            </div>
+    </main>
+
+    <footer class="w-full py-8 text-center text-slate-400 text-sm border-t border-slate-200 bg-white/50 backdrop-blur">
+        <p>&copy; 2026 块茎计划 · All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // 👇👇👇 在这里修改您的专题内容 👇👇👇
+        // 格式：{ icon: "图标", title: "标题", desc: "描述", link: "文件名.html" },
+        
+        const cardsData = [
+            {
+                icon: "🚀",
+                title: "创业方法论",
+                desc: "做大事和做小事的难度是一样的。既然都要投入精力，不如选择高价值路径。",
+                link: "创业方法论.html"
+            },
+            {
+                icon: "📦",
+                title: "产品思维",
+                desc: "想法不值钱，落地才值钱。如何快速构建MVP并完成市场验证？",
+                link: "产品思维.html"
+            },
+            {
+                icon: "🌊",
+                title: "流量思维",
+                desc: "流量的本质是注意力。拒绝无效曝光，构建高转化率的精准流量池。",
+                link: "流量思维.html"
+            },
+            {
+                icon: "💰",
+                title: "转化率优先",
+                desc: "只服务对的人。如何建立筛选机制，提高客单价与成交率？",
+                link: "转化率优先.html"
+            },
+            {
+                icon: "🧮",
+                title: "财务思维",
+                desc: "不算账的老板是在给平台打工。掌握单体经济模型与利润逻辑。",
+                link: "财务思维.html"
+            },
+            {
+                icon: "🧠",
+                title: "认知升级",
+                desc: "拒绝无效学习。如何将知识转化为具体的生产力与竞争壁垒？",
+                link: "认知升级.html"
+            },
+            {
+                icon: "⚡",
+                title: "极简执行力",
+                desc: "完成优于完美。克服拖延症，建立立即行动的反馈系统。",
+                link: "极简执行力.html"
+            },
+            {
+                icon: "⭐",
+                title: "个人品牌",
+                desc: "在超级个体时代，个人品牌是你最深的护城河与信任杠杆。",
+                link: "个人品牌.html"
+            },
+            {
+                icon: "🤖",
+                title: "效能杠杆",
+                desc: "AI不是替代者，而是增强器。如何利用工具实现一人抵十人的效能？",
+                link: "效能杠杆.html"
+            }
+        ];
+
+        // 👆👆👆 修改结束 👆👆👆
+
+        // ================= 自动生成代码逻辑 (无需修改) =================
+        const gridContainer = document.getElementById('card-grid');
+
+        cardsData.forEach(item => {
+            const cardHTML = `
+                <article class="card-hover bg-white rounded-2xl p-8 border border-slate-200 flex flex-col h-full relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-200 via-slate-400 to-slate-200 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                    
+                    <div class="w-14 h-14 bg-slate-50 rounded-xl flex items-center justify-center text-3xl mb-6 shadow-sm border border-slate-100">
+                        ${item.icon}
+                    </div>
+                    
+                    <h2 class="font-brand text-2xl text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">
+                        ${item.title}
+                    </h2>
+                    
+                    <p class="text-slate-500 text-sm leading-relaxed mb-8 flex-grow">
+                        ${item.desc}
+                    </p>
+                    
+                    <a href="${item.link}" target="_blank" class="mt-auto block w-full py-3 bg-slate-900 hover:bg-blue-600 text-white font-bold rounded-lg text-center transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 group-hover:gap-3">
+                        开始阅读 <span>→</span>
+                    </a>
+                </article>
+            `;
+            gridContainer.innerHTML += cardHTML;
+        });
+    </script>
+</body>
+</html>

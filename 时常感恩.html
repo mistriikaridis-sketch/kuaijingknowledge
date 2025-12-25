@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情绪黑客：感恩充电法</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 温暖日落配色 (Warm Sunset) */
+            --bg-color: #FFF3E0;      /* 米黄信纸背景 */
+            --card-bg: #FFFFFF;
+            --text-color: #5D4037;    /* 深褐文字 - 柔和阅读 */
+            --border-color: #FFAB91;  /* 暖橙边框 */
+            
+            --color-sun: #FF9800;     /* 阳光橙 - 核心主色 */
+            --color-heart: #FF7043;   /* 爱心红 - 感恩/情感 */
+            --color-growth: #81C784;  /* 生长绿 - 治愈/健康 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 3px;
+            --shadow-offset: 8px;
+            --card-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(255, 171, 145, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 171, 145, .3) 25%, rgba(255, 171, 145, .3) 26%, transparent 27%, transparent 74%, rgba(255, 171, 145, .3) 75%, rgba(255, 171, 145, .3) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 171, 145, .3) 25%, rgba(255, 171, 145, .3) 26%, transparent 27%, transparent 74%, rgba(255, 171, 145, .3) 75%, rgba(255, 171, 145, .3) 76%, transparent 77%, transparent);
+            background-size: 50px 50px; /* 信纸网格 */
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px; /* 宽屏设定 */
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: var(--text-color);
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 3.8rem; margin-bottom: 10px; color: var(--color-sun); text-shadow: 2px 2px 0 #FFF; }
+        h3 { font-size: 2.2rem; margin-bottom: 25px; color: var(--color-heart); }
+        p { margin-bottom: 20px; }
+
+        .handwriting {
+            font-family: 'Caveat', cursive; /* 英文手写体，中文用楷体模拟 */
+            font-size: 1.8rem;
+            color: var(--color-heart);
+            transform: rotate(-3deg);
+            display: inline-block;
+        }
+
+        /* ---------------- Header ---------------- */
+        .header {
+            text-align: center;
+            background: #FFF;
+            padding: 80px 40px;
+            border-top: 10px solid var(--color-sun);
+            overflow: hidden;
+        }
+
+        .header-tag {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: var(--color-sun);
+            color: #FFF;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            height: 150px;
+        }
+        
+        @keyframes sun-rise { 0% { transform: translateY(20px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes heartbeat { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes write { 0% { stroke-dashoffset: 100; } 100% { stroke-dashoffset: 0; } }
+
+        .anim-sun { animation: sun-rise 2s ease-out forwards; }
+        .anim-heart { transform-origin: center; animation: heartbeat 1.5s ease-in-out infinite; }
+        
+        /* ---------------- Panel 1: Brain Science ---------------- */
+        .brain-viz {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            background: #FEF9E7;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed var(--color-sun);
+        }
+
+        .chemical-box {
+            text-align: center;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.05);
+            flex: 1;
+        }
+
+        /* ---------------- Panel 2: The Letter Experiment ---------------- */
+        .letter-stack {
+            position: relative;
+            margin: 40px auto;
+            width: 80%;
+            height: 200px;
+        }
+
+        .letter-card {
+            background: #fff;
+            border: 2px solid var(--border-color);
+            padding: 20px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-heart);
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        .letter-card:nth-child(1) { transform: rotate(-5deg); z-index: 1; background: #FFF8E1; }
+        .letter-card:nth-child(2) { transform: rotate(3deg); z-index: 2; background: #FFEBEE; }
+        .letter-card:nth-child(3) { transform: rotate(-2deg); z-index: 3; background: #fff; }
+        
+        .letter-stack:hover .letter-card:nth-child(1) { transform: rotate(-10deg) translate(-20px, -10px); }
+        .letter-stack:hover .letter-card:nth-child(2) { transform: rotate(8deg) translate(20px, -10px); }
+
+        /* ---------------- Panel 3: Action Guide (Interactive) ---------------- */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* 宽屏适配 */
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .action-card {
+            background: #FFF;
+            border: 3px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-card:hover {
+            background: #FFF3E0;
+            transform: translateY(-5px);
+            box-shadow: 6px 6px 0 rgba(255, 171, 145, 0.4);
+        }
+
+        .action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .hidden-tip {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 0;
+        }
+
+        .action-card.active .hidden-tip {
+            max-height: 200px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed var(--border-color);
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 3px dashed var(--border-color);
+            color: var(--text-color);
+        }
+
+        .quote-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            transform: rotate(1deg);
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-box">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+                <circle cx="50" cy="80" r="30" fill="#FF9800" class="anim-sun"/>
+                <path d="M20 50 L50 70 L80 50 L80 90 L20 90 Z" fill="#FFF" stroke="#5D4037" stroke-width="3"/>
+                <path d="M20 50 L50 30 L80 50" fill="#FFF3E0" stroke="#5D4037" stroke-width="3"/>
+                <path d="M45 45 C40 40 35 45 35 50 C35 60 50 70 50 70 C50 70 65 60 65 50 C65 45 60 40 55 45 C52 48 48 48 45 45" fill="#FF7043" class="anim-heart"/>
+            </svg>
+        </div>
+        <h1>感恩充电法</h1>
+        <div class="handwriting">Thanks Giving Power</div>
+        <br>
+        <div class="header-tag">用“谢谢”给大脑充能</div>
+    </header>
+
+    <section class="card">
+        <h3>🧪 天然的“抗抑郁药”</h3>
+        <p>感恩不仅仅是礼貌，它是大脑的<strong>“生理开关”</strong>。当你表达感谢时，大脑中负责幸福的区域（右前颞上皮质）会被点亮。</p>
+        
+        <div class="brain-viz">
+            <div class="chemical-box">
+                <div style="font-size:2rem;">💊</div>
+                <h4>多巴胺</h4>
+                <p style="font-size:0.9rem;">快乐与奖赏</p>
+            </div>
+            <div style="font-size:2rem;">+</div>
+            <div class="chemical-box">
+                <div style="font-size:2rem;">🛡️</div>
+                <h4>血清素</h4>
+                <p style="font-size:0.9rem;">情绪稳定剂</p>
+            </div>
+        </div>
+        <p><strong>神奇效果：</strong> 经常感恩的人，大脑灰质体积甚至更大，免疫系统更强，焦虑感显著降低。</p>
+    </section>
+
+    <section class="card">
+        <h3>📝 一封信的魔力</h3>
+        <p>肯特州立大学研究发现：每周写一封感谢信，不仅提升写信人的幸福感，还能改善免疫力。</p>
+
+        <div class="letter-stack">
+            <div class="letter-card">💌 给父母的信</div>
+            <div class="letter-card">💌 给朋友的信</div>
+            <div class="letter-card">
+                <span style="font-size:3rem; margin-right:10px;">✍️</span>
+                写下你的<br>感激之情
+            </div>
+        </div>
+        
+        <p style="text-align:center; font-size:0.9rem; color:#888;">
+            哪怕不寄出去，仅仅是“写下来”这个动作，大脑就已经开始被重新编程了。
+        </p>
+    </section>
+
+    <section class="card" style="background: #FEF9E7;">
+        <h3>🛠️ 今日行动指南</h3>
+        <p>不需要大张旗鼓，4个小习惯让你随时充满电：</p>
+        
+        <div class="action-grid">
+            <div class="action-card" onclick="toggleCard(this)">
+                <span class="action-icon">📋</span>
+                <h4>感恩清单 (5件事)</h4>
+                <p>每晚睡前，列出今天值得感激的5件小事。</p>
+                <div class="hidden-tip">
+                    比如：同事帮带了咖啡、赶上了公交车、夕阳很美... 专注于这些美好，大脑会学会自动寻找快乐。
+                </div>
+            </div>
+
+            <div class="action-card" onclick="toggleCard(this)">
+                <span class="action-icon">🚶</span>
+                <h4>品味散步 (Savoring Walk)</h4>
+                <p>留出20分钟，只为“寻找美好”而走。</p>
+                <div class="hidden-tip">
+                    观察一棵从未注意过的树、阳光在水坑里的倒影、路人的微笑。抓住这些瞬间，感恩当下。
+                </div>
+            </div>
+
+            <div class="action-card" onclick="toggleCard(this)">
+                <span class="action-icon">🧘</span>
+                <h4>感恩冥想</h4>
+                <p>闭眼呼吸，脑海中回放美好的画面。</p>
+                <div class="hidden-tip">
+                    不仅感恩亲友，也尝试感恩曾经的对手——是他们让你变强。这能极大地中和内心的愤怒与焦虑。
+                </div>
+            </div>
+
+            <div class="action-card" onclick="toggleCard(this)">
+                <span class="action-icon">📮</span>
+                <h4>感谢便签</h4>
+                <p>给帮过你的人写个小纸条。</p>
+                <div class="hidden-tip">
+                    别担心尴尬！研究显示，收到感谢信的人比你想象中要开心得多。这几分钟的投入回报率极高。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="quote-box">
+            <p class="quote">“感恩促使我们着眼于生活中积极的一面。它是焦虑的解毒剂。”</p>
+            <p style="margin-top:10px; font-weight:bold;">— 亚历克斯·考伯博士 (神经科学专家)</p>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    function toggleCard(card) {
+        // Toggle Active Class
+        card.classList.toggle('active');
+        
+        // Haptic feedback
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

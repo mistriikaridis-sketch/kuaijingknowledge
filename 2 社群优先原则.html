@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简创业：社群优先原则</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Zcool+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案 B：生长薄荷 (Growth Mint) */
+            --bg-color: #C4FCEF;       /* 浅薄荷 */
+            --dot-color: #00C9A7;      /* 深薄荷 */
+            --card-bg: #FFFFFF;
+            --text-main: #2D3436;
+            --border-color: #2D3436;   /* 炭黑 */
+            
+            --accent-purple: #845EC2;  /* 价值观/深度 */
+            --accent-orange: #FF9671;  /* 热情/活力 */
+            --accent-teal: #008F7A;    /* 信任/稳重 */
+            
+            --shadow-offset: 8px;
+            --border-width: 3px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* 变更背景纹理：交错波点 */
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%),
+                              radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-color: var(--bg-color);
+            background-position: 0 0, 15px 15px;
+            background-size: 30px 30px;
+            
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            padding: 30px 20px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Zcool KuaiLe', cursive;
+            line-height: 1.3;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        header h1 { 
+            font-size: 3.5rem;
+            color: var(--border-color);
+            text-shadow: 4px 4px 0px white;
+            transform: rotate(1deg);
+            margin-bottom: 15px;
+        }
+
+        .subtitle-badge {
+            background: var(--accent-purple);
+            color: white;
+            font-size: 1.3rem;
+            padding: 8px 24px;
+            border: 3px solid var(--border-color);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            display: inline-block;
+            transform: rotate(-2deg);
+            font-weight: bold;
+        }
+
+        /* Card System */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 12px; /* 稍微方一点的圆角 */
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .panel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0px var(--border-color);
+        }
+
+        /* Layout */
+        .panel-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        @media (max-width: 700px) {
+            .panel-content { flex-direction: column-reverse; }
+            .illustration { width: 100%; margin-bottom: 15px; }
+            header h1 { font-size: 2.5rem; }
+        }
+
+        .text-col { flex: 3; }
+        .img-col { flex: 2; display: flex; justify-content: center; }
+
+        /* SVG */
+        .illustration { width: 100%; max-width: 220px; height: auto; }
+        svg { overflow: visible; }
+
+        /* Quotes/Highlights */
+        .highlight-box {
+            background: #FFF0F5;
+            border-left: 5px solid var(--accent-orange);
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Interactive Elements */
+        .btn-interact {
+            background: var(--accent-purple);
+            color: white;
+            font-family: 'Zcool KuaiLe', cursive;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: 3px solid black;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.1s;
+            box-shadow: 4px 4px 0px black;
+        }
+        
+        .btn-interact:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px black;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 25px;
+            border: 3px dashed var(--accent-purple);
+            padding: 20px;
+            border-radius: 12px;
+            background: #F3E5F5;
+        }
+        
+        .show { display: block; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* Custom List */
+        .check-list li {
+            list-style: none;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .check-list li::before {
+            content: '★';
+            color: var(--accent-orange);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="illustration" style="height: 100px; margin: 0 auto;">
+            <svg viewBox="0 0 100 60">
+                <circle cx="20" cy="40" r="12" fill="#FF9671" stroke="black" stroke-width="3"/>
+                <circle cx="50" cy="20" r="12" fill="#845EC2" stroke="black" stroke-width="3"/>
+                <circle cx="80" cy="40" r="12" fill="#00C9A7" stroke="black" stroke-width="3"/>
+                <path d="M20,40 L50,20 M50,20 L80,40 M20,40 L80,40" stroke="black" stroke-width="3" stroke-dasharray="4,2"/>
+            </svg>
+        </div>
+        <h1>社群优先原则</h1>
+        <div class="subtitle-badge">
+            先找同类，再谈生意
+        </div>
+    </header>
+
+    <div class="panel">
+        <h3>🌱 为什么大部分企业会失败？</h3>
+        <div class="panel-content">
+            <div class="text-col">
+                <p>不是因为产品不好，而是因为<b>创建时脑子里没有一群“具体的人”</b>。</p>
+                <p>极简创业的起点永远是社区。但这不意味着你要功利地“混圈子”，而是要专注于你真正了解、愿意为之服务的群体。</p>
+                <div class="highlight-box">
+                    真实的关系 + 服务的意愿 = 商业的基础
+                </div>
+            </div>
+            <div class="img-col">
+                <svg viewBox="0 0 100 100" class="illustration">
+                    <rect x="10" y="80" width="80" height="10" fill="#2D3436" rx="2"/>
+                    <circle cx="30" cy="70" r="8" fill="#FF9671" stroke="black" stroke-width="2"/>
+                    <circle cx="50" cy="70" r="8" fill="#845EC2" stroke="black" stroke-width="2"/>
+                    <circle cx="70" cy="70" r="8" fill="#00C9A7" stroke="black" stroke-width="2"/>
+                    <path d="M50,62 L50,30" stroke="black" stroke-width="3"/>
+                    <path d="M50,30 Q30,10 20,30 M50,30 Q70,10 80,30" fill="#00C9A7" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background-color: #F1FDFA; border-color: var(--accent-teal);">
+        <h3>🧩 什么是真正的“社区”？</h3>
+        <div class="panel-content">
+            <div class="img-col">
+                <svg viewBox="0 0 120 100" class="illustration">
+                    <rect x="20" y="20" width="30" height="30" fill="#FF9671" stroke="black" stroke-width="3"/>
+                    <circle cx="90" cy="35" r="18" fill="#845EC2" stroke="black" stroke-width="3"/>
+                    <polygon points="60,60 40,90 80,90" fill="#00C9A7" stroke="black" stroke-width="3"/>
+                    <line x1="50" y1="35" x2="72" y2="35" stroke="black" stroke-width="2"/>
+                    <line x1="45" y1="50" x2="55" y2="70" stroke="black" stroke-width="2"/>
+                    <line x1="85" y1="50" x2="65" y2="70" stroke="black" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="text-col">
+                <p>过去，社区受限于地理位置。现在，社区打破了界限。</p>
+                <p>最好的社区不是一群长得一样、想得一样的人。相反，它是<b>“激进派挨着保守派”、“富人挨着穷人”</b>。</p>
+                <p style="font-weight: bold; color: var(--accent-purple); margin-top:10px;">
+                    将他们凝聚在一起的不是身份，而是共同的兴趣、价值观和技能。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>🎨 逃离硅谷泡沫：一个顿悟</h3>
+        <p>当作者从旧金山搬到犹他州，他以为自己会失去“科技圈”的光环。结果，他不再去参加枯燥的编程沙龙，而是走进了<b>素描教室</b>和<b>科幻小说写作组</b>。</p>
+        <div style="margin: 20px 0; border: 2px solid black; padding: 15px; border-radius: 8px; background: #fff;">
+            <p>“作为一个局外人，我反而能用全新的眼光看待这个社区。”</p>
+        </div>
+        <p>正是这次逃离，让他找回了初心：<b>“我原来是个创作者！”</b><br>
+        这种真实的体验，让他重新理解了自己创建的平台 Gumroad —— 它不是为了服务增长黑客，而是为了服务那些<b>热爱创作的人</b>。</p>
+    </div>
+
+    <div class="panel" style="border-color: var(--accent-orange); box-shadow: 8px 8px 0px var(--accent-orange);">
+        <h3>🔥 激情经济：你准备好了吗？</h3>
+        <p>这是一个全新的时代。你不需要把爱好藏在业余时间里。不管是跑马拉松、做陶艺还是写小说，<b>“激情经济”</b>允许你以此谋生。</p>
+        
+        <button class="btn-interact" onclick="toggleSecret()">点击检测你的“极简创业”潜力 👇</button>
+        
+        <div id="secret-box" class="hidden-content">
+            <h4 style="color: var(--accent-purple); margin-bottom: 10px;">✅ 极简创业者自检清单：</h4>
+            <ul class="check-list">
+                <li>你是否有一个真正的爱好（哪怕看起来和正职无关）？</li>
+                <li>你是否愿意在某个具体的圈子里投入真实的一面？</li>
+                <li>你是否关心“建立联系”胜过“不惜一切代价的增长”？</li>
+                <li>你是否想把“热爱的事”变成“谋生之技”？</li>
+            </ul>
+            <hr style="border: 0; border-top: 2px dashed #ccc; margin: 15px 0;">
+            <p><b>现在行动：</b> 找到那个群体，加入他们。不仅是为了生意，更是为了你自己。</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSecret() {
+            const box = document.getElementById('secret-box');
+            const btn = document.querySelector('.btn-interact');
+            
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                btn.textContent = '点击检测你的“极简创业”潜力 👇';
+            } else {
+                box.style.display = 'block';
+                box.classList.add('show');
+                btn.textContent = '收起清单 👆';
+                // 震动反馈
+                if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+            }
+        }
+    </script>
+</body>
+</html>

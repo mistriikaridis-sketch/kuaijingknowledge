@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：转化率优化</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 成交绿配色 (Transaction Pop) */
+            --bg-color: #F0FFF4;      /* 淡绿背景 */
+            --card-bg: #FFFFFF;
+            --border-color: #000000;
+            --color-money: #00C853;   /* 成功绿 */
+            --color-urgent: #FF6D00;  /* 紧迫橙 */
+            --color-logic: #2962FF;   /* 逻辑蓝 */
+            --border-width: 3px;
+            --shadow-offset: 6px;
+        }
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#B9F6CA 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #1A1A1A;
+            padding: 20px;
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-money); }
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .reason-card {
+            border: 2px solid #eee; padding: 15px; margin-bottom: 10px; border-radius: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .reason-card:hover, .reason-card.selected { border-color: var(--color-money); background: #E8F5E9; }
+        .diagnosis-box {
+            display: none; margin-top: 15px; padding: 15px; background: #fff; border: 2px dashed var(--color-money); border-radius: 8px;
+        }
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: var(--color-money); color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>转化率优化</h1>
+        <p style="font-weight:bold;">Conversion Rate Optimization</p>
+    </header>
+    <section class="card">
+        <h2>📉 为什么不成交？</h2>
+        <p>很多时候不是产品不好，而是你找错了人。</p>
+        <p>点击下方卡片，查看常见原因诊断：</p>
+        <div style="margin-top:20px;">
+            <div class="reason-card" onclick="showDiagnosis(1, this)">
+                👤 <strong>非精准用户 (嫌贵/挑刺)</strong>
+            </div>
+            <div class="reason-card" onclick="showDiagnosis(2, this)">
+                🌫️ <strong>价值传递模糊</strong>
+            </div>
+            <div class="reason-card" onclick="showDiagnosis(3, this)">
+                🔒 <strong>信任感缺失</strong>
+            </div>
+        </div>
+        <div id="diagnosis-box" class="diagnosis-box">
+            <h4 id="diag-title" style="margin-top:0; font-weight:bold;"></h4>
+            <p id="diag-text" style="font-size:0.9rem; color:#555;"></p>
+        </div>
+    </section>
+    <footer class="footer">
+        <p style="font-family:'ZCOOL KuaiLe'; font-size:1.5rem;">“只服务对的人”</p>
+        <p style="margin-top:10px;">商业的本质是筛选，而不是教育。<br>把时间花在认可你价值的人身上。</p>
+    </footer>
+</div>
+<script>
+    function showDiagnosis(type, card) {
+        document.querySelectorAll('.reason-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        const box = document.getElementById('diagnosis-box');
+        const title = document.getElementById('diag-title');
+        const text = document.getElementById('diag-text');
+        box.style.display = 'block';
+        if (navigator.vibrate) navigator.vibrate(20);
+        if (type === 1) {
+            title.innerText = "💊 策略：战略放弃";
+            text.innerText = "不要试图改变所有人。非目标用户会消耗你80%的精力，却只贡献20%的收益。果断筛选掉。";
+            title.style.color = "#FF6D00";
+        } else if (type === 2) {
+            title.innerText = "💊 策略：场景化描述";
+            text.innerText = "不要只说参数，要说‘对他有什么用’。描述具体的使用场景，解决他的具体痛点。";
+            title.style.color = "#2962FF";
+        } else if (type === 3) {
+            title.innerText = "💊 策略：建立背书";
+            text.innerText = "展示案例、用户评价、过程记录。信任是成交的货币。";
+            title.style.color = "#00C853";
+        }
+    }
+</script>
+</body>
+</html>

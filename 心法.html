@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块茎计划 - 心法篇</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'comic': ['"ZCOOL KuaiLe"', 'cursive'],
+                        'sans': ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                    colors: {
+                        'zen-bg': '#a29bfe',       /* 禅意紫背景 */
+                        'zen-dark': '#2d3436',     /* 深色文字 */
+                        'card-white': '#ffffff',
+                        
+                        /* 标签色 */
+                        'tag-red': '#ff7675',
+                        'tag-yellow': '#ffeaa7',
+                        'tag-blue': '#74b9ff',
+                        'tag-green': '#55efc4',
+                        'tag-purple': '#a29bfe',
+                        'tag-indigo': '#a29bfe',
+                        'tag-gold': '#fdcb6e',
+                    },
+                    boxShadow: {
+                        'hard': '6px 6px 0px 0px #2d3436',
+                        'hard-hover': '10px 10px 0px 0px #2d3436',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 背景纹理 */
+        body {
+            background-color: #a29bfe;
+            background-image: 
+                radial-gradient(#ffffff 20%, transparent 20%),
+                radial-gradient(#ffffff 20%, transparent 20%);
+            background-position: 0 0, 30px 30px;
+            background-size: 60px 60px;
+            letter-spacing: 0.05em;
+        }
+        
+        /* 标题行高优化 */
+        h1, h2 {
+            line-height: 1.4 !important;
+        }
+
+        /* 卡片悬停动效 */
+        .course-card {
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .course-card:hover {
+            transform: translate(-4px, -4px);
+        }
+    </style>
+</head>
+<body class="font-sans text-zen-dark min-h-screen p-6 md:p-12">
+
+    <header class="max-w-5xl mx-auto text-center mb-16 flex flex-col items-center">
+        
+        <div class="inline-block bg-zen-dark text-white font-comic text-2xl md:text-4xl px-8 py-3 border-4 border-white shadow-hard mb-6 rotate-[-2deg] tracking-widest">
+            🥔 块茎计划
+        </div>
+        
+        <div class="inline-block bg-white text-zen-dark font-comic text-6xl md:text-9xl px-12 py-6 border-4 border-zen-dark shadow-hard mb-8 tracking-widest rotate-[1deg]">
+            心法
+        </div>
+
+        <div class="inline-block">
+            <div class="bg-tag-yellow text-zen-dark font-bold text-lg md:text-xl px-6 py-2 border-4 border-zen-dark shadow-hard transform -rotate-1 rounded-full">
+                成事者的底层操作系统
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-10">
+
+        <a href="战胜逆境.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-tag-red text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">逆商</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🌊</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-tag-red">战胜逆境</h3>
+            <p class="text-gray-600 font-medium">看脚下，不断行，莫存顺逆。面对无常的十字箴言。</p>
+        </a>
+
+        <a href="掌控情绪.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-tag-yellow text-zen-dark text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">情商</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🧘</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-yellow-600">掌控情绪</h3>
+            <p class="text-gray-600 font-medium">做事，不生气，不着急。像壮士断腕一样斩断怒气。</p>
+        </a>
+
+        <a href="能量管理.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-tag-green text-zen-dark text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">精力</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🔋</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-green-600">能量管理</h3>
+            <p class="text-gray-600 font-medium">凡行兵须蓄不竭之气。持续成事的背后是能量的充沛。</p>
+        </a>
+
+        <a href="看待运气.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-tag-blue text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">天命</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎲</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-tag-blue">看待运气</h3>
+            <p class="text-gray-600 font-medium">尽人事，听天命。我们要做的，是敢于与运气对赌。</p>
+        </a>
+
+        <a href="用好天赋.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-purple-400 text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">才华</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💎</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-purple-500">用好天赋</h3>
+            <p class="text-gray-600 font-medium">辨认自己是块什么料。没有天赋时，“有常”是第一美德。</p>
+        </a>
+
+        <a href="懂点战略.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-indigo-500 text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">格局</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🔭</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-indigo-600">懂点战略</h3>
+            <p class="text-gray-600 font-medium">大处着眼，小处着手。上下同欲，少走弯路。</p>
+        </a>
+
+        <a href="交友标准.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-pink-400 text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">社交</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🌵</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-pink-500">交友标准</h3>
+            <p class="text-gray-600 font-medium">拒绝油腻。结交那些能骂你、挑你毛病的“益友”。</p>
+        </a>
+
+        <a href="正视评价.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-gray-600 text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">名声</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎭</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-gray-700">正视评价</h3>
+            <p class="text-gray-600 font-medium">欲戴皇冠，必承其重。对黑你的人，“不着急，不要脸”。</p>
+        </a>
+
+        <a href="沟通规范.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-blue-400 text-white text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">表达</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💬</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-blue-500">沟通规范</h3>
+            <p class="text-gray-600 font-medium">先问三个问题，再发表意见。职场沟通的十三条铁律。</p>
+        </a>
+
+        <a href="成事标准.html" class="course-card group block bg-card-white border-4 border-zen-dark rounded-xl p-6 shadow-hard hover:shadow-hard-hover relative overflow-hidden lg:col-span-3 lg:w-2/3 lg:mx-auto">
+            <div class="absolute top-0 right-0 bg-tag-gold text-zen-dark text-xs font-bold px-3 py-1 border-b-4 border-l-4 border-zen-dark rounded-bl-lg">终极</div>
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">⚖️</div>
+            <h3 class="font-comic text-2xl mb-2 group-hover:text-yellow-600">成事标准</h3>
+            <p class="text-gray-600 font-medium">成功不可复制，但成事可以修炼。成事无大小，但有善恶。</p>
+        </a>
+
+    </main>
+
+    <footer class="text-center mt-12 mb-10 text-zen-dark font-bold opacity-80">
+        <p class="font-comic text-xl">© 2026 块茎计划 - Tuber Plan</p>
+        <p class="text-sm mt-2">Study Hard, Stay Humble.</p>
+    </footer>
+
+</body>
+</html>

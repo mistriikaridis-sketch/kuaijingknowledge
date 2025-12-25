@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拯救地球与学会放手 - 极简创业最终章</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 上半部分：地球 */
+            --bg-earth: #27ae60;
+            --card-earth: #eafaf1;
+            --accent-leaf: #2ecc71;
+            
+            /* 下半部分：放手 */
+            --bg-soul: #8e44ad;
+            --card-soul: #f5eef8;
+            --accent-mystery: #9b59b6;
+            
+            --border-color: #2c3e50;
+            --border-width: 3px;
+            --shadow-hard: 6px 6px 0px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, var(--bg-earth) 50%, var(--bg-soul) 50%);
+            min-height: 100vh;
+            color: var(--border-color);
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .comic-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* 标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: #fff;
+            border: var(--border-width) solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            background: -webkit-linear-gradient(45deg, var(--bg-earth), var(--bg-soul));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 卡片通用 */
+        .card {
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 第一部分：拯救地球 */
+        .card-green {
+            background: var(--card-earth);
+        }
+
+        .pono-badge {
+            background: var(--bg-earth);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .story-box {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        /* 平衡木交互 */
+        .balance-scale {
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .bar {
+            width: 80%;
+            height: 8px;
+            background: var(--border-color);
+            margin: 0 auto;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+        .pivot {
+            width: 0; 
+            height: 0; 
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid var(--border-color);
+            margin: 0 auto;
+        }
+        .weight {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            position: absolute;
+            top: -36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: white;
+        }
+        .w-left { left: 0; }
+        .w-right { right: 0; }
+
+        /* 第二部分：放手 */
+        .card-purple {
+            background: var(--card-soul);
+        }
+
+        .whys-container {
+            margin-top: 20px;
+        }
+
+        .why-bubble {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 15px;
+            border-radius: 20px 20px 20px 0;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            display: none; /* 默认隐藏 */
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .why-bubble:first-child {
+            display: block; /* 第一个默认显示 */
+        }
+
+        .why-bubble:hover {
+            transform: translateX(5px);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        .why-label {
+            font-weight: bold;
+            color: var(--bg-soul);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* 装饰元素 */
+        .sprout-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 5rem;
+            opacity: 0.1;
+            transform: rotate(20deg);
+        }
+        
+        .door-icon {
+            position: absolute;
+            bottom: -10px;
+            right: 10px;
+            font-size: 5rem;
+            opacity: 0.1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: white;
+            padding-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1 class="comic-font">终章：地球与自我</h1>
+            <p style="margin: 5px 0 0 0; color: #7f8c8d; font-size: 0.9rem;">
+                SUSTAINABILITY & LETTING GO
+            </p>
+        </header>
+
+        <div class="card card-green">
+            <div class="sprout-icon">🌱</div>
+            <div class="pono-badge">宏观：Pono (和谐)</div>
+            
+            <h2 class="comic-font" style="margin-top:0;">积跬步而至千里</h2>
+            <p>不要被“改变世界”的宏大叙事吓跑。向 <strong>Rainbow Road</strong> 的创始人 Emily 学习。</p>
+            
+            <div class="story-box">
+                <strong>From VC to Earth:</strong>
+                <ul style="padding-left: 20px; margin: 10px 0;">
+                    <li>她曾经营 VC 支持的快公司 (Foodzie, Din)。</li>
+                    <li>现在她经营 <strong>植物基冰激凌</strong>。</li>
+                    <li><strong>策略：</strong> 迈出最小的一步，保持盈利，全周期循环。</li>
+                </ul>
+            </div>
+
+            <p style="font-size: 0.9rem; margin-top: 15px; text-align: center; font-weight: bold;">
+                👇 点击平衡木，体验 "Pono" (平衡) 状态
+            </p>
+
+            <div class="balance-scale" onclick="toggleBalance()">
+                <div class="bar" id="balanceBar" style="transform: rotate(-10deg);">
+                    <div class="weight w-left">💰</div>
+                    <div class="weight w-right">🌏</div>
+                </div>
+                <div class="pivot"></div>
+            </div>
+            <p id="balanceText" style="text-align: center; font-size: 0.8rem; color: #27ae60; height: 20px;">
+                当前：不仅要盈利，还要治愈地球...
+            </p>
+        </div>
+
+        <div class="card card-purple">
+            <div class="door-icon">🚪</div>
+            <div class="pono-badge" style="background: var(--bg-soul);">微观：Letting Go (放手)</div>
+            
+            <h2 class="comic-font" style="margin-top:0;">你最终要去哪里？</h2>
+            <p>你最终会离开你的企业。可能是退休冲浪，可能是做慈善，也可能是再次创业。</p>
+            <p>在那个时刻到来之前，你需要不断问自己 <strong>"为什么"</strong>。</p>
+
+            <div class="whys-container" id="whyContainer">
+                <div class="why-bubble" onclick="nextWhy(this)">
+                    <span class="why-label">Level 1: 行为</span>
+                    为什么我选择服务这个社区？
+                    <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">(点击继续追问)</div>
+                </div>
+                
+                <div class="why-bubble" onclick="nextWhy(this)">
+                    <span class="why-label">Level 2: 动机</span>
+                    为什么我选择用这种方式解决问题？
+                    <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">(点击继续追问)</div>
+                </div>
+
+                <div class="why-bubble" onclick="nextWhy(this)">
+                    <span class="why-label">Level 3: 愿景</span>
+                    为什么我想从这里继续前行？
+                    <div style="font-size: 0.8rem; color: #999; margin-top: 5px;">(点击继续追问)</div>
+                </div>
+
+                <div class="why-bubble" style="background: var(--bg-soul); color: white; border-color: var(--bg-soul);">
+                    <span class="why-label" style="color: #fab1a0;">Level 4: 核心</span>
+                    <strong>你是谁？你真正想要的是什么？</strong><br>
+                    <span style="font-size: 0.9rem; opacity: 0.9;">用你赚到的时间，去寻找答案。</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div style="background: rgba(255,255,255,0.2); display: inline-block; padding: 10px 20px; border-radius: 30px;">
+                “你不能改变每一件事，<br>但是你可以从改变一些事开始。”
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // 平衡木交互
+        let isBalanced = false;
+        function toggleBalance() {
+            const bar = document.getElementById('balanceBar');
+            const text = document.getElementById('balanceText');
+            
+            if(navigator.vibrate) navigator.vibrate(20);
+
+            if (!isBalanced) {
+                bar.style.transform = "rotate(0deg)";
+                text.innerText = "Pono：实现了商业与生态的完美平衡！✨";
+                isBalanced = true;
+            } else {
+                bar.style.transform = "rotate(-10deg)";
+                text.innerText = "失衡：无论偏向哪一方，都不是长久之计。";
+                isBalanced = false;
+            }
+        }
+
+        // Why 交互
+        function nextWhy(element) {
+            if(navigator.vibrate) navigator.vibrate(15);
+            
+            // 找到下一个兄弟元素并显示
+            const next = element.nextElementSibling;
+            if (next && next.classList.contains('why-bubble')) {
+                next.style.display = 'block';
+                // 自动滚动到底部
+                next.scrollIntoView({behavior: "smooth", block: "nearest"});
+            }
+            
+            // 改变当前元素的样式表示已读
+            element.style.opacity = "0.7";
+            element.style.background = "#f0f0f0";
+            element.onclick = null; // 移除点击事件
+        }
+    </script>
+
+</body>
+</html>

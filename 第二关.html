@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.2：供应链与成本控制</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --purple: #9C27B0;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--cyan);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--purple);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .chapter-break {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+        .chapter-title {
+            background: var(--purple);
+            color: var(--white);
+            padding: 12px 30px;
+            border: var(--border);
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.8rem;
+            display: inline-block;
+            box-shadow: var(--shadow);
+            transform: skewY(-2deg);
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            position: relative; 
+        }
+        
+        .panel-visual {
+            height: 220px;
+            background: #f4f4f4;
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 13px 13px 0 0; 
+        }
+        .bg-purple-light { background: #F3E5F5; }
+        .bg-yellow-light { background: #FFFDE7; }
+        
+        .panel-text {
+            padding: 25px 20px 20px; 
+            position: relative;
+            border-radius: 0 0 13px 13px;
+        }
+        
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            z-index: 10; 
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+            white-space: nowrap; 
+        }
+
+        .calc-box {
+            background: #eee;
+            padding: 15px;
+            border: var(--border);
+            margin-top: 15px;
+            font-size: 0.95rem;
+            border-radius: 8px;
+        }
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed #bbb;
+        }
+        .calc-row:last-child { border-bottom: none; }
+        .highlight-profit {
+            color: var(--orange);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .checklist-item {
+            background: #fff;
+            border: 2px solid #ccc;
+            padding: 12px;
+            margin-top: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+        .checklist-item:hover { transform: translateY(-2px); }
+        .checklist-item.checked {
+            border-color: var(--cyan);
+            background: #E0F2F1;
+            color: #00695C;
+            font-weight: bold;
+        }
+        .checklist-item.checked::before {
+            content: '✔';
+            color: var(--cyan);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .checklist-item::before {
+            content: '○';
+            color: #ccc;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.2</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">💰 供应链优化与成本控制</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-visual bg-yellow-light">
+            <svg viewBox="0 0 200 150" style="width:100%;height:100%;">
+                <rect x="40" y="50" width="50" height="50" fill="#fff" stroke="#2B2B2B" stroke-width="2"/>
+                <text x="65" y="80" text-anchor="middle" font-size="20">🏬</text>
+                <text x="65" y="120" text-anchor="middle" font-size="10">普通零售</text>
+                
+                <rect x="110" y="50" width="50" height="50" fill="#FFC000" stroke="#2B2B2B" stroke-width="2"/>
+                <text x="135" y="80" text-anchor="middle" font-size="20">🤠</text>
+                <text x="135" y="120" text-anchor="middle" font-size="10">优化后</text>
+                
+                <text x="100" y="40" text-anchor="middle" font-weight="bold">同样的产品</text>
+                <text x="135" y="30" text-anchor="middle" fill="#FF6B35" font-weight="bold" font-size="14">利润更高</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="panel-tag">通关目标</div>
+            <p>这一关的核心是<strong>建立渠道优势</strong>。找对源头渠道，你就能降低成本、提高毛利，甚至把库存风险降到最低。</p>
+        </div>
+    </div>
+
+    <div class="chapter-break">
+        <div class="chapter-title">第1招：溯源供应链</div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150" style="width:100%;height:100%;">
+                <text x="30" y="70" font-size="30">📱</text>
+                <line x1="60" y1="60" x2="90" y2="60" stroke="#2B2B2B" stroke-width="2" />
+                <polygon points="90,60 85,55 85,65" fill="#2B2B2B" />
+                <text x="100" y="70" font-size="30">🏭</text>
+                <line x1="130" y1="60" x2="160" y2="60" stroke="#2B2B2B" stroke-width="2" />
+                <polygon points="160,60 155,55 155,65" fill="#2B2B2B" />
+                <text x="170" y="70" font-size="30">💰</text>
+                <text x="100" y="110" text-anchor="middle" font-size="12">市场热销 ➔ 查生产商 ➔ 平台采购</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="panel-tag">基本逻辑</div>
+            <p>不要盲目采购。先去<strong>主流电商平台看热销榜</strong>，把前10名的商品列出来，这才是经过市场验证的选品。</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-visual bg-purple-light">
+             <svg viewBox="0 0 200 150" style="width:100%;height:100%;">
+                <rect x="50" y="30" width="100" height="90" fill="#fff" stroke="#2B2B2B" stroke-width="2"/>
+                <line x1="60" y1="50" x2="140" y2="50" stroke="#ccc" stroke-width="2"/>
+                <line x1="60" y1="70" x2="140" y2="70" stroke="#ccc" stroke-width="2"/>
+                <rect x="60" y="85" width="80" height="20" fill="#FFC000" stroke="none"/> 
+                <text x="100" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#2B2B2B">生产商：湖北XX厂</text>
+                <circle cx="150" cy="110" r="15" fill="none" stroke="#FF6B35" stroke-width="3"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="panel-tag">实操步骤 A</div>
+            <p>点开热销商品的详情页，查看“产品参数”。重点关注<strong>【委托生产商/厂址】</strong>，这是找到源头供应商的关键线索。</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">⚠️ 风险控制</div>
+            <p>B2B采购平台也有中间商。<strong>请使用以下标准筛选供应商：</strong></p>
+            <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                <span>📦 一件起批 (降低试错门槛)</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                <span>🚀 48小时发货 (供应链响应速度)</span>
+            </div>
+            <div class="checklist-item" onclick="this.classList.toggle('checked')">
+                <span>🏆 深度验厂 / 超级工厂标识</span>
+            </div>
+            <p style="font-size:0.8rem; color:#666; margin-top:10px;">通过筛选的才是可靠的源头工厂。</p>
+        </div>
+    </div>
+
+    <div class="chapter-break">
+        <div class="chapter-title">第2招：采购策略</div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">库存模型测算</div>
+            <p>以季节性商品（如发饰）为例。线上线下采购如何决策？</p>
+            <div class="calc-box">
+                <div class="calc-row">
+                    <span>线下批发：</span>
+                    <span>500个起，0.45元/个</span>
+                </div>
+                <div class="calc-row" style="color:#757575; font-size: 0.8rem;">
+                    <span>⚠️ 风险提示：</span>
+                    <span>库存积压风险高</span>
+                </div>
+                <div class="calc-row" style="margin-top:10px; border-top: 1px dashed #999; padding-top:10px;">
+                    <span>线上采购：</span>
+                    <span>10个起，0.58元/个</span>
+                </div>
+                <div class="calc-row">
+                    <span>零售价：</span>
+                    <span>2.5元/个</span>
+                </div>
+                <div class="calc-row">
+                    <span>毛利空间：</span>
+                    <span class="highlight-profit">1.92元/个 (高毛利)</span>
+                </div>
+            </div>
+            <p style="font-size:0.9rem; margin-top:10px;"><strong>结论：</strong>虽然单价略高，但极大降低了库存风险。对于时效性商品，<strong>小批量高频次采购（JIT模式）更优。</strong></p>
+        </div>
+    </div>
+    
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 课后作业</h2>
+            <p>请按上述方法，规划一张 <strong>小额试错采购单</strong>。</p>
+            <ul style="margin-top:10px; padding-left:20px;">
+                <li>找到3个同类产品的源头产地</li>
+                <li>在采购平台收藏5家高信用等级店铺</li>
+                <li>决定首批采购量（建议最小闭环测试）</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

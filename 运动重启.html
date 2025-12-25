@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大脑重启术：运动激活精力</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 活力配色方案 */
+            --bg-color: #F0F4F8;
+            --dot-color: #CAD3C8;
+            --card-bg: #FFFFFF;
+            --border-color: #222F3E;
+            
+            --color-brain: #54A0FF;   /* 电光蓝 - 大脑/科技 */
+            --color-alert: #EE5253;   /* 警示红 - 脑雾/酒精 */
+            --color-energy: #1DD1A1;  /* 激活绿 - 修复/生长 */
+            --color-boost: #FECA57;   /* 活力黄 - 运动 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 8px;
+            --card-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 3px, transparent 3px);
+            background-size: 30px 30px;
+            color: var(--border-color);
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号加大 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px; /* 宽屏设定 */
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            border-radius: 20px;
+            padding: 45px; /* 宽屏内边距 */
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: var(--border-color);
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 4rem; margin-bottom: 20px; text-transform: uppercase; }
+        h3 { font-size: 2.4rem; margin-bottom: 25px; }
+        p { margin-bottom: 20px; }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, transparent 60%, var(--color-boost) 60%, var(--color-boost) 100%);
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
+        /* ---------------- Header ---------------- */
+        .header {
+            text-align: center;
+            background: var(--color-brain);
+            padding: 70px 40px;
+            border-bottom: 6px solid var(--border-color);
+        }
+        
+        .header h1 { color: #fff; text-shadow: 4px 4px 0 var(--border-color); }
+
+        .header-tag {
+            font-size: 1.6rem;
+            font-weight: bold;
+            background: #fff;
+            padding: 10px 30px;
+            border: 4px solid var(--border-color);
+            border-radius: 60px;
+            display: inline-block;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            height: 120px; /* 固定高度 */
+        }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        
+        .anim-spin { animation: spin 8s linear infinite; }
+        .anim-float { animation: float 3s ease-in-out infinite; }
+        .anim-pulse { animation: pulse 2s ease-in-out infinite; }
+
+        /* ---------------- Panel 1: The Crash (Brain Fog) ---------------- */
+        .panel-crash {
+            border-color: var(--color-alert);
+        }
+
+        .error-msg {
+            font-family: monospace;
+            background: var(--border-color);
+            color: var(--color-alert);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
+
+        /* ---------------- Panel 2: The Science (Mtss1L) ---------------- */
+        .panel-gene {
+            background: #F0FFF4; /* 淡淡的绿色背景 */
+        }
+        
+        .gene-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 30px 0;
+        }
+
+        /* ---------------- Panel 3: Neuroplasticity ---------------- */
+        .plasticity-box {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .age-chart {
+            text-align: center;
+            background: #fff;
+            border: 3px dashed var(--border-color);
+            padding: 20px;
+            border-radius: 15px;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        /* ---------------- Panel 4: Alcohol Shield (Interactive) ---------------- */
+        .panel-shield {
+            background: #EAF2F8;
+        }
+
+        .btn-reveal {
+            background: var(--border-color);
+            color: #fff;
+            border: none;
+            padding: 20px 40px;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: all 0.3s;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        .btn-reveal:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+            background: #000;
+        }
+
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out;
+            background: #fff;
+            border-radius: 15px;
+            border: 4px solid var(--border-color);
+            margin-top: 0;
+            opacity: 0;
+        }
+
+        .hidden-content.active {
+            max-height: 800px;
+            margin-top: 20px;
+            padding: 30px;
+            opacity: 1;
+        }
+
+        /* ---------------- Panel 5: Action (Prescription) ---------------- */
+        .panel-action {
+            background: var(--color-boost);
+            border: 4px dashed var(--border-color);
+        }
+
+        .prescription-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid var(--border-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .rx-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            background: var(--color-energy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 4px dashed #BDC3C7;
+        }
+        .quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #555;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-box">
+            <svg width="100" height="100" viewBox="0 0 100 100" class="anim-spin">
+                <path d="M50 10 A40 40 0 1 1 10 50" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+                <path d="M10 50 L10 20 L40 50 Z" fill="#fff" stroke="#fff" stroke-width="2"/>
+                <circle cx="50" cy="50" r="15" fill="none" stroke="#222F3E" stroke-width="4"/>
+                <line x1="50" y1="35" x2="50" y2="50" stroke="#222F3E" stroke-width="4"/>
+            </svg>
+        </div>
+        <h1>大脑重启术</h1>
+        <div class="header-tag">运动 = 认知系统的 F5 刷新键</div>
+    </header>
+
+    <section class="card panel-crash">
+        <h3>⚠️ 你的系统运行缓慢？</h3>
+        <p>开会眼皮打架、看电影秒睡、思路像浆糊……这不仅仅是累了，这是大脑发出的**“死机”**信号。</p>
+        
+        <div class="icon-box">
+            <svg width="120" height="100" viewBox="0 0 120 100" class="anim-float">
+                <rect x="10" y="10" width="100" height="70" rx="8" fill="#EE5253" stroke="#222F3E" stroke-width="4"/>
+                <path d="M30 45 L40 55 L30 65 M50 45 L40 55 L50 65" stroke="#fff" stroke-width="4" fill="none"/>
+                <line x1="70" y1="45" x2="90" y2="45" stroke="#fff" stroke-width="4"/>
+                <line x1="70" y1="65" x2="90" y2="65" stroke="#fff" stroke-width="4"/>
+                <path d="M40 80 L40 90 L80 90 L80 80" stroke="#222F3E" stroke-width="4" fill="none"/>
+            </svg>
+        </div>
+
+        <div class="error-msg">
+            &gt; ERROR: Energy_Level_Critical<br>
+            &gt; ACTION_REQUIRED: Reboot_System
+        </div>
+    </section>
+
+    <section class="card panel-gene">
+        <h3>🧬 激活“聪明”基因：Mtss1L</h3>
+        <p>美国俄勒冈健康与科学大学的研究发现：只需短时间的剧烈运动（相当于小鼠跑转轮），就能唤醒沉睡的 <strong>Mtss1L 基因</strong>。</p>
+        
+        <div class="gene-visual">
+            <div style="text-align: center;">
+                <svg width="60" height="60" viewBox="0 0 60 60">
+                    <path d="M10 30 L20 50 L30 10 L40 50 L50 30" fill="none" stroke="#222F3E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div>运动</div>
+            </div>
+            <div style="font-size: 2rem;">➡</div>
+            <div style="text-align: center;">
+                <div style="background:#222F3E; color:#fff; padding:5px 15px; border-radius:8px;">Mtss1L</div>
+                <div>基因表达</div>
+            </div>
+            <div style="font-size: 2rem;">➡</div>
+            <div style="text-align: center;">
+                <svg width="60" height="60" viewBox="0 0 60 60" class="anim-pulse">
+                    <circle cx="30" cy="30" r="25" fill="#1DD1A1" stroke="#222F3E" stroke-width="3"/>
+                    <path d="M20 30 L40 30 M30 20 L30 40" stroke="#222F3E" stroke-width="4"/>
+                </svg>
+                <div>突触增强</div>
+            </div>
+        </div>
+        
+        <p><strong>结果：</strong>海马体（学习与记忆中心）连接增强。就像给电脑加装了一条内存条。</p>
+    </section>
+
+    <section class="card">
+        <h3>🧠 逆转“脑萎缩”</h3>
+        <p>20岁后，海马体每年缩小 <strong>1%</strong>。听起来很绝望？但大脑具有<strong>可塑性 (Neuroplasticity)</strong>。</p>
+
+        <div class="plasticity-box">
+            <div class="age-chart">
+                <h4 style="color:#aaa;">不运动的大脑</h4>
+                <div style="font-size:3rem; line-height:1.2;">📉</div>
+                <p>固执、僵硬<br>随年龄衰退</p>
+            </div>
+            <div class="age-chart" style="border-color: var(--color-energy); background: #f9fff9;">
+                <h4 style="color:var(--color-energy);">运动的大脑</h4>
+                <div style="font-size:3rem; line-height:1.2;">🔥</div>
+                <p>如高温下的金属<br>可重新塑形</p>
+            </div>
+        </div>
+        <p style="margin-top:20px;">澳大利亚阿德莱德大学的研究表明，即使是 <strong>30分钟</strong> 的骑行，也能改善大脑特性，提升可塑性。</p>
+    </section>
+
+    <section class="card panel-shield">
+        <h3>🛡️ 特别篇：饮酒者的救星</h3>
+        <p>喜欢喝两杯？酒精会损伤大脑白质（信息传输线）。但运动可能是一个**强力盾牌**。</p>
+        
+        <div class="icon-box">
+             <svg width="100" height="100" viewBox="0 0 100 100">
+                <path d="M40 30 L40 10 L60 10 L60 30 L70 80 L30 80 Z" fill="#EE5253" stroke="#222F3E" stroke-width="3"/>
+                <line x1="45" y1="40" x2="55" y2="40" stroke="#222F3E" stroke-width="3"/>
+                <text x="42" y="65" font-weight="bold" font-size="20">XXX</text>
+                <path d="M50 0 L90 20 L90 60 Q50 100 10 60 L10 20 Z" fill="rgba(84, 160, 255, 0.8)" stroke="#222F3E" stroke-width="4" class="anim-float"/>
+                <path d="M35 40 L50 60 L75 30" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="anim-float"/>
+            </svg>
+        </div>
+
+        <button class="btn-reveal" onclick="toggleContent('alcohol-content')">
+            🍺 点击查看实验真相
+        </button>
+
+        <div id="alcohol-content" class="hidden-content">
+            <p><strong>科罗拉多大学研究发现：</strong></p>
+            <ul style="list-style: none; padding-left: 0;">
+                <li style="margin-bottom: 15px;">❌ <strong>只喝酒不运动：</strong> 脑白质完整性受损，信息传递效率下降（变迟钝）。</li>
+                <li style="margin-bottom: 15px;">✅ <strong>喝酒+有氧运动：</strong> 脑白质几乎**没有受损**！</li>
+            </ul>
+            <p class="highlight" style="display:inline-block;">结论：运动能阻绝酒精对大脑神经纤维的伤害。</p>
+        </div>
+    </section>
+
+    <section class="card panel-action">
+        <h3>💊 你的“快乐处方”</h3>
+        <p>运动是天然的抗抑郁药，而且无副作用。</p>
+
+        <button class="btn-reveal" style="background:#fff; color:var(--border-color);" onclick="toggleContent('rx-content')">
+            📋 获取今日处方
+        </button>
+
+        <div id="rx-content" class="hidden-content active">
+            <div class="prescription-card">
+                <div class="rx-icon">🏃</div>
+                <div>
+                    <strong>黄金标准：</strong><br>
+                    每周至少 <strong>1次</strong> 有氧运动，时长 <strong>45分钟-1小时</strong>。
+                </div>
+            </div>
+            
+            <div class="prescription-card">
+                <div class="rx-icon">📦</div>
+                <div>
+                    <strong>如果不爱动？</strong><br>
+                    从“拿快递”开始。走着去服务站，拿着快递走回来。只要动起来，就能预防抑郁。
+                </div>
+            </div>
+
+            <div class="prescription-card">
+                <div class="rx-icon">🌿</div>
+                <div>
+                    <strong>家务疗法：</strong><br>
+                    浇水、除草、修剪花枝。26年的研究证实，这些简单的活动也能有效调节情绪。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="quote">“有氧运动对于人大脑的健康有着关键性的作用，就像它对心脏的健康也很重要一样。”</p>
+        <p style="margin-top:15px; font-weight:bold;">— 哈佛医学院</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isActive = content.classList.contains('active');
+        
+        // Toggle Active Class
+        content.classList.toggle('active');
+        
+        // Scroll slightly into view if opening
+        if (!isActive) {
+            setTimeout(() => {
+                content.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 300);
+        }
+
+        // Haptic feedback
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
+    }
+</script>
+
+</body>
+</html>

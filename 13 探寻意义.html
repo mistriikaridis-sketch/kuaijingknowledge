@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们要何去何从 - 极简创业终章</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-gradient-start: #2d3436;
+            --bg-gradient-end: #000000;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            
+            --accent-purple: #a29bfe; /* 自由紫 */
+            --accent-sunset: #fab1a0; /* 暮色橙 */
+            --accent-time: #00cec9;   /* 时间蓝 */
+            
+            --border-width: 3px;
+            --shadow-glow: 0 0 15px rgba(162, 155, 254, 0.5);
+            --shadow-hard: 6px 6px 0px #2d3436;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .comic-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .title-badge {
+            background: var(--accent-purple);
+            color: white;
+            padding: 10px 30px;
+            border: 3px solid white;
+            display: inline-block;
+            transform: skew(-10deg);
+            box-shadow: 0 0 20px rgba(162, 155, 254, 0.4);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 4px 4px 0 #000;
+        }
+
+        .subtitle {
+            color: var(--accent-sunset);
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* 卡片基础 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--text-main);
+            border-radius: 16px;
+            box-shadow: var(--shadow-hard);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h2 {
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px dashed #dfe6e9;
+            padding-bottom: 10px;
+        }
+
+        /* 01. 时间亿万富翁 */
+        .time-counter {
+            background: #000;
+            color: var(--accent-time);
+            font-family: monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            border: 4px solid var(--text-main);
+            text-shadow: 0 0 10px var(--accent-time);
+            margin: 20px 0;
+            letter-spacing: 2px;
+        }
+
+        .time-label {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .quote-box {
+            background: #f1f2f6;
+            border-left: 5px solid var(--accent-sunset);
+            padding: 15px;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        /* 02. Ikigai 交互图 */
+        .ikigai-wrapper {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .circle {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .circle:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            opacity: 1;
+        }
+
+        .c-love { top: 20px; left: 50%; transform: translateX(-100%); background: #ff7675; }
+        .c-need { top: 20px; left: 50%; transform: translateX(0%); background: #74b9ff; }
+        .c-paid { bottom: 20px; left: 50%; transform: translateX(-100%); background: #55efc4; }
+        .c-good { bottom: 20px; left: 50%; transform: translateX(0%); background: #ffeaa7; color: #2d3436; }
+        
+        .c-center {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: #2d3436;
+            color: white;
+            z-index: 5;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 1.2rem;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+
+        .ikigai-info {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid var(--text-main);
+            border-radius: 8px;
+            background: #fff;
+            display: none;
+            animation: slideUp 0.3s;
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 03. 自由的眩晕 */
+        .freedom-box {
+            background: linear-gradient(120deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            margin-top: 50px;
+            padding-bottom: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="title-badge">
+                <span class="comic-font" style="font-size: 1.5rem;">THE FINAL CHAPTER</span>
+            </div>
+            <h1 class="comic-font">我们要何去何从</h1>
+            <div class="subtitle">赚到了钱，现在开始赚取时间</div>
+        </header>
+
+        <div class="card">
+            <h2>⏳ 时间亿万富翁 (Time Billionaire)</h2>
+            <p>Sahil 虽然没有成为金钱上的亿万富翁，但他意识到自己拥有另一种财富：</p>
+            
+            <div class="time-counter">1,000,000,000</div>
+            <div class="time-label">秒 (Seconds) ≈ 31 年</div>
+            
+            <p>当你不再为了取悦投资人而牺牲睡眠，当你将不喜欢的工作外包或自动化之后，你就拥有了这 10 亿秒。</p>
+            
+            <div class="quote-box">
+                “一个健康的人有一千个愿望，而一个生病的人只有一个愿望。”<br>
+                <span style="font-size:0.9rem; margin-top:5px; display:block;">—— 创业是为了让你成为那个有一千个愿望的健康人。</span>
+            </div>
+        </div>
+
+        <div class="card" style="background: #fdfaf5;">
+            <h2>🌸 终极目标：Ikigai (生きがい)</h2>
+            <p>创业不是终点，而是通往 <strong>Ikigai</strong> 的手段。点击中心查看奥义：</p>
+            
+            <div class="ikigai-wrapper">
+                <div class="circle c-love" onclick="showInfo('love')">你热爱的</div>
+                <div class="circle c-need" onclick="showInfo('need')">世界需要的</div>
+                <div class="circle c-paid" onclick="showInfo('paid')">有报酬的</div>
+                <div class="circle c-good" onclick="showInfo('good')">你擅长的</div>
+                <div class="c-center" onclick="showInfo('center')">Ikigai</div>
+            </div>
+
+            <div id="ikigai-text" class="ikigai-info">
+                <strong>请点击上方的圆圈或中心</strong> 以探索定义的含义。
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>😵 自由的眩晕 (Dizziness of Freedom)</h2>
+            <p>克尔凯郭尔说：“焦虑是自由的眩晕感。”</p>
+            <p>当你创业成功，当你不再为生存发愁，你将面临最大的挑战：<strong>在无限的选择中，你决定如何度过这一生？</strong></p>
+            
+            <div class="freedom-box">
+                <p style="font-size: 1.1rem; font-weight: bold; margin: 0;">
+                    "极简创业者的终极愿望：<br>
+                    让企业尽可能少地需要你的参与，<br>
+                    从而让你随心所欲地生活。"
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.8; margin-bottom: 10px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+            <p class="comic-font">
+                全书完。<br>
+                现在，去开始你的极简旅程吧。
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        function showInfo(type) {
+            // 震动反馈
+            if(navigator.vibrate) navigator.vibrate(20);
+
+            const textBox = document.getElementById('ikigai-text');
+            textBox.style.display = 'block';
+            
+            let title = "";
+            let desc = "";
+
+            switch(type) {
+                case 'love':
+                    title = "❤️ 你热爱的 (Passion)";
+                    desc = "让你废寝忘食的事情。比如 Sahil 的写作和科幻小说。";
+                    break;
+                case 'need':
+                    title = "🌍 世界需要的 (Mission)";
+                    desc = "解决真实的痛点，哪怕只是一个小社区的问题。";
+                    break;
+                case 'paid':
+                    title = "💰 有报酬的 (Profession)";
+                    desc = "必须能维持生计。不仅是爱好，而是生意。";
+                    break;
+                case 'good':
+                    title = "⭐ 你擅长的 (Vocation)";
+                    desc = "你的技能点。如果没有，就通过创业去学习。";
+                    break;
+                case 'center':
+                    title = "✨ Ikigai (生之意义)";
+                    desc = "当你将这四者结合时，你会感到宁静，并充满目标感。这是极简创业的终点。";
+                    break;
+            }
+
+            textBox.innerHTML = `<strong style="color:#6c5ce7; font-size:1.1rem;">${title}</strong><br><span style="color:#2d3436;">${desc}</span>`;
+        }
+    </script>
+
+</body>
+</html>

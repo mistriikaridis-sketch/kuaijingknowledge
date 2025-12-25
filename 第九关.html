@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.9：视觉陈列美学</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --pink: #E91E63;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--pink); 
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--pink);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 互动展示区 */
+        .chaos-container {
+            display: flex;
+            height: 120px;
+            background: #eee;
+            align-items: flex-end;
+            justify-content: center;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+        }
+        .item-block {
+            width: 20px;
+            background: var(--cyan);
+            border: 1px solid #fff;
+            margin: 0 2px;
+            transition: 0.3s;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.9</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">🎨 VMD 视觉营销心法</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">陈列心理学</div>
+            <p><strong>陈列不是越整齐越好。</strong> 过于整齐的陈列（像博物馆一样）会产生“拒人千里”的距离感。</p>
+            <p>优秀的陈列应该具备<strong>“触摸感”</strong>——看起来像是刚刚被别人挑选过，暗示商品很受欢迎。</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">混乱度测试</div>
+            <p>拖动滑块，寻找最佳的“陈列混乱度”：</p>
+            
+            <div class="chaos-container" id="chaos-vis"></div>
+            <p id="chaos-text" style="text-align:center; font-weight:bold; margin-top:10px; min-height:1.5em;">...</p>
+            
+            <input type="range" min="0" max="2" step="1" value="0" style="width:100%; margin-top:10px;" oninput="updateChaos(this.value)">
+            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#666;">
+                <span>极度整齐</span>
+                <span>适度自然</span>
+                <span>杂乱无章</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">黄金陈列法则</div>
+            <ul style="line-height:1.8; padding-left:20px;">
+                <li><strong>高度法则：</strong> 利润款放在视线平齐处（80-120cm）。</li>
+                <li><strong>丰满法则：</strong> 货卖堆山。库存不足时，用空箱子垫底，制造视觉丰满感。</li>
+                <li><strong>光源法则：</strong> 所有的光线必须聚焦在商品上，而不是打在地上。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 课后作业</h2>
+            <p><strong>陈列优化行动：</strong></p>
+            <p>站在距离你店铺5米远的地方观察：</p>
+            <ul>
+                <li>你能一眼看出主推商品是什么吗？</li>
+                <li>如果不能，请调整陈列结构，制造一个视觉焦点。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 初始化
+    updateChaos(0);
+
+    // 混乱度
+    function updateChaos(val) {
+        const vis = document.getElementById('chaos-vis');
+        const txt = document.getElementById('chaos-text');
+        vis.innerHTML = '';
+        
+        if (val == 0) {
+            // 太整齐
+            for(let i=0; i<5; i++) vis.innerHTML += `<div class="item-block" style="height:30px; transform:rotate(0deg)"></div>`;
+            txt.innerText = "❌ 过于刻板：产生距离感，不敢触摸";
+            txt.style.color = "#D32F2F";
+        } else if (val == 1) {
+            // 刚刚好
+            for(let i=0; i<5; i++) {
+                let deg = (Math.random() * 10 - 5);
+                vis.innerHTML += `<div class="item-block" style="height:30px; transform:rotate(${deg}deg); margin-top:${i==2?10:0}px"></div>`;
+            }
+            txt.innerText = "✅ 最佳状态：保留“人味”，暗示热销";
+            txt.style.color = "#4CAF50";
+        } else {
+            // 太乱
+            for(let i=0; i<5; i++) {
+                let deg = (Math.random() * 40 - 20);
+                vis.innerHTML += `<div class="item-block" style="height:30px; transform:rotate(${deg}deg); margin-bottom:${Math.random()*10}px"></div>`;
+            }
+            txt.innerText = "❌ 杂乱无章：显得廉价，降低信任";
+            txt.style.color = "#555";
+        }
+        
+        if(navigator.vibrate) navigator.vibrate(20);
+    }
+</script>
+
+</body>
+</html>

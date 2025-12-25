@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瞄准前100个客户 - 极简创业</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #6c5ce7; /* 沉稳紫 */
+            --bg-pattern: #a29bfe; /* 浅紫波点 */
+            --card-bg: #ffffff;
+            --border-color: #2d3436;
+            
+            --accent-yellow: #ffeaa7; /* 柠檬黄 */
+            --accent-red: #ff7675;    /* 失败红 */
+            --accent-green: #00b894;  /* 成功绿 */
+            
+            --border-width: 3px;
+            --shadow-offset: 8px;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--bg-pattern) 15%, transparent 15%);
+            background-size: 25px 25px;
+            color: var(--border-color);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.8;
+        }
+
+        .container {
+            max-width: 800px; /* 加宽容器 */
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        .comic-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* 头部设计 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 4px 4px 0px var(--border-color);
+            margin: 0;
+            transform: rotate(-2deg);
+        }
+
+        .subtitle {
+            background: var(--accent-yellow);
+            border: var(--border-width) solid var(--border-color);
+            display: inline-block;
+            padding: 8px 20px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            transform: rotate(2deg) translateY(-10px);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+
+        /* 卡片基础 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+            padding: 40px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* 贴纸标签 */
+        .sticker {
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            background: var(--accent-red);
+            color: white;
+            padding: 5px 15px;
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 1.4rem;
+            border: var(--border-width) solid var(--border-color);
+            transform: rotate(-5deg);
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .sticker.success {
+            background: var(--accent-green);
+            right: -15px;
+            left: auto;
+            transform: rotate(5deg);
+            top: -20px;
+        }
+
+        /* 标题样式 */
+        h2 {
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 2rem;
+            margin-top: 0;
+            border-bottom: 2px dashed #dfe6e9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* 内容排版 */
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, var(--accent-yellow) 100%);
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
+        /* 案例对比框 */
+        .case-study {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .case-box {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .case-fail {
+            background-color: #ffeaa7;
+        }
+        
+        .case-stat {
+            font-size: 2rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        /* 交互按钮 */
+        .btn-reveal {
+            background: var(--border-color);
+            color: #fff;
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-family: 'ZCOOL KuaiLe';
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.1s;
+        }
+
+        .btn-reveal:active {
+            transform: scale(0.98);
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 20px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-green);
+        }
+
+        /* 步骤条 */
+        .step-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .step-list li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--border-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1 class="comic-font">瞄准前100个客户</h1>
+        <div class="subtitle">告别“病毒式爆发”的幻想</div>
+    </header>
+
+    <div class="card">
+        <div class="sticker">反面教材 🙅‍♂️</div>
+        <h2>好莱坞式的“盛大开业”</h2>
+        <p>很多创业者认为发布产品应该像电影首映礼：红地毯、聚光灯、无数用户蜂拥而至。但现实往往是：你家楼下挂着“盛大开业”红幅的餐厅，如果不主动拉客，第二天依然门可罗雀。</p>
+        
+        <div class="case-study">
+            <div class="case-box case-fail">
+                <div style="font-weight:bold; margin-bottom:10px;">📉 Quibi 的失败</div>
+                <div style="font-size:0.9rem;">融资 <span style="font-weight:bold;">18亿</span> 美元</div>
+                <div style="font-size:0.9rem;">请好莱坞明星</div>
+                <div style="font-size:0.9rem;">买超级碗广告</div>
+                <hr style="border-top:1px dashed #000; margin:10px 0;">
+                <div style="color:var(--accent-red); font-weight:bold;">6个月后倒闭</div>
+            </div>
+            <div class="case-box" style="background:#fff;">
+                <div style="font-weight:bold; margin-bottom:10px;">🚀 极简创业者</div>
+                <div style="font-size:0.9rem;">投入 <span style="font-weight:bold;">0</span> 美元广告</div>
+                <div style="font-size:0.9rem;">手动发邮件</div>
+                <div style="font-size:0.9rem;">混迹社区</div>
+                <hr style="border-top:1px dashed #000; margin:10px 0;">
+                <div style="color:var(--accent-green); font-weight:bold;">稳步增长</div>
+            </div>
+        </div>
+        <p style="margin-top:20px; font-size:0.9rem; text-align:center;">
+            Quibi 失败的原因：他们试图“买”来用户，而不是“赚”来用户。
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>销售不是推销，是调研</h2>
+        <div style="float:right; width: 100px; height: 100px; background:var(--accent-yellow); border-radius:50%; border:3px solid black; display:flex; align-items:center; justify-content:center; margin-left:20px; transform:rotate(10deg);">
+            <span style="font-size:3rem;">🔍</span>
+        </div>
+        <p>没人喜欢“销售”这个词，它听起来像是在骗人。但在前100个客户阶段，<span class="highlight">销售 = 学习</span>。</p>
+        <p>每一次被拒绝都是金矿：</p>
+        <ul style="list-style-type: none; padding:0;">
+            <li>❌ <strong>如果他们不买：</strong> 说明你要么找错人了，要么产品还不够好。</li>
+            <li>✅ <strong>这比发布更重要：</strong> 在大规模推广前，你需要这些“失败”来修正你的航向。</li>
+        </ul>
+        <p>如果你连跟一个人面对面推销都做不到，大规模广告也救不了你。</p>
+    </div>
+
+    <div class="card">
+        <div class="sticker success">正确姿势 ✅</div>
+        <h2>从 0 到 1 的路线图</h2>
+        
+        <p>不要沉迷于 Product Hunt 或媒体报道。真实的路径是枯燥且漫长的。</p>
+
+        <button class="btn-reveal" onclick="toggleRoadmap(this)">点击查看路线图 🗺️</button>
+
+        <div class="hidden-content" id="roadmap">
+            <ul class="step-list">
+                <li>
+                    <strong>MVP (最小可行性产品)</strong><br>
+                    这只是开始，不是结束。
+                </li>
+                <li>
+                    <strong>手动销售 (Manual Sales)</strong><br>
+                    一个一个地聊，争取前 100 个付费用户。
+                </li>
+                <li>
+                    <strong>寻找抓手 (Traction)</strong><br>
+                    当你开始有回头客，或者用户开始推荐给朋友。
+                </li>
+                <li>
+                    <strong>发布 (Launch)</strong><br>
+                    只有在这个时候才进行“公开发布”。<br>
+                    <span class="highlight">发布是用来庆祝成功的，而不是为了祈求成功。</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer style="text-align:center; color:white;">
+        <p class="comic-font" style="font-size:1.2rem;">“你的产品应该永远拥有客户，<br>而不是只在一个周五之夜。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleRoadmap(btn) {
+        const content = document.getElementById('roadmap');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            btn.innerHTML = '点击查看路线图 🗺️';
+        } else {
+            content.style.display = 'block';
+            btn.innerHTML = '收起路线图 👆';
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

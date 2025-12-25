@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思维模型：系统思维</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 核心配色：丛林生态主题 */
+            --bg-color: #064E3B; /* 深丛林绿 */
+            --card-bg: #F0FDF4; /* 极浅的薄荷白 */
+            --border: 3px solid #111827; /* 近乎黑色的墨绿边框 */
+            
+            /* 辅助色 */
+            --primary: #10B981; /* 翡翠绿 (正常/正向) */
+            --accent: #F59E0B; /* 琥珀黄 (警示/存量) */
+            --danger: #EF4444; /* 珊瑚红 (增强回路/火) */
+            --water: #3B82F6; /* 水流色 */
+            
+            --shadow: 5px 5px 0px rgba(0,0,0,0.4); /* 更深的阴影 */
+            --text-main: #1F2937;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 保留波点背景 */
+            background-image: radial-gradient(rgba(255,255,255,0.15) 15%, transparent 15%);
+            background-size: 24px 24px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* 顶部标题 - 绿色系 */
+        .main-header {
+            background: var(--card-bg);
+            border: var(--border);
+            padding: 25px 15px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transform: rotate(1deg);
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 2.8rem;
+            margin: 0;
+            color: var(--bg-color);
+            text-shadow: 2px 2px 0px #A7F3D0;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #065F46;
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+            background: #A7F3D0;
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid var(--bg-color);
+        }
+
+        /* 通用卡片 */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out backwards;
+        }
+
+        /* 视觉区 */
+        .panel-visual {
+            height: 180px;
+            background: #ECFDF5;
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景变体 */
+        .bg-dark { background: #064E3B; }
+        .bg-mint { background: #D1FAE5; }
+        .bg-fire { background: #FEF2F2; }
+        .bg-water { background: #EFF6FF; }
+
+        /* 文字区 */
+        .panel-text {
+            padding: 20px;
+        }
+
+        /* 章节标题 - 歪斜风格 */
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0 30px 0;
+        }
+
+        .section-title {
+            background: var(--primary);
+            color: white;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.8rem;
+            padding: 12px 40px;
+            border: var(--border);
+            transform: skewX(-12deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 0px #064E3B;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title span {
+            display: block;
+            transform: skewX(12deg);
+        }
+
+        /* 标签 */
+        .tag {
+            background: var(--bg-color);
+            color: #D1FAE5;
+            padding: 4px 12px;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid #000;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+            transform: rotate(-1deg);
+        }
+
+        /* 重点高亮 */
+        strong {
+            color: #047857;
+            background: #A7F3D0;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        /* 按钮 */
+        .btn-action {
+            background: var(--bg-color);
+            color: #fff;
+            border: var(--border);
+            padding: 12px;
+            width: 100%;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+            transition: all 0.1s;
+        }
+        
+        .btn-action:active {
+            transform: translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        .hidden-content {
+            display: none;
+            background: #fff;
+            border: 2px dashed #9CA3AF;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-anim { animation: pulse 2s infinite; }
+
+        @keyframes flow {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
+        }
+        .flowing-line {
+            stroke-dasharray: 5;
+            animation: flow 1s linear infinite;
+        }
+
+        /* SVG 通用 */
+        svg { width: 100%; height: 100%; max-width: 320px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="main-header">
+        <h1>思维模型：系统思维</h1>
+        <div class="subtitle">🌲 见树木，更要见森林</div>
+    </header>
+
+    <div class="panel" style="animation-delay: 0.1s;">
+        <div class="panel-visual bg-mint">
+            <svg viewBox="0 0 200 150">
+                <g transform="translate(100,75)">
+                    <circle cx="-50" cy="20" r="20" fill="#fff" stroke="#064E3B" stroke-width="2"/>
+                    <text x="-50" y="25" text-anchor="middle" font-size="10">要素</text>
+                    
+                    <circle cx="50" cy="20" r="20" fill="#fff" stroke="#064E3B" stroke-width="2"/>
+                    <text x="50" y="25" text-anchor="middle" font-size="10">要素</text>
+                    
+                    <circle cx="0" cy="-40" r="25" fill="#10B981" stroke="#064E3B" stroke-width="2" class="pulse-anim"/>
+                    <text x="0" y="-35" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">功能</text>
+                    
+                    <line x1="-30" y1="15" x2="30" y2="15" stroke="#064E3B" stroke-width="2"/>
+                    <line x1="-35" y1="5" x2="-15" y2="-20" stroke="#064E3B" stroke-width="2"/>
+                    <line x1="35" y1="5" x2="15" y2="-20" stroke="#064E3B" stroke-width="2"/>
+                </g>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">什么是系统？</div>
+            <p>系统大师德内拉·梅多斯在《系统之美》中指出，系统由三个要件组成：</p>
+            <ul>
+                <li><strong>要素：</strong>看得见的部件（如电子元件、生物）。</li>
+                <li><strong>连接：</strong>要素间的关系（如电流、捕食）。</li>
+                <li><strong>功能：</strong>系统运作的目标（如计算、平衡）。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>基础：运作三剑客</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.2s;">
+        <div class="panel-visual bg-water">
+            <svg viewBox="0 0 200 150">
+                <path d="M60 60 L60 110 L140 110 L140 60" fill="none" stroke="#064E3B" stroke-width="3"/>
+                <rect x="65" y="80" width="70" height="30" fill="#3B82F6" opacity="0.6"/>
+                <text x="100" y="100" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">存量 (水位)</text>
+                
+                <path d="M40 30 L65 70" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow)"/>
+                <text x="30" y="40" font-size="10">流量(入)</text>
+                
+                <path d="M135 100 L170 120" stroke="#3B82F6" stroke-width="3" marker-end="url(#arrow)"/>
+                <text x="170" y="110" font-size="10">流量(出)</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">1. 存量 & 2. 流量</div>
+            <p><strong>存量（Stock）：</strong>蓄水池里的水位、医院里的病人数量。它是积累的结果。</p>
+            <p><strong>流量（Flow）：</strong>流入流出的水、住院出院的人。它是动态的变化。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.3s;">
+        <div class="panel-visual bg-mint">
+            <svg viewBox="0 0 200 150">
+                <g transform="translate(50, 75)">
+                    <circle cx="0" cy="0" r="35" fill="none" stroke="#EF4444" stroke-width="2" stroke-dasharray="4"/>
+                    <text x="0" y="-10" text-anchor="middle" font-size="20">📈</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="bold">增强回路</text>
+                </g>
+                <g transform="translate(150, 75)">
+                    <circle cx="0" cy="0" r="35" fill="none" stroke="#10B981" stroke-width="2"/>
+                    <text x="0" y="-10" text-anchor="middle" font-size="20">⚖️</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="bold">调节回路</text>
+                </g>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">3. 反馈回路</div>
+            <p><strong>增强回路（滚雪球）：</strong>越A越B，越B越A。比如抢购商品，越少越抢。</p>
+            <p><strong>调节回路（不倒翁）：</strong>太高就降，太低就升。比如饿了吃饭，饱了停下。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>实战：狼与羊的悖论</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.4s;">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150">
+                <text x="60" y="80" font-size="30">🐺</text>
+                <text x="100" y="80" font-size="20">🍽️</text>
+                <text x="140" y="80" font-size="30">🐑</text>
+                <line x1="60" y1="100" x2="140" y2="100" stroke="#EF4444" stroke-width="3"/>
+                <text x="100" y="120" text-anchor="middle" font-size="12" fill="#EF4444" font-weight="bold">孤立视角：狼是坏蛋</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p><strong>孤立视角：</strong>狼吃羊。没有狼，羊就安全了。所以要杀光狼。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.5s;">
+        <div class="panel-visual bg-dark">
+            <svg viewBox="0 0 200 150">
+                <path d="M100 20 L160 110 L40 110 Z" fill="none" stroke="#10B981" stroke-width="2"/>
+                <text x="100" y="50" text-anchor="middle" font-size="20">🐺</text>
+                <text x="140" y="100" text-anchor="middle" font-size="20">🐑</text>
+                <text x="60" y="100" text-anchor="middle" font-size="20">🌿</text>
+                <path d="M110 55 L135 85" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M125 105 L75 105" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+                <path d="M65 85 L90 55" stroke="#fff" stroke-width="2" marker-end="url(#arrow)"/>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">系统视角</div>
+            <p><strong>调节回路：</strong>狼吃羊 → 羊减少 → 草长得好 → 羊又增多 → 狼有食吃。</p>
+            <div class="btn-action" onclick="toggleContent('wolf-secret')">👉 假如杀光了狼？(点击)</div>
+            <div id="wolf-secret" class="hidden-content">
+                <strong>后果是灾难性的！</strong><br>
+                羊没有天敌 → 疯狂繁殖 → 吃光草原 → 羊群饿死 + 沙漠化。<br>
+                结论：有狼才能有羊。狼维持了系统的平衡。
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>实战：大禹的智慧</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.6s;">
+        <div class="panel-visual bg-water">
+            <svg viewBox="0 0 200 150">
+                <path d="M20 75 Q100 20 180 75" fill="none" stroke="#3B82F6" stroke-width="10" opacity="0.3"/>
+                <path d="M20 75 Q100 20 180 75" fill="none" stroke="#3B82F6" stroke-width="2" class="flowing-line"/>
+                <rect x="90" y="60" width="20" height="40" fill="#064E3B"/>
+                <text x="100" y="120" text-anchor="middle" font-size="12" font-weight="bold">堵 vs 疏</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>洪水来了，盲目“堵”（对抗流量）会适得其反。</p>
+            <p><strong>都江堰系统：</strong>打造泄洪系统（引导流量），甚至利用调节回路，让水少时也能灌溉田地。这就是顺应系统的力量。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title" style="background: #EF4444;"><span>高阶：以火灭火</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.7s;">
+        <div class="panel-visual bg-fire">
+            <svg viewBox="0 0 200 150">
+                <text x="50" y="80" font-size="30">🔥</text>
+                <text x="150" y="80" font-size="30">🌲</text>
+                <text x="100" y="80" font-size="20">💨</text>
+                <text x="100" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#EF4444">下风处点火？疯了吗？</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">为什么系统思维难推广？</div>
+            <p>电影《勇往直前》中，消防员在下风处点火，烧掉燃料带，让大火过来时无物可烧。这很高明，但很难被理解。</p>
+            <div class="btn-action" style="background:#EF4444;" onclick="toggleContent('hard-reason')">👉 查看三大阻碍</div>
+            <div id="hard-reason" class="hidden-content">
+                <ol>
+                    <li><strong>不直观：</strong>常识告诉我们“水才能灭火”，反直觉的操作（点火）会颠覆认知。</li>
+                    <li><strong>见效慢：</strong>系统有延迟（Delay）。吃药立马见效，但锻炼身体需要长期坚持。</li>
+                    <li><strong>难解释：</strong>当你解释“烧光可燃物”的原理时，外行早已失去耐心：“火都烧眉毛了你还在点火？！”</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background: #064E3B; color: #fff; border: 3px solid #10B981; margin-top: 40px;">
+        <div class="panel-text">
+            <h2 style="font-family:'Zcool KuaiLe'; color: #10B981; margin-top:0;">🏆 结语</h2>
+            <p>系统思维虽然 <strong>不直观、见效慢、难解释</strong>，但它能让你看到事物的根源。</p>
+            <p>从今天起，不再只盯着“狼吃羊”（孤立事件），试着去寻找背后的“生态平衡”（系统功能）。如果你能掌握它，你将非常了不起。</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        var content = document.getElementById(id);
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+            // 震动反馈
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战胜逆境：十字箴言（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：生存与希望 (Survival & Hope) */
+            --bg-color: #ff9f43;       /* 活力橙背景 */
+            --dot-color: #ee5253;      /* 红色波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2d3436;     /* 深灰文字 */
+            --border-color: #2d3436;   /* 粗边框色 */
+            
+            --accent-blue: #54a0ff;    /* 理智蓝 (看脚下) */
+            --accent-green: #1dd1a1;   /* 生长绿 (不断行) */
+            --accent-yellow: #feca57;  /* 佛系黄 (莫存顺逆) */
+            --alert-red: #ff6b6b;      /* 警示 */
+
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 优化点：增加全局行高和字间距 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            /* 优化点：加宽容器至 800px */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action, .golden-sentence {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 优化点：标题类字体字间距加大 */
+            letter-spacing: 0.12em; 
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px; /* 增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+            /* 优化点：防止大标题被截断 */
+            line-height: 1.3;
+            padding: 10px; 
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.6rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 确保标题显示完整 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* SVG 动画 */
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 章节标题 */
+        .section-tag {
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            padding: 12px 35px;
+            color: white;
+            border: 3px solid var(--border-color);
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff;
+            border-left: 8px solid var(--border-color);
+            padding: 25px;
+            margin: 30px 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 35px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #fff;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 列表样式 */
+        ul.retro-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.retro-list li {
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        ul.retro-list li::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            color: var(--dot-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            top: 2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        /* 底部金句样式 */
+        .golden-sentence {
+            display: inline-block;
+            font-size: 2rem;
+            background: white;
+            padding: 20px 40px;
+            border: 5px solid var(--border-color);
+            transform: rotate(1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>战胜逆境</h1>
+        <div class="subtitle">十字箴言：心法篇</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="120" height="120" viewBox="0 0 100 100" class="floating">
+                <path d="M20,40 Q35,20 50,40 T80,40" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round"/>
+                <path d="M30,35 Q45,15 60,35 T90,35" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round" opacity="0.5"/>
+                <path d="M50,45 L40,65 L55,65 L45,85" fill="none" stroke="#ff6b6b" stroke-width="5" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2 style="text-align: center; color: var(--border-color); font-size: 2.5rem;">无常是常</h2>
+        <p>顺境时我们讲“不着急，不害怕，不要脸”。<br>
+        但当百年不遇的逆境（如疫情、失业）来临时，我们需要新的心法：</p>
+        <div class="highlight-box" style="text-align: center; font-size: 1.6rem; background: var(--accent-yellow);">
+            看脚下 · 不断行 · 莫存顺逆
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-blue);">01 看脚下</div>
+        <h3>🌪 不要惊慌，盯着现金流</h3>
+        <p>逆境来了，大困难来了，最可怕的是自己把自己吓死。怎么看脚下？最重要的就是看<strong>现金流 (Burning Rate)</strong>。</p>
+        
+        <div style="display: flex; align-items: center; margin: 30px 0; background: rgba(255,255,255,0.6); padding: 25px; border-radius: 12px; border: 3px dashed var(--border-color);">
+            <svg width="80" height="80" viewBox="0 0 100 100" style="flex-shrink: 0; margin-right: 25px;">
+                <circle cx="50" cy="50" r="40" fill="#54a0ff" stroke="#2d3436" stroke-width="3"/>
+                <path d="M35,35 L65,35 L65,65 L35,65 Z" fill="white" stroke="#2d3436" stroke-width="3"/>
+                <text x="50" y="55" text-anchor="middle" font-size="20" font-weight="bold">$</text>
+            </svg>
+            <p style="font-size: 1.2rem; margin: 0; line-height: 1.6;"><strong>基本消耗：</strong>你、你的家庭、你的组织，每个月如果不进账，要烧掉多少钱？</p>
+        </div>
+
+        <p>如果手里的现金能支撑6-12个月，你就能活下来，甚至熬死对手接管市场。</p>
+
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--accent-blue);">
+            🛠 点击查看：如何狠降消耗？
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <h4 style="font-size: 1.4rem; color: var(--accent-blue); margin-bottom: 20px;">✂️ 狠狠地削减 (衣食住行)</h4>
+            <ul class="retro-list">
+                <li><strong>衣/食：</strong>真的需要买那么多吗？吃那么多吗？</li>
+                <li><strong>住：</strong>12平米其实足够一个人读书享受。</li>
+                <li><strong>行：</strong>5公里内骑车/走路，省钱又健身。</li>
+                <li><strong>企业：</strong>清理冗员（混日子的），砍掉不必要的差旅和写字楼。</li>
+            </ul>
+            <p style="font-size:1.1rem; color: #444; background: #eef; padding: 15px; border-radius: 8px; margin-top: 20px;">💡 <strong>策略：</strong>甚至可以跟核心上下游谈谈，哪怕大家一起减薪，也要保住现金流不断。</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-green);">02 不断行</div>
+        <h3>🏃‍♂️ 拒绝停滞，培养微习惯</h3>
+        <p>避免心智陷阱：不要怪天怪地怪社会，不要花大量时间刷负面新闻。这些对你于事无补。</p>
+        
+        <div class="highlight-box">
+            “逆境期间，能干嘛，让干嘛，就干嘛。”
+        </div>
+
+        <p>如果你宅不住，说明你是一个“不能和自己相处”的人。利用这段时间，给自己充电。</p>
+
+        <button class="btn-action" onclick="toggleContent('content2', this)" style="background: var(--accent-green);">
+            🔋 点击查看：逆境充电指南
+        </button>
+
+        <div id="content2" class="hidden-content">
+            <h4 style="font-size: 1.4rem; color: var(--accent-green); margin-bottom: 20px;">🌱 习惯养成的黄金期</h4>
+            <ul class="retro-list">
+                <li><strong>微型改进：</strong>战胜拖延症。不需要明天6点起，先试着把起床时间提早30分钟。</li>
+                <li><strong>美好小事：</strong>自己手冲咖啡、看云、高强度运动15分钟、读老书。</li>
+                <li><strong>工作不停：</strong>如果工作没停你，你就别停工作。</li>
+            </ul>
+            <p style="border-top: 2px solid #eee; padding-top:20px; margin-top:20px; font-style: italic; color: #666;">
+                <strong>曾国藩心法：</strong>“大局日坏，吾辈不可不竭力支持，做一分算一分，在一日撑一日。”
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-yellow); color: var(--text-color);">03 莫存顺逆</div>
+        <h3>🌊 日日是好日</h3>
+        
+        <div style="float: right; width: 120px; margin-left: 25px;">
+            <svg width="120" height="120" viewBox="0 0 100 100">
+                <path d="M20,60 Q50,90 80,60 T90,20 Q50,40 20,60" fill="#feca57" stroke="#2d3436" stroke-width="3"/>
+                <path d="M10,70 Q50,100 90,70" fill="none" stroke="#54a0ff" stroke-width="4"/>
+            </svg>
+        </div>
+
+        <p>不要把生活两分为“顺境”和“逆境”。</p>
+        <p>就像那个冲浪的CEO说的：<strong>“这就是日常啊！既然做了高管，遇上的所有东西就都是事啊。”</strong></p>
+        <p>生命总有起伏，就像一年总有春夏秋冬。把逆境当成正常的日子过，用平常心去看。</p>
+    </div>
+
+    <footer>
+        <div class="golden-sentence">
+            “日日是好日，做一分算一分”
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈 (部分移动端支持)
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            // 恢复按钮文字
+            if(id === 'content1') btn.innerHTML = "🛠 点击查看：如何狠降消耗？";
+            if(id === 'content2') btn.innerHTML = "🔋 点击查看：逆境充电指南";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            // 自动滚动到内容处
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

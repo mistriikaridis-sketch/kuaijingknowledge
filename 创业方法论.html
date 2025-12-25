@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：创业的本质</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 多巴胺配色方案 (Dopamine Pop) */
+            --bg-color: #FFF0F5;      /* 浅粉背景 */
+            --dot-color: #FF69B4;     /* 热粉波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #000000;  /* 纯黑硬边框 */
+            
+            --color-hot-pink: #FF00CC;   /* 高能粉 - 核心主色 */
+            --color-electric-blue: #00FFFF; /* 电光蓝 - 逻辑/思考 */
+            --color-lemon: #FAFF00;      /* 柠檬黄 - 财富/警示 */
+            --color-lime: #39FF14;       /* 荧光绿 - 行动 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 8px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #1A1A1A;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-hot-pink); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .toggle-btn {
+            display: block; width: 100%; padding: 12px; border: 2px solid black; background: var(--color-electric-blue); font-weight: bold; cursor: pointer; border-radius: 8px; text-align: left; margin-bottom: 10px; position: relative; box-shadow: 4px 4px 0 black;
+        }
+        .toggle-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 black; }
+        .toggle-btn::after { content: '👇'; position: absolute; right: 15px; }
+        .toggle-btn.active::after { content: '👆'; }
+
+        .hidden-content { display: none; padding: 15px; border: 2px dashed #ccc; border-top: none; background: #fff; margin-top: -12px; border-radius: 0 0 8px 8px; margin-bottom: 15px; }
+        .hidden-content.active { display: block; }
+
+        .detail-box {
+            display: none; margin-top: 15px; padding: 15px; border-radius: 8px; border: 2px solid black;
+        }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: #1A1A1A; color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>创业方法论</h1>
+        <p style="font-weight:bold;">Entrepreneurship 101</p>
+    </header>
+
+    <section class="card">
+        <h2>🚀 创业不是赌博</h2>
+        <p>如果你觉得创业是九死一生，说明你在赌博。<strong>真正的创业是做确定性的事。</strong></p>
+        <p>点击下方按钮，拆解创业的三个核心要素：</p>
+        
+        <div style="margin-top:20px;">
+            <button class="toggle-btn" onclick="showDetail('product')">📦 产品 (Product)</button>
+            <button class="toggle-btn" onclick="showDetail('traffic')">🌊 流量 (Traffic)</button>
+            <button class="toggle-btn" onclick="showDetail('conversion')">💰 转化 (Conversion)</button>
+        </div>
+
+        <div id="detail-box" class="detail-box">
+            <h4 id="detail-title" style="margin-top:0; font-weight:bold;"></h4>
+            <p id="detail-text"></p>
+        </div>
+    </section>
+
+    <section class="card" style="border-color: var(--color-hot-pink);">
+        <h2 style="color:var(--color-hot-pink);">🧠 逆向思考</h2>
+        <p>普通人想：我要开公司 -> 我要招人 -> 我要搞产品 -> 卖给谁？</p>
+        <p><strong>高手想：</strong></p>
+        <div style="background: var(--color-lemon); padding: 15px; border-radius: 8px; border: 2px solid black; font-weight: bold;">
+            谁有痛点？(需求) -> 怎么解决？(方案) -> 收钱 (验证) -> 甚至不需要开公司。
+        </div>
+        
+        <button class="toggle-btn" style="background:var(--color-lime); margin-top:20px;" onclick="toggleContent('secret-logic')">
+            🔑 点击查看：资源整合心法
+        </button>
+        
+        <div id="secret-logic" class="hidden-content">
+            <ul style="padding-left:20px; line-height:1.8;">
+                <li><strong>不要从自己出发：</strong> 别总想“我会什么”，要看“市场缺什么”。</li>
+                <li><strong>资源整合：</strong> 高手不看自己有什么，看需要什么，然后去找有的人合作。</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-text">“做大事和做小事的难度是一样的。<br>既然都要累，不如做大事。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isActive = content.classList.contains('active');
+        content.classList.toggle('active');
+        if (!isActive && navigator.vibrate) navigator.vibrate(20);
+    }
+
+    function showDetail(type) {
+        const box = document.getElementById('detail-box');
+        const title = document.getElementById('detail-title');
+        const text = document.getElementById('detail-text');
+        
+        box.style.display = 'block';
+        if (navigator.vibrate) navigator.vibrate(20);
+
+        if (type === 'product') {
+            box.style.backgroundColor = '#FFF0F5'; // Pink bg
+            title.innerText = "产品 (Product)";
+            text.innerText = "我要卖什么？能给客户解决什么具体问题？（例：扫地太累 -> 扫地机器人）";
+        } else if (type === 'traffic') {
+            box.style.backgroundColor = '#E0FFFF'; // Blue bg
+            title.innerText = "流量 (Traffic)";
+            text.innerText = "客户在哪里？我如何让他们看到我？（例：小红书笔记、搜索引擎优化）";
+        } else if (type === 'conversion') {
+            box.style.backgroundColor = '#F0FFF0'; // Green bg
+            title.innerText = "转化 (Conversion)";
+            text.innerText = "客户为什么要现在买？如何建立信任？（例：限时优惠、用户评价）";
+        }
+    }
+</script>
+
+</body>
+</html>

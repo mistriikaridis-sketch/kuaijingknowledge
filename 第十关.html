@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.10：销售转化闭环</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #F44336;   /* 热情红 */
+            --blue: #2196F3;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--red);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--red);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        .step-box {
+            border-left: 3px solid #eee;
+            padding-left: 20px;
+            margin-left: 10px;
+        }
+        .step-item {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .step-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--red);
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 1px var(--red);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.10</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">🤝 提升转化率的四个步骤</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">AIDA 模型</div>
+            <p>所有的线下成交都遵循这个心理学模型：</p>
+            <div class="step-box">
+                <div class="step-item">
+                    <strong>Attention (注意)：</strong><br>
+                    <span style="font-size:0.9rem; color:#666;">通过陈列、灯光、声音让路人停下脚步。</span>
+                </div>
+                <div class="step-item">
+                    <strong>Interest (兴趣)：</strong><br>
+                    <span style="font-size:0.9rem; color:#666;">产品可触摸、可试用，产生连接。</span>
+                </div>
+                <div class="step-item">
+                    <strong>Desire (欲望)：</strong><br>
+                    <span style="font-size:0.9rem; color:#666;">描述使用场景，解决用户痛点。</span>
+                </div>
+                <div class="step-item">
+                    <strong>Action (行动)：</strong><br>
+                    <span style="font-size:0.9rem; color:#666;">临门一脚，消除顾虑（如：“不喜欢包退”）。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">🎓 结业寄语</h2>
+            <p><strong>恭喜你修完《微零售商业实战》！</strong></p>
+            <p style="margin-top:10px;">商业的本质是创造价值。无论规模大小，请保持对用户的敬畏和对品质的坚持。</p>
+            <div style="text-align:center; margin-top:20px;">
+                <button onclick="alert('加油！行动创造结果！')" style="padding:10px 30px; background:var(--red); color:white; border:none; border-radius:50px; font-size:1.2rem; font-weight:bold; cursor:pointer;">🚀 开启实战</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

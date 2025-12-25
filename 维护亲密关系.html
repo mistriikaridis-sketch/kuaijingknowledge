@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亲密关系：大脑重塑计划</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 浪漫极简配色 */
+            --bg-color: #FFF0F5;      /* 薰衣草绯红背景 */
+            --dot-color: #E6A8D7;     /* 柔和点阵 */
+            --card-bg: #FFFFFF;
+            --border-color: #4A235A;  /* 深紫边框 - 优雅且稳重 */
+            
+            --color-love: #D81B60;    /* 核心主色 - 热爱/催产素 */
+            --color-calm: #8E44AD;    /* 镇静紫 - 长期关系 */
+            --color-anxiety: #E74C3C; /* 焦虑红 - 冲突 */
+            --color-growth: #F1C40F;  /* 成长黄 - 镜像神经元 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 8px;
+            --card-shadow: var(--shadow-offset) var(--shadow-offset) 0px var(--border-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 3px, transparent 3px);
+            background-size: 40px 40px;
+            color: var(--border-color);
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px; /* 宽屏设定 */
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: var(--border-color);
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 4rem; margin-bottom: 20px; }
+        h3 { font-size: 2.4rem; margin-bottom: 25px; }
+        p { margin-bottom: 20px; }
+
+        .highlight {
+            background: linear-gradient(120deg, transparent 0%, transparent 60%, #FFC1CC 60%, #FFC1CC 100%);
+            padding: 0 5px;
+            font-weight: bold;
+        }
+
+        /* ---------------- Header ---------------- */
+        .header {
+            text-align: center;
+            background: var(--color-love);
+            padding: 80px 40px;
+            border-bottom: 6px solid var(--border-color);
+            overflow: hidden;
+        }
+        
+        .header h1 { color: #fff; text-shadow: 4px 4px 0 var(--border-color); }
+        
+        .header-tag {
+            font-size: 1.6rem;
+            font-weight: bold;
+            background: #fff;
+            color: var(--border-color);
+            padding: 12px 35px;
+            border: 4px solid var(--border-color);
+            border-radius: 60px;
+            display: inline-block;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            height: 150px;
+        }
+        
+        @keyframes heartbeat { 0% { transform: scale(1); } 20% { transform: scale(1.1); } 40% { transform: scale(1); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        @keyframes connect { 0% { stroke-dashoffset: 100; } 100% { stroke-dashoffset: 0; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        .anim-heartbeat { transform-origin: center; animation: heartbeat 1.5s ease-in-out infinite; }
+        .anim-float { animation: float 3s ease-in-out infinite; }
+        
+        /* ---------------- Panel 1: Attachment Styles ---------------- */
+        .attachment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .type-card {
+            border: 3px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            background: #FFF;
+        }
+
+        .type-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* ---------------- Panel 2: The Hand-Holding Experiment ---------------- */
+        .panel-experiment {
+            background: #FDF2E9; /* 温暖肤色调 */
+        }
+
+        .voltage-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .meter {
+            width: 200px;
+            height: 30px;
+            background: #fff;
+            border: 3px solid var(--border-color);
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .meter-fill {
+            height: 100%;
+            width: 80%; /* Initial High */
+            background: var(--color-anxiety);
+            transition: width 1s ease, background 1s ease;
+        }
+
+        .btn-hand {
+            background: var(--color-love);
+            color: #fff;
+            border: 4px solid var(--border-color);
+            padding: 20px 50px;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 1.8rem;
+            cursor: pointer;
+            border-radius: 60px;
+            transition: all 0.3s;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.15);
+        }
+
+        .btn-hand:hover {
+            transform: scale(1.05);
+            background: #C2185B;
+        }
+        
+        .btn-hand.active {
+            background: var(--color-calm);
+            content: "已握手";
+        }
+
+        /* ---------------- Panel 3: Mirror Neurons ---------------- */
+        .mirror-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .brain-half {
+            width: 120px;
+            height: 150px;
+            border: 4px solid var(--border-color);
+            border-radius: 60px 0 0 60px;
+            background: #fff;
+            position: relative;
+        }
+        
+        .brain-half.right {
+            border-radius: 0 60px 60px 0;
+            transform: scaleX(-1);
+        }
+
+        .signal-wave {
+            stroke-dasharray: 10;
+            animation: connect 1s linear infinite reverse;
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 4px dashed #D7BDE2;
+        }
+        .quote {
+            font-size: 1.6rem;
+            font-style: italic;
+            color: #555;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-box">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+                <path d="M20 50 Q20 20 50 20 Q80 20 80 50 Q80 80 50 80 Q20 80 20 50" fill="#fff" stroke="#4A235A" stroke-width="4"/>
+                <path d="M50 45 C40 35 30 40 30 50 C30 65 50 75 50 75 C50 75 70 65 70 50 C70 40 60 35 50 45" fill="#D81B60" stroke="#4A235A" stroke-width="3" class="anim-heartbeat"/>
+                <circle cx="30" cy="35" r="4" fill="#4A235A"/>
+                <circle cx="70" cy="35" r="4" fill="#4A235A"/>
+                <line x1="30" y1="35" x2="50" y2="45" stroke="#4A235A" stroke-width="2"/>
+                <line x1="70" y1="35" x2="50" y2="45" stroke="#4A235A" stroke-width="2"/>
+            </svg>
+        </div>
+        <h1>亲密关系<br>大脑重塑计划</h1>
+        <div class="header-tag">爱，是最高级的脑力训练</div>
+    </header>
+
+    <section class="card">
+        <h3>💓 为什么恋爱让人变了？</h3>
+        <p>突然爱笑、愿意尝试新食物、甚至性格大变？这不仅仅是心情好，而是你的<strong>基因表达方式</strong>被改写了。</p>
+        <p>加州大学研究表明：<strong>环境（爱与被爱）可以开启或关闭某些基因。</strong> 爱就像一种环境代码，重写了你的“出厂设置”。</p>
+    </section>
+
+    <section class="card">
+        <h3>🧩 你的“出厂设置”：依恋类型</h3>
+        <p>童年经历决定了我们最初的恋爱模式，但成年后的恋爱可以<strong>二次重塑</strong>它。</p>
+        
+        <div class="attachment-grid">
+            <div class="type-card" style="background:#E8F8F5;">
+                <span class="type-icon">🛡️</span>
+                <h4>安全型</h4>
+                <p>遇事寻求支持<br>也能提供支持</p>
+            </div>
+            <div class="type-card" style="background:#FDEDEC;">
+                <span class="type-icon">😰</span>
+                <h4>焦虑型</h4>
+                <p>害怕被抛弃<br>容易夸大伤害</p>
+            </div>
+            <div class="type-card" style="background:#F4ECF7;">
+                <span class="type-icon">🐢</span>
+                <h4>回避型</h4>
+                <p>遇事退缩<br>拒绝深层交流</p>
+            </div>
+        </div>
+        <p style="margin-top:20px; font-size:1rem; color:#666; text-align:center;">
+            💡 好消息：好的伴侣可以把“焦虑/回避型”慢慢治愈成“安全型”。
+        </p>
+    </section>
+
+    <section class="card panel-experiment">
+        <h3>⚡ 著名的“握手实验”</h3>
+        <p>弗吉尼亚大学实验：当脚踝受到电击时，如果握着爱人的手，大脑的疼痛反应会发生神奇变化。</p>
+        
+        <div class="voltage-box">
+            <div style="text-align:center;">
+                <div style="font-weight:bold; margin-bottom:5px;">疼痛指数</div>
+                <div class="meter"><div id="pain-bar" class="meter-fill"></div></div>
+            </div>
+        </div>
+
+        <div style="text-align:center;">
+            <button id="btn-hold" class="btn-hand" onclick="holdHand()">
+                🤝 握住爱人的手
+            </button>
+        </div>
+        
+        <div id="experiment-result" style="margin-top:25px; text-align:center; opacity:0; transition:opacity 0.5s;">
+            <p><strong>结果：</strong> 血压降低，焦虑平复，疼痛感大幅减弱。</p>
+            <p class="highlight">爱是天然的镇痛剂。</p>
+        </div>
+    </section>
+
+    <section class="card">
+        <h3>🪞 镜像神经元：同心的秘密</h3>
+        <p>为什么丈夫看到妻子生孩子会感到痛？因为<strong>镜像神经元 (Mirror Neurons)</strong>。</p>
+        
+        <div class="mirror-container">
+            <div class="brain-half">
+                <div style="position:absolute; top:40%; left:40%; font-size:2rem;">😭</div>
+            </div>
+            
+            <svg width="100" height="50">
+                <line x1="0" y1="25" x2="100" y2="25" stroke="#F1C40F" stroke-width="4" stroke-dasharray="10 5" class="signal-wave"/>
+            </svg>
+
+            <div class="brain-half right">
+                 <div style="position:absolute; top:40%; left:40%; font-size:2rem; transform:scaleX(-1);">😣</div>
+            </div>
+        </div>
+
+        <p>它让我们变成对方的一面镜子。关系越亲密，这面镜子越清晰。这就解释了为什么恋爱能提高情商——<strong>你学会了感同身受。</strong></p>
+    </section>
+
+    <section class="card" style="border-color: var(--color-calm);">
+        <h3>👯‍♀️ 别忘了友情！</h3>
+        <p>亲密关系不仅指恋人。拥有一个“好闺蜜/好兄弟”也是大脑的缓冲垫。</p>
+        <ul style="list-style:none; padding:0; text-align:center; font-weight:bold; font-size:1.2rem;">
+            <li style="margin-bottom:10px;">单身时 ➡ 让你不孤单</li>
+            <li>婚姻中 ➡ 缓冲冲突压力</li>
+        </ul>
+    </section>
+
+    <footer class="footer">
+        <p class="quote">“先天的基因是硬件，后天的爱是软件。爱能让你的系统重获新生。”</p>
+        <p style="margin-top:20px; font-weight:bold;">— 亲密关系心理学</p>
+    </footer>
+
+</div>
+
+<script>
+    function holdHand() {
+        const bar = document.getElementById('pain-bar');
+        const btn = document.getElementById('btn-hold');
+        const result = document.getElementById('experiment-result');
+
+        // Change bar visual
+        bar.style.width = '20%';
+        bar.style.backgroundColor = '#8E44AD'; // Change to Calm Purple
+
+        // Change button state
+        btn.innerText = "❤️ 已连接";
+        btn.style.backgroundColor = "#8E44AD";
+        
+        // Show text
+        result.style.opacity = '1';
+
+        // Haptic feedback
+        if (navigator.vibrate) {
+            navigator.vibrate([50, 50, 50]); // Heartbeat pattern
+        }
+    }
+</script>
+
+</body>
+</html>

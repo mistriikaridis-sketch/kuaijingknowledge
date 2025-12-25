@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：流量思维</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 酸性赛博多巴胺配色 (Cyber Acid Pop) */
+            --bg-color: #F3E5F5;      /* 浅紫丁香背景 */
+            --dot-color: #E1BEE7;     /* 紫罗兰波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #000000;  /* 纯黑硬边框 */
+            
+            --color-flow: #D500F9;    /* 电光紫 - 流量/磁力 */
+            --color-growth: #76FF03;  /* 荧光绿 - 增长/转化 */
+            --color-logic: #00E5FF;   /* 激光蓝 - 策略/矩阵 */
+            --color-alert: #FF1744;   /* 警示红 - 钩子 */
+
+            --border-width: 4px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #1A1A1A;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-flow); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .horse-track {
+            position: relative; height: 40px; background: #eee; border-radius: 20px; margin: 10px 0; overflow: hidden; border: 2px solid black;
+        }
+        .horse {
+            position: absolute; top: 0; left: 0; height: 100%; display: flex; align-items: center; padding: 0 10px; font-weight: bold; color: white; transition: left 1s ease-out;
+        }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: var(--color-flow); color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>流量思维</h1>
+        <p style="font-weight:bold;">Traffic & Attention</p>
+    </header>
+
+    <section class="card">
+        <h2>🌊 流量的本质是注意力</h2>
+        <p>不要把流量看作数据，它是<strong>活生生的人的时间</strong>。</p>
+        <p>点击下方按钮，看三类内容的传播速度：</p>
+        
+        <button onclick="toggleContent('race-track')" style="width:100%; padding:10px; background:black; color:white; font-weight:bold; border-radius:8px; cursor:pointer;">🏁 开始赛马</button>
+
+        <div id="race-track" style="margin-top:20px;">
+            <div class="horse-track">
+                <div id="h1" class="horse" style="background:var(--color-alert); width:120px;">情绪/八卦</div>
+            </div>
+            <div class="horse-track">
+                <div id="h2" class="horse" style="background:var(--color-logic); width:120px;">干货/知识</div>
+            </div>
+            <div class="horse-track">
+                <div id="h3" class="horse" style="background:#999; width:120px;">自我感动</div>
+            </div>
+        </div>
+        <p style="font-size:0.8rem; color:#666; margin-top:5px;">* 情绪传播最快，但干货转化最高。</p>
+    </section>
+
+    <section class="card" style="border-color: var(--color-growth);">
+        <h2 style="color:var(--color-growth);">🎯 精准流量法则</h2>
+        <div style="background:#F5F5F5; padding:15px; border-radius:8px;">
+            <ul style="list-style:none; padding:0;">
+                <li style="margin-bottom:20px;">
+                    🚫 <strong>拒绝泛流量：</strong><br>
+                    借势热点、吃瓜流量看起来很大，但难以转化。内容必须和产品<strong>强匹配</strong>。
+                </li>
+                <li style="margin-bottom:20px;">
+                    🎯 <strong>锁定人群，而非项目：</strong><br>
+                    锁定“副业人群”，你可以卖社群、卖课、卖服务。锁定“单一项目”，你只能卖一样东西。
+                </li>
+                <li>
+                    📚 <strong>拆解标杆：</strong><br>
+                    想做哪个类目，把近三个月的爆款全部整理下来。答案就在里面，多临摹，少创造。
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-text">“流量也不重要，<br>重要的是流量转化的能力。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isActive = content.classList.contains('active');
+        content.classList.toggle('active');
+        
+        // 赛马动画触发
+        if (!isActive) {
+            document.getElementById('h1').style.left = '80%';
+            document.getElementById('h2').style.left = '60%';
+            document.getElementById('h3').style.left = '20%';
+        } else {
+            document.getElementById('h1').style.left = '0%';
+            document.getElementById('h2').style.left = '0%';
+            document.getElementById('h3').style.left = '0%';
+        }
+    }
+</script>
+
+</body>
+</html>

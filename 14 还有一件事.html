@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>还有一件事 - 极简创业行动篇</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-start: #00b894;    /* 行动绿 */
+            --bg-pattern: #55efc4;  /* 浅绿波纹 */
+            --card-white: #ffffff;
+            --text-black: #2d3436;
+            
+            --accent-pink: #e84393; /* 活力粉 */
+            --accent-yellow: #fdcb6e; /* 奖杯黄 */
+            
+            --border-width: 4px;
+            --shadow-hard: 8px 8px 0px rgba(0,0,0,0.8);
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-start);
+            /* 赛道终点旗风格背景 */
+            background-image: 
+                linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern)),
+                linear-gradient(45deg, var(--bg-pattern) 25%, transparent 25%, transparent 75%, var(--bg-pattern) 75%, var(--bg-pattern));
+            background-position: 0 0, 20px 20px;
+            background-size: 40px 40px;
+            color: var(--text-black);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .comic-font {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .apple-style-badge {
+            background: #000;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            display: inline-block;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            margin: 0;
+            line-height: 1.2;
+            transform: rotate(-2deg);
+        }
+
+        /* 卡片通用 */
+        .card {
+            background: var(--card-white);
+            border: var(--border-width) solid var(--text-black);
+            border-radius: 12px;
+            box-shadow: var(--shadow-hard);
+            padding: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 1.8rem;
+            margin-top: 0;
+            border-bottom: 3px dashed #dfe6e9;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* 01. 路线图回顾 (Checkbox) */
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .check-item {
+            background: #f1f2f6;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .check-item:hover {
+            border-color: var(--text-black);
+            transform: translateX(5px);
+        }
+
+        .check-box {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--text-black);
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .check-item.checked .check-box {
+            background: var(--bg-start);
+            border-color: var(--bg-start);
+        }
+        
+        .check-item.checked .check-box::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        .check-item.checked {
+            text-decoration: line-through;
+            opacity: 0.6;
+            background: #dfe6e9;
+        }
+
+        /* 02. 失败与成功 */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            padding: 20px;
+            border: 2px solid var(--text-black);
+            border-radius: 8px;
+        }
+
+        .big-num {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+            display: block;
+        }
+
+        /* 03. 终极行动按钮 */
+        .start-container {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .btn-start {
+            background: var(--accent-pink);
+            color: white;
+            font-family: 'ZCOOL KuaiLe';
+            font-size: 2.5rem;
+            padding: 20px 60px;
+            border: 4px solid var(--text-black);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 0 var(--text-black);
+            transition: all 0.1s;
+            position: relative;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+        }
+
+        .btn-start:active {
+            transform: translateY(10px);
+            box-shadow: 0 0 0 var(--text-black);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 装饰箭头 */
+        .arrow-down {
+            text-align: center;
+            font-size: 3rem;
+            margin: 20px 0;
+            color: white;
+            text-shadow: 2px 2px 0 #000;
+            animation: float 1s infinite alternate;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(10px); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <div class="apple-style-badge">ONE MORE THING</div>
+            <h1 class="comic-font">还有一件事</h1>
+            <p style="color:white; font-weight:bold; font-size:1.2rem; margin-top:10px;">
+                终点线也是起跑线
+            </p>
+        </header>
+
+        <div class="card">
+            <h2>📝 你的行动清单</h2>
+            <p>让我们从头回顾一遍，你是否已经准备好了？</p>
+            
+            <ul class="checklist">
+                <li class="check-item" onclick="toggleCheck(this)">
+                    <div class="check-box"></div>
+                    <div>找到一个对的社区并成为支柱</div>
+                </li>
+                <li class="check-item" onclick="toggleCheck(this)">
+                    <div class="check-box"></div>
+                    <div>先用人工流程解决问题 (Manual Process)</div>
+                </li>
+                <li class="check-item" onclick="toggleCheck(this)">
+                    <div class="check-box"></div>
+                    <div>构建 MVP (最小化可行产品)</div>
+                </li>
+                <li class="check-item" onclick="toggleCheck(this)">
+                    <div class="check-box"></div>
+                    <div>手动获取前 100 个付费客户</div>
+                </li>
+                <li class="check-item" onclick="toggleCheck(this)">
+                    <div class="check-box"></div>
+                    <div>开始盈利并掌控自己的命运</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🎲 只需要做对一次</h2>
+            <p>Sahil 在 Gumroad 之前做了几十个失败的产品。这没关系。</p>
+            
+            <div class="stat-grid">
+                <div class="stat-box" style="background: #fab1a0;">
+                    <span class="big-num">99</span>
+                    <span style="font-weight:bold;">次失败</span>
+                    <br><span style="font-size:0.8rem;">这是学习的过程</span>
+                </div>
+                <div class="stat-box" style="background: var(--accent-yellow);">
+                    <span class="big-num">1</span>
+                    <span style="font-weight:bold;">次成功</span>
+                    <br><span style="font-size:0.8rem;">这就足够了！</span>
+                </div>
+            </div>
+            
+            <p style="margin-top:20px; text-align:center; font-weight:bold;">
+                “不是为了避免失败，而是为了最终获得成功。”
+            </p>
+        </div>
+
+        <div class="card" style="background: #2d3436; color: white; border-color: white;">
+            <h2 style="color: var(--bg-start); border-color: #636e72;">🌏 人类的未来</h2>
+            <p>如果你觉得现在创业太晚了，请耐心一点。</p>
+            <p>
+                <span style="background: var(--bg-start); padding: 0 5px; color:black; font-weight:bold;">人类才刚刚开始。</span> 
+                今天的任何做事方式，未来都会被改变。
+            </p>
+            <p>你会通过做自己热爱的事得到报酬，你的生活和工作将协调一致。</p>
+        </div>
+
+        <div class="arrow-down">👇</div>
+
+        <div class="start-container">
+            <button class="btn-start" onclick="launchRocket(this)">
+                开始行动<br>
+                <span style="font-size:1rem; font-family:'Noto Sans SC'; opacity:0.8;">JUST START</span>
+            </button>
+        </div>
+
+        <footer>
+            <p>Made with ❤️ based on "The Minimalist Entrepreneur"</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleCheck(item) {
+            if(navigator.vibrate) navigator.vibrate(15);
+            item.classList.toggle('checked');
+        }
+
+        function launchRocket(btn) {
+            if(navigator.vibrate) navigator.vibrate([50, 100, 50, 100, 200]);
+            
+            btn.style.animation = 'none';
+            btn.innerHTML = "🚀 出发！";
+            btn.style.backgroundColor = "#2d3436";
+            
+            // 简单的庆祝效果
+            document.body.style.backgroundColor = "#e84393";
+            setTimeout(() => {
+                alert("祝你好运！现在的每一步，都在让你变得更好。");
+            }, 500);
+        }
+    </script>
+
+</body>
+</html>

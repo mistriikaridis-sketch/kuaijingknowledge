@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：产品闭环思维</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 包豪斯积木配色 (Bauhaus Pop) */
+            --bg-color: #F4F4F4;      /* 工业灰白背景 */
+            --dot-color: #CCCCCC;     /* 灰色波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #000000;  /* 纯黑结构线 */
+            
+            --color-product: #2979FF; /* 绝对蓝 - 产品/理性 */
+            --color-market: #FF3D00;  /* 高饱和红 - 营销/热度 */
+            --color-moat: #FFEA00;    /* 几何黄 - 护城河/价值 */
+            --color-action: #00E676;  /* 亮绿 - 迭代/生机 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #1A1A1A;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-product); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .step-box {
+            display: inline-block; padding: 5px 15px; border: 2px solid black; border-radius: 20px; font-size: 0.9rem; margin-right: 5px; margin-bottom: 5px; font-weight: bold;
+        }
+
+        .btn-knowledge {
+            background: var(--color-product); color: white; border: 2px solid black; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 4px 4px 0 black;
+        }
+        .btn-knowledge:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 black; }
+
+        .hidden-content { display: none; margin-top: 20px; border-top: 2px dashed #eee; padding-top: 20px; }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: #212121; color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>产品闭环</h1>
+        <p style="font-weight:bold;">Product MVP Cycle</p>
+    </header>
+
+    <section class="card">
+        <h2>🛠️ 产品是交付的载体</h2>
+        <p>不要把“产品”想得太复杂。一份文档、一个咨询电话、一套整理好的素材包，都是产品。</p>
+        <div style="margin-top:15px;">
+            <div class="step-box" style="background:#FFF3E0;">需求洞察</div>
+            <div class="step-box" style="background:#E8F5E9;">MVP开发</div>
+            <div class="step-box" style="background:#F3E5F5;">交付服务</div>
+        </div>
+
+        <button class="btn-knowledge" onclick="toggleContent('mvp-content')">
+            🧩 没产品怎么办？
+        </button>
+
+        <div id="mvp-content" class="hidden-content">
+            <ul style="list-style:none; padding:0;">
+                <li style="margin-bottom:20px;">
+                    <strong>🤝 轻资产运营：</strong><br>
+                    没有产品就去做<strong>渠道合作</strong>！分销经过市场验证的优质产品，验证自己的流量逻辑。
+                </li>
+                <li style="margin-bottom:20px;">
+                    <strong>🔄 MVP 闭环：</strong><br>
+                    需求-产品-推广-服务。缺一不可，先跑通最小闭环。
+                </li>
+                <li>
+                    <strong>👂 倾听反馈：</strong><br>
+                    一定要有“用户反馈渠道”。用户的抱怨和建议是产品迭代的唯一指南针。
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p style="font-family:'ZCOOL KuaiLe'; font-size:1.5rem;">“落地胜过完美”</p>
+        <p style="margin-top:10px; color:#aaa;">想法不值钱，执行和交付才值钱。</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id) {
+        const content = document.getElementById(id);
+        const isHidden = content.style.display === 'none' || content.style.display === '';
+        content.style.display = isHidden ? 'block' : 'none';
+        if (isHidden && navigator.vibrate) navigator.vibrate(20);
+    }
+</script>
+
+</body>
+</html>

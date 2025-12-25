@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>思维模型：问题树</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 浅色逻辑风格配色 */
+            --bg-color: #F9FAFB; /* 极淡灰背景 */
+            --dot-color: #E5E7EB; /* 波点颜色 */
+            --card-bg: #FFFFFF; /* 纯白卡片 */
+            --border: 3px dashed #4B5563; /* 深灰虚线边框 */
+            
+            /* 辅助色 */
+            --trunk: #8D6E63; /* 树干褐 (问题核心) */
+            --branch: #3B82F6; /* 逻辑蓝 (拆解过程) */
+            --leaf: #10B981; /* 答案绿 (解决方案) */
+            --text-main: #1F2937; /* 深灰文本 */
+            
+            --shadow: 6px 6px 0px rgba(55, 65, 81, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* 浅色波点背景 */
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* 顶部标题 */
+        .main-header {
+            background: #fff;
+            border: var(--border);
+            padding: 30px 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            transform: rotate(-1deg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 顶部装饰条 - 树叶绿 */
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--branch),
+                var(--branch) 20px,
+                var(--leaf) 20px,
+                var(--leaf) 40px
+            );
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 2.8rem;
+            margin: 10px 0 0 0;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            color: #fff;
+            background: var(--branch);
+            margin-top: 10px;
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 4px;
+            transform: rotate(1deg);
+        }
+
+        /* 通用卡片 */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            animation: slideUp 0.5s ease-out backwards;
+        }
+
+        /* 树枝装饰 */
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 2px;
+            height: 25px;
+            background: var(--border-color);
+            border-left: 2px dashed #ccc;
+            z-index: 2;
+        }
+
+        /* 视觉区 */
+        .panel-visual {
+            height: 200px;
+            background: #F0F9FF; /* 极淡蓝 */
+            border-bottom: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 背景变体 */
+        .bg-tree { background: #ECFDF5; } /* 淡绿 */
+        .bg-grid { 
+            background-image: linear-gradient(#E5E7EB 1px, transparent 1px), linear-gradient(90deg, #E5E7EB 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* 文字区 */
+        .panel-text {
+            padding: 25px;
+        }
+
+        /* 章节标题 */
+        .section-divider {
+            display: flex;
+            justify-content: center;
+            margin: 50px 0 30px 0;
+            position: relative;
+        }
+
+        .section-title {
+            background: var(--text-main);
+            color: white;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.6rem;
+            padding: 10px 40px;
+            transform: skewX(-10deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        }
+
+        .section-title span {
+            display: block;
+            transform: skewX(10deg);
+        }
+
+        /* 标签 */
+        .tag {
+            background: #fff;
+            color: var(--text-main);
+            padding: 4px 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid var(--text-main);
+            border-radius: 4px;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+        }
+
+        /* 重点高亮 */
+        strong {
+            color: var(--branch);
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0 4px;
+            border-bottom: 2px solid var(--branch);
+        }
+        strong.leaf {
+            color: var(--leaf);
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--leaf);
+        }
+
+        /* 按钮 */
+        .btn-action {
+            background: #fff;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+            padding: 12px;
+            width: 100%;
+            font-family: 'Zcool KuaiLe';
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+            transition: all 0.1s;
+            border-radius: 8px;
+        }
+        
+        .btn-action:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        .hidden-content {
+            display: none;
+            background: #F0FDF4;
+            border: 2px dashed var(--leaf);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            border-radius: 8px;
+        }
+
+        /* 动画 */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes grow-branch {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .branch-line {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: grow-branch 1.5s forwards ease-out;
+        }
+
+        @keyframes leaf-pop {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .leaf-node {
+            animation: leaf-pop 0.5s backwards;
+        }
+
+        @keyframes flip-card {
+            0% { transform: rotateY(0); }
+            50% { transform: rotateY(90deg); background: var(--trunk); }
+            100% { transform: rotateY(0); background: var(--leaf); }
+        }
+
+        /* SVG 通用 */
+        svg { width: 100%; height: 100%; max-width: 320px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="main-header">
+        <h1>思维模型：问题树</h1>
+        <div class="subtitle">🌳 拆分问题 · 寻找答案</div>
+    </header>
+
+    <div class="panel" style="animation-delay: 0.1s;">
+        <div class="panel-visual bg-grid">
+            <svg viewBox="0 0 200 150">
+                <circle cx="40" cy="75" r="15" fill="#E5E7EB" stroke="#374151" stroke-width="2"/>
+                <text x="40" y="80" text-anchor="middle" font-size="20">😫</text>
+                <path d="M55 65 L80 50" stroke="#374151" stroke-width="1"/>
+                <rect x="80" y="30" width="100" height="35" rx="5" fill="#fff" stroke="#374151"/>
+                <text x="130" y="52" text-anchor="middle" font-size="10">我没对象咋办？</text>
+                
+                <circle cx="160" cy="110" r="15" fill="#E5E7EB" stroke="#374151" stroke-width="2"/>
+                <text x="160" y="115" text-anchor="middle" font-size="20">🤷‍♂️</text>
+                <path d="M145 100 L120 90" stroke="#374151" stroke-width="1"/>
+                <rect x="20" y="85" width="100" height="35" rx="5" fill="#fff" stroke="#374151"/>
+                <text x="70" y="108" text-anchor="middle" font-size="10" font-weight="bold">那就去找啊！</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">废话文学</div>
+            <p>“成绩不好怎么办？——努力提高啊！”</p>
+            <p><strong>问题越简单，直接的答案越没用。</strong> 抽象的问题需要拆解，才能找到具备指导意义的答案。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.2s;">
+        <div class="panel-visual bg-tree">
+            <svg viewBox="0 0 200 150">
+                <rect x="95" y="100" width="10" height="40" fill="#8D6E63"/>
+                
+                <path d="M100 100 L60 70 M100 100 L140 70" stroke="#374151" stroke-width="2" class="branch-line"/>
+                <path d="M60 70 L40 40 M60 70 L80 40" stroke="#374151" stroke-width="2" class="branch-line" style="animation-delay: 0.5s"/>
+                <path d="M140 70 L120 40 M140 70 L160 40" stroke="#374151" stroke-width="2" class="branch-line" style="animation-delay: 0.5s"/>
+                
+                <circle cx="40" cy="40" r="10" fill="#10B981" class="leaf-node" style="animation-delay: 1s"/>
+                <circle cx="80" cy="40" r="10" fill="#10B981" class="leaf-node" style="animation-delay: 1.1s"/>
+                <circle cx="120" cy="40" r="10" fill="#10B981" class="leaf-node" style="animation-delay: 1.2s"/>
+                <circle cx="160" cy="40" r="10" fill="#10B981" class="leaf-node" style="animation-delay: 1.3s"/>
+                
+                <text x="100" y="130" text-anchor="middle" font-size="10" fill="#fff">麦肯锡 Issue Tree</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">定义</div>
+            <p><strong>问题树 (Issue Tree)</strong>：把抽象问题当树干，影响因素当树枝，层层拆解。</p>
+            <p>让抽象问题变得足够具体，具体到可以立即执行。</p>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>实战：学习太差</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.3s;">
+        <div class="panel-visual bg-grid">
+            <svg viewBox="0 0 200 180" id="study-tree">
+                <rect x="70" y="10" width="60" height="25" rx="4" fill="#8D6E63" stroke="#374151" stroke-width="1"/>
+                <text x="100" y="27" text-anchor="middle" fill="#fff" font-size="10">成绩不好</text>
+                
+                <line x1="100" y1="35" x2="100" y2="50" stroke="#374151" stroke-width="2"/>
+                <line x1="50" y1="50" x2="150" y2="50" stroke="#374151" stroke-width="2"/>
+                <line x1="50" y1="50" x2="50" y2="60" stroke="#374151" stroke-width="2"/>
+                <line x1="150" y1="50" x2="150" y2="60" stroke="#374151" stroke-width="2"/>
+                
+                <rect x="25" y="60" width="50" height="20" rx="4" fill="#fff" stroke="#3B82F6"/>
+                <text x="50" y="74" text-anchor="middle" font-size="10" fill="#3B82F6">数学不好</text>
+                <rect x="125" y="60" width="50" height="20" rx="4" fill="#fff" stroke="#9CA3AF"/>
+                <text x="150" y="74" text-anchor="middle" font-size="10" fill="#9CA3AF">英语不好...</text>
+                
+                <line x1="50" y1="80" x2="50" y2="95" stroke="#3B82F6" stroke-width="2"/>
+                <line x1="30" y1="95" x2="70" y2="95" stroke="#3B82F6" stroke-width="2"/>
+                <line x1="30" y1="95" x2="30" y2="105" stroke="#3B82F6" stroke-width="2"/>
+                <line x1="70" y1="95" x2="70" y2="105" stroke="#3B82F6" stroke-width="2"/>
+                
+                <rect x="10" y="105" width="40" height="20" rx="4" fill="#E0F2FE" stroke="#3B82F6"/>
+                <text x="30" y="119" text-anchor="middle" font-size="8" fill="#3B82F6">外部原因</text>
+                <rect x="50" y="105" width="40" height="20" rx="4" fill="#E0F2FE" stroke="#3B82F6"/>
+                <text x="70" y="119" text-anchor="middle" font-size="8" fill="#3B82F6">内部原因</text>
+                
+                <line x1="30" y1="125" x2="30" y2="135" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2"/>
+                <line x1="70" y1="125" x2="70" y2="135" stroke="#3B82F6" stroke-width="1" stroke-dasharray="2"/>
+                
+                <text x="30" y="145" text-anchor="middle" font-size="8" fill="#1F2937">老师节奏快</text>
+                <text x="70" y="145" text-anchor="middle" font-size="8" fill="#1F2937">知识体系乱</text>
+                
+                <g id="flip-area" style="cursor:pointer; display:none;" onclick="flipAnswer()">
+                    <rect x="10" y="155" width="40" height="20" rx="4" fill="#8D6E63" id="card1"/>
+                    <text x="30" y="168" text-anchor="middle" font-size="8" fill="#fff" id="text1">具体问题</text>
+                    
+                    <rect x="50" y="155" width="40" height="20" rx="4" fill="#8D6E63" id="card2"/>
+                    <text x="70" y="168" text-anchor="middle" font-size="8" fill="#fff" id="text2">具体问题</text>
+                </g>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>1. <strong>拆科目：</strong> 是数学不好。</p>
+            <p>2. <strong>分内外：</strong> 外部(老师快) + 内部(体系乱)。</p>
+            <p>问题具体了，答案自然就出现了。点击下方按钮，见证“翻转”时刻！</p>
+            <div class="btn-action" onclick="showFlip()">👉 问题树，翻身！(变为答案树)</div>
+            <div id="answer-content" class="hidden-content" style="text-align:center;">
+                <strong>老师节奏快</strong> → <span style="color:var(--leaf)">多沟通，提前预习</span><br>
+                <strong>知识体系乱</strong> → <span style="color:var(--leaf)">梳理知识点大纲</span><br><br>
+                <span style="font-size:0.9rem; color:#666;">这才是有效的答案。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title"><span>职场：人才荒</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.4s;">
+        <div class="panel-visual">
+            <svg viewBox="0 0 200 150">
+                <line x1="20" y1="75" x2="180" y2="75" stroke="#374151" stroke-width="2"/>
+                
+                <circle cx="40" cy="75" r="20" fill="#fff" stroke="#3B82F6" stroke-width="2"/>
+                <text x="40" y="80" text-anchor="middle" font-size="10">入职</text>
+                <text x="40" y="110" text-anchor="middle" font-size="8" fill="#666">为何不来?</text>
+                
+                <circle cx="100" cy="75" r="20" fill="#fff" stroke="#3B82F6" stroke-width="2"/>
+                <text x="100" y="80" text-anchor="middle" font-size="10">在职</text>
+                <text x="100" y="110" text-anchor="middle" font-size="8" fill="#666">能否自培?</text>
+                
+                <circle cx="160" cy="75" r="20" fill="#fff" stroke="#3B82F6" stroke-width="2"/>
+                <text x="160" y="80" text-anchor="middle" font-size="10">离职</text>
+                <text x="160" y="110" text-anchor="middle" font-size="8" fill="#666">为何要走?</text>
+                
+                <text x="100" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="#374151">流程法拆解 (MECE)</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <div class="tag">流程法</div>
+            <p>招不到人？不要只盯着“招”。把问题拆解为：</p>
+            <ul>
+                <li><strong>入职前：</strong> 薪资？渠道？</li>
+                <li><strong>在职中：</strong> 内部培养？培训机制？</li>
+                <li><strong>离职后：</strong> 归属感？团建？</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider">
+        <div class="section-title" style="background: var(--branch);"><span>进阶：三剑客</span></div>
+    </div>
+
+    <div class="panel" style="animation-delay: 0.5s;">
+        <div class="panel-visual bg-tree">
+            <svg viewBox="0 0 200 150">
+                <polygon points="100,20 170,130 30,130" fill="none" stroke="#374151" stroke-width="2"/>
+                
+                <circle cx="100" cy="20" r="15" fill="#fff" stroke="#F59E0B" stroke-width="2"/>
+                <text x="100" y="25" text-anchor="middle" font-size="18">⛰️</text>
+                <text x="100" y="50" text-anchor="middle" font-size="8">金字塔(表达)</text>
+                
+                <circle cx="30" cy="130" r="15" fill="#fff" stroke="#3B82F6" stroke-width="2"/>
+                <text x="30" y="135" text-anchor="middle" font-size="18">✂️</text>
+                <text x="30" y="155" text-anchor="middle" font-size="8">MECE(分析)</text>
+                
+                <circle cx="170" cy="130" r="15" fill="#fff" stroke="#10B981" stroke-width="2"/>
+                <text x="170" y="135" text-anchor="middle" font-size="18">🌳</text>
+                <text x="170" y="155" text-anchor="middle" font-size="8">问题树(找答案)</text>
+            </svg>
+        </div>
+        <div class="panel-text">
+            <p>麦肯锡三大结构化工具，相辅相成：</p>
+            <p><strong class="leaf">问题树</strong> 是找答案的侦探；<br>
+            <strong>MECE</strong> 是侦探的逻辑法则；<br>
+            <strong>金字塔</strong> 是最后呈现的报告。</p>
+        </div>
+    </div>
+
+    <div class="panel" style="background: #374151; color: #fff; border: 3px dashed #10B981; margin-top: 40px;">
+        <div class="panel-text">
+            <h2 style="font-family:'Zcool KuaiLe'; color: #10B981; margin-top:0;">🌟 结语</h2>
+            <p>问题的背面，就是答案。</p>
+            <p>但只有把问题拆解得<strong>足够具体</strong>，<br>背后的答案才有<strong>指导意义</strong>。</p>
+            <p style="text-align:center; margin-top:15px; font-size:1.2rem; color:#10B981;">拒绝笼统，从画一棵树开始。</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showFlip() {
+        document.getElementById('flip-area').style.display = 'block';
+        document.getElementById('answer-content').style.display = 'block';
+        
+        // 自动触发一次翻转动画演示
+        setTimeout(flipAnswer, 500);
+        
+        if(navigator.vibrate) navigator.vibrate(20);
+    }
+
+    function flipAnswer() {
+        const card1 = document.getElementById('card1');
+        const text1 = document.getElementById('text1');
+        const card2 = document.getElementById('card2');
+        const text2 = document.getElementById('text2');
+        
+        // 简单的翻转逻辑
+        if (text1.innerHTML === '具体问题') {
+            card1.style.fill = '#10B981';
+            text1.innerHTML = '多沟通';
+            card2.style.fill = '#10B981';
+            text2.innerHTML = '梳理知识';
+        } else {
+            card1.style.fill = '#8D6E63';
+            text1.innerHTML = '具体问题';
+            card2.style.fill = '#8D6E63';
+            text2.innerHTML = '具体问题';
+        }
+        
+        if(navigator.vibrate) navigator.vibrate(10);
+    }
+</script>
+
+</body>
+</html>

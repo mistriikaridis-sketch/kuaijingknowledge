@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：财务经营模型</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 薄荷糖算盘配色 */
+            --bg-color: #E0F2F1;      /* 薄荷奶白背景 */
+            --card-bg: #FFFFFF;
+            --border-color: #004D40;  /* 深墨绿硬边框 */
+            
+            --color-revenue: #FF4081; /* 营收 */
+            --color-cost: #2962FF;    /* 成本 */
+            --color-profit: #00E676;  /* 利润 */
+            
+            --border-width: 3px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#80CBC4 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #004D40;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-cost); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .formula-box {
+            background: #212121; 
+            color: #fff; 
+            padding: 15px; 
+            border-radius: 8px; 
+            font-family: monospace; 
+            text-align: center; 
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 20px; 
+            background: var(--border-color); 
+            color: white; 
+            border-radius: 12px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>财务经营模型</h1>
+        <p style="font-weight:bold;">Unit Economics</p>
+    </header>
+
+    <section class="card">
+        <h2>🧮 算账是老板的基本功</h2>
+        <p>很多创业者只看流水（GMV），不看利润（Profit）。这是非常危险的。</p>
+        <p>你需要掌握最核心的<strong>单体经济模型</strong>：</p>
+        
+        <div class="formula-box">
+            利润 = (流量 × 转化率 × 客单价) - 成本
+        </div>
+        
+        <div style="margin-top:20px;">
+            <p><strong>🔍 拆解变量：</strong></p>
+            <ul style="line-height:1.8; margin-top:10px;">
+                <li><strong style="color:var(--color-cost);">流量成本 (CAC)：</strong> 获得一个付费用户需要花多少钱？</li>
+                <li><strong style="color:var(--color-revenue);">客单价 (AOV)：</strong> 用户平均支付多少钱？</li>
+                <li><strong style="color:var(--color-profit);">生命周期价值 (LTV)：</strong> 用户在未来还会复购吗？</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="card" style="background:#FFFDE7; border-color:#FBC02D;">
+        <h3 style="margin-top:0;">💡 经营启示</h3>
+        <p>如果 LTV (用户价值) < CAC (获客成本)，那么生意做得越大，亏得越快。</p>
+        <p><strong>哪怕是个人创业，也要先算好这笔账。</strong></p>
+    </section>
+
+    <footer class="footer">
+        <p style="font-family:'ZCOOL KuaiLe'; font-size:1.5rem;">“数据不说谎”</p>
+        <p style="margin-top:10px;">经营不是凭感觉，而是基于数据的理性决策。</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

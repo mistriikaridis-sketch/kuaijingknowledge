@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简创业：验证假设</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Zcool+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案 G：真理实验室 (Truth Lab) */
+            --bg-color: #2C3A47;       /* 深空灰蓝 */
+            --card-bg: #F8EFBA;        /* 实验记录纸色 (淡黄) */
+            --text-main: #1B1464;      /* 深靛蓝文字 */
+            --border-color: #1B1464;
+            
+            --science-blue: #0652DD;   /* 逻辑蓝 */
+            --error-red: #EA2027;      /* 试错红 */
+            --valid-green: #009432;    /* 验证绿 */
+            
+            --shadow-offset: 6px;
+            --border-width: 3px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            /* 网格纸纹理 */
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text-main);
+            padding: 30px 20px;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Zcool KuaiLe', cursive;
+            line-height: 1.3;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        header h1 { 
+            font-size: 3.5rem;
+            color: #F8EFBA;
+            text-shadow: 4px 4px 0px #000;
+            margin-bottom: 15px;
+        }
+
+        .subtitle-pill {
+            background: var(--science-blue);
+            color: white;
+            font-size: 1.2rem;
+            padding: 8px 30px;
+            border: 2px solid white;
+            border-radius: 50px;
+            box-shadow: 0 0 15px var(--science-blue);
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        /* Card System */
+        .panel {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px #000;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .panel:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: calc(var(--shadow-offset) + 2px) calc(var(--shadow-offset) + 2px) 0px #000;
+        }
+
+        /* Layout */
+        .panel-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        @media (max-width: 700px) {
+            .panel-content { flex-direction: column-reverse; }
+            .illustration { width: 100%; margin-bottom: 15px; }
+            header h1 { font-size: 2.5rem; }
+        }
+
+        .text-col { flex: 3; }
+        .img-col { flex: 2; display: flex; justify-content: center; }
+
+        /* SVG */
+        .illustration { width: 100%; max-width: 200px; height: auto; }
+        svg { overflow: visible; }
+
+        /* Custom Elements */
+        .test-box {
+            border: 2px dashed var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .speech-bubble {
+            padding: 15px;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        
+        .bubble-bad {
+            background: #ffcccc;
+            border: 2px solid var(--error-red);
+            color: #a00;
+        }
+        
+        .bubble-good {
+            background: #ccffcc;
+            border: 2px solid var(--valid-green);
+            color: #006400;
+        }
+
+        /* Interactive Elements */
+        .btn-lab {
+            background: var(--science-blue);
+            color: white;
+            font-family: 'Zcool KuaiLe', cursive;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: 3px solid black;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.1s;
+            box-shadow: 5px 5px 0px black;
+        }
+        
+        .btn-lab:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px black;
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 25px;
+            background: white;
+            border: 3px solid black;
+            padding: 20px;
+            border-radius: 12px;
+        }
+        
+        .show { display: block; animation: floatUp 0.5s ease-out; }
+        @keyframes floatUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Animations */
+        @keyframes bubble {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-20px); opacity: 0; }
+        }
+        .bubble-particle { animation: bubble 2s infinite; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="illustration" style="height: 100px; margin: 0 auto;">
+            <svg viewBox="0 0 100 60">
+                <path d="M40,10 L60,10 L60,25 L75,55 L25,55 L40,25 Z" fill="none" stroke="white" stroke-width="3"/>
+                <path d="M30,50 L70,50" fill="#0652DD" stroke="none" opacity="0.5"/>
+                <circle cx="50" cy="45" r="3" fill="#009432" class="bubble-particle"/>
+                <circle cx="45" cy="35" r="2" fill="#009432" class="bubble-particle" style="animation-delay: 0.5s"/>
+                <circle cx="55" cy="40" r="2.5" fill="#009432" class="bubble-particle" style="animation-delay: 1s"/>
+                <circle cx="70" cy="30" r="15" fill="none" stroke="#F8EFBA" stroke-width="3"/>
+                <line x1="82" y1="42" x2="95" y2="55" stroke="#F8EFBA" stroke-width="4"/>
+            </svg>
+        </div>
+        <h1>验证你的假设</h1>
+        <div class="subtitle-pill">
+            像科学家一样思考，像保姆一样服务
+        </div>
+    </header>
+
+    <div class="panel">
+        <h3>🧪 什么是商业假设？</h3>
+        <div class="panel-content">
+            <div class="img-col">
+                <svg viewBox="0 0 100 100" class="illustration">
+                    <rect x="20" y="30" width="60" height="40" rx="5" fill="none" stroke="black" stroke-width="3"/>
+                    <line x1="30" y1="40" x2="70" y2="40" stroke="black" stroke-width="2"/>
+                    <line x1="30" y1="50" x2="60" y2="50" stroke="black" stroke-width="2"/>
+                    <circle cx="80" cy="80" r="15" fill="#009432" stroke="black" stroke-width="2"/>
+                    <path d="M75,80 L80,85 L90,75" fill="none" stroke="white" stroke-width="3"/>
+                </svg>
+            </div>
+            <div class="text-col">
+                <p>就像五年级的科学课一样，你的商业点子只是一个<b>待验证的假设</b>。</p>
+                <div class="test-box">
+                    <strong>好的假设必须：</strong>
+                    <ul style="margin-left: 20px; margin-top:5px;">
+                        <li>可检测 (Testable)</li>
+                        <li>可证伪 (Falsifiable)</li>
+                    </ul>
+                </div>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    例：客户愿意付钱让我手动快速生成片尾字幕。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background: white;">
+        <h3>👵 妈咪测试 (The Mom Test)</h3>
+        <p>不要问具有导向性的问题（那种你妈妈为了让你开心而撒谎的问题）。</p>
+        
+        <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <h4 style="color: var(--error-red); margin-bottom: 10px;">❌ 错误提问</h4>
+                <div class="speech-bubble bubble-bad">
+                    “你愿意花钱买我这个产品吗？”
+                </div>
+                <p style="font-size: 0.8rem;">结果：人们会撒谎说“愿意”，以此来鼓励你。</p>
+            </div>
+            
+            <div>
+                <h4 style="color: var(--valid-green); margin-bottom: 10px;">✅ 正确提问</h4>
+                <div class="speech-bubble bubble-good">
+                    “为什么你一直没能解决这个问题？”
+                </div>
+                <p style="font-size: 0.8rem;">结果：你会得到关于痛点和现状的真实答案。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="border-color: var(--science-blue);">
+        <h3>🤵 贵宾服务式验证</h3>
+        <div class="panel-content">
+            <div class="text-col">
+                <p>如果你只有一个客户，就把他当<b>VIP</b>对待。</p>
+                <p>不要急着做软件。给他打电话，去咖啡馆见面，用<b>人工</b>帮他解决问题。</p>
+                <p><b>好处：</b> 你可以在没有产品的时候就收费！如果你真心诚意地付出时间帮助别人，这就是一种有偿服务。</p>
+            </div>
+            <div class="img-col">
+                <svg viewBox="0 0 100 100" class="illustration">
+                    <path d="M10,60 Q30,60 40,80" fill="none" stroke="black" stroke-width="3"/> <path d="M40,80 L80,80" fill="none" stroke="black" stroke-width="3"/> <line x1="30" y1="50" x2="90" y2="50" stroke="black" stroke-width="3"/> <rect x="40" y="30" width="40" height="20" fill="#0652DD" stroke="black" stroke-width="2"/> <line x1="50" y1="20" x2="50" y2="30" stroke="black" stroke-width="1"/> <line x1="60" y1="15" x2="60" y2="30" stroke="black" stroke-width="1"/>
+                    <line x1="70" y1="20" x2="70" y2="30" stroke="black" stroke-width="1"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="box-shadow: 8px 8px 0px var(--valid-green); border-color: var(--valid-green);">
+        <h3>⚛️ 你的目标：价值量子</h3>
+        <p>即便你的第一次尝试失败了（这很正常），只要你通过“流程化”不断修正，你最终会得到什么？</p>
+        
+        <button class="btn-lab" onclick="toggleSecret()">查看实验结果 🔬</button>
+        
+        <div id="result-box" class="hidden-content">
+            <h4 style="color: var(--text-main);">一份完美的流程文件 = 价值量子</h4>
+            <div class="img-col" style="margin: 15px 0;">
+                <svg viewBox="0 0 100 60" style="height: 60px;">
+                    <circle cx="50" cy="30" r="5" fill="#009432"/>
+                    <ellipse cx="50" cy="30" rx="20" ry="8" fill="none" stroke="black" stroke-width="1" transform="rotate(45 50 30)"/>
+                    <ellipse cx="50" cy="30" rx="20" ry="8" fill="none" stroke="black" stroke-width="1" transform="rotate(-45 50 30)"/>
+                </svg>
+            </div>
+            <p>即使你还没有一门“生意”，只要有用户因为你提供的服务而感到高兴（哪怕只是解决了他们之前做不到的小事），你就创造了<b>“价值量子”</b>。</p>
+            <p style="margin-top:10px; font-weight:bold;">这是从 0 到 1 最关键的一步。</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleSecret() {
+            const box = document.getElementById('result-box');
+            const btn = document.querySelector('.btn-lab');
+            
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+                btn.textContent = '查看实验结果 🔬';
+            } else {
+                box.style.display = 'block';
+                box.classList.add('show');
+                btn.textContent = '收起报告 📋';
+                // 震动反馈
+                if (navigator.vibrate) navigator.vibrate(20);
+            }
+        }
+    </script>
+</body>
+</html>

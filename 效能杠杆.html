@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：AI 效能杠杆</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 未来赛博配色 */
+            --bg-color: #050510;      /* 深空黑背景 */
+            --card-bg: #12121E;       /* 卡片深灰 */
+            --border-color: #FFFFFF;  /* 纯白高反差边框 */
+            
+            --color-ai: #00FF9D;      /* 激光绿 */
+            --color-human: #FF00FF;   /* 故障粉 */
+            --color-future: #00F3FF;  /* 电光蓝 */
+            
+            --border-width: 3px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Noto Sans SC', sans-serif;
+            color: white;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-ai); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(255,255,255,0.2);
+            margin-bottom: 30px;
+        }
+
+        .level-card {
+            border: 1px solid white; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border-radius: 8px;
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 20px; 
+            background: #222; 
+            color: white; 
+            border-radius: 12px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>AI 效能杠杆</h1>
+        <p style="font-weight:bold; color:var(--color-future);">Artificial Intelligence</p>
+    </header>
+
+    <section class="card">
+        <h2>🤖 AI 不会替代你</h2>
+        <p>替代你的，是<strong>“会用 AI 的人”</strong>。</p>
+        <p>AI 不是神，它是你的“数字员工”。以前一个人只能活成一支队伍，现在一个人可以活成一家公司。</p>
+    </section>
+
+    <section class="card">
+        <h3>🌳 X + AI：成长路径</h3>
+        <p>不要一上来就搞创新，先模仿，再超越。</p>
+        
+        <div class="level-grid">
+            <div class="level-card" style="border-color: var(--color-ai);">
+                <span style="color:var(--color-ai); font-weight:bold; font-size:1.1rem;">守 (模仿)</span>
+                <p style="font-size:0.9rem; margin-top:5px; opacity:0.8;">像素级复制现有模式。先跑通闭环，别瞎改良。</p>
+            </div>
+            <div class="level-card" style="border-color: var(--color-future);">
+                <span style="color:var(--color-future); font-weight:bold; font-size:1.1rem;">破 (差异)</span>
+                <p style="font-size:0.9rem; margin-top:5px; opacity:0.8;">深耕垂直领域。比别人好10倍，建立壁垒。</p>
+            </div>
+            <div class="level-card" style="border-color: var(--color-human);">
+                <span style="color:var(--color-human); font-weight:bold; font-size:1.1rem;">离 (创新)</span>
+                <p style="font-size:0.9rem; margin-top:5px; opacity:0.8;">组合创新，重构行业。成为不可替代。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>“未来只有两种人：<br>发指令的人，和听指令的人。”</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

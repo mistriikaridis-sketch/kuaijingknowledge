@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块茎计划 | 你也可以小而美</title>
+    <meta name="description" content="块茎计划 - 小而美的生存美学。一人公司实战指南，探索极简创业与个体成长的无限可能。">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F0FDFA; /* 极淡的青色背景 */
+            /* 背景纹理：细腻的点阵 */
+            background-image: radial-gradient(#CCFBF1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        /* 品牌字体 */
+        .font-brand {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* 卡片悬停特效：上浮 + 阴影加深 */
+        .topic-card {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .topic-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #14B8A6; /* 悬停时边框变色 */
+        }
+    </style>
+</head>
+<body class="text-slate-700 antialiased min-h-screen flex flex-col">
+
+    <header class="w-full py-20 text-center px-4 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-40 -z-10"></div>
+
+        <div class="inline-block bg-teal-700 text-white px-4 py-1 rounded-full text-xs font-bold tracking-[0.2em] mb-6 uppercase shadow-lg">
+            Rhizome Plan
+        </div>
+        
+        <h1 class="font-brand text-6xl md:text-7xl text-teal-900 mb-6 tracking-wide drop-shadow-sm">
+            你也可以小而美
+        </h1>
+        
+        <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-light leading-relaxed">
+            不必做大，但求做强。<br>探索个体商业的极简路径与生存美学。
+        </p>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 pb-24">
+        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            
+            </div>
+    </main>
+
+    <footer class="w-full py-10 text-center text-slate-400 text-sm border-t border-teal-100 bg-white/60 backdrop-blur-sm">
+        <p class="font-brand text-lg text-teal-800 mb-2">Small is Beautiful</p>
+        <p>&copy; 2026 块茎计划 · 专注个体赋能</p>
+    </footer>
+
+    <script>
+        // 👇👇👇 请在这里修改您的专题信息 👇👇👇
+        // 格式说明：
+        // { 
+        //    title: "卡片上的大标题", 
+        //    desc: "卡片上的那句简短介绍", 
+        //    link: "您的HTML文件名.html" 
+        // },
+        
+        const topics = [
+            {
+                title: "01. 极简启动",
+                desc: "创业没你想得那么难。打破误区，拒绝宏大叙事，从微观闭环开始。",
+                link: "1极简商业启动.html"  // 已确保收录
+            },
+            {
+                title: "02. 社群优先",
+                desc: "不要先做产品，先找人。如何建立连接，从真实的社群需求中挖掘机会。",
+                link: "2 社群优先原则.html"
+            },
+            {
+                title: "03. 贡献价值",
+                desc: "最好的营销是教学。通过分享与贡献，建立信任，成为意见领袖。",
+                link: "3 贡献，教会他们.html"
+            },
+            {
+                title: "04. 找对问题",
+                desc: "方向不对，努力白费。如何通过自我诊断，找到既赚钱又热爱的赛道。",
+                link: "4 选对的问题，找解决方案.html"
+            },
+            {
+                title: "05. 少即是多",
+                desc: "极简主义者的工具箱。不写代码、不花大钱，用最简单的工具验证想法。",
+                link: "5 少即是多.html"
+            },
+            {
+                title: "06. 流程先行",
+                desc: "在自动化之前，先手动跑通。建立标准SOP，是扩大的前提。",
+                link: "6 流程先行.html"
+            },
+            {
+                title: "07. 验证假设",
+                desc: "像科学家一样思考。设计低成本实验，快速获取市场反馈，修正方向。",
+                link: "7 验证假设.html"
+            },
+            {
+                title: "08. 极致聚焦",
+                desc: "做好一件事胜过平庸的一万件事。专注于核心交付，打磨不可替代性。",
+                link: "8 做好一件事.html"
+            },
+            {
+                title: "09. 种子用户",
+                desc: "瞄准前100个客户。如何通过手动销售和深度服务，获得第一批死忠粉。",
+                link: "9 瞄准100个 客户.html"
+            },
+            {
+                title: "10. 价值定价",
+                desc: "要收费，多少都行。理解价格锚点，建立自信的价值定价模型。",
+                link: "10 价值定价模型.html" // 已确保收录
+            },
+            // --- 新增的 5 条 (Ep.11-Ep.15) ---
+            {
+                title: "11. 早期支持",
+                desc: "不要害怕向熟人推广。利用核心圈层的信任，完成产品的冷启动与压力测试。",
+                link: "11 从亲朋好友开始.html"
+            },
+            {
+                title: "12. 极简文化",
+                desc: "公司是产品的容器。在招聘之前，先打造一个你想住进去的房子。",
+                link: "12 造你想住的房子.html"
+            },
+            {
+                title: "13. 探寻意义",
+                desc: "生意只是生活的一部分。找到你的 Ikigai，让商业成为实现人生价值的工具。",
+                link: "13 探寻意义.html"
+            },
+            {
+                title: "14. 立即行动",
+                desc: "人类才刚刚开始。不要等待完美的时机，现在就是最好的出发时刻。",
+                link: "14 还有一件事.html"
+            },
+            {
+                title: "15. 学会放手",
+                desc: "你不能改变每一件事。保持商业与生活的平衡，构建可持续的长期主义。",
+                link: "15 学会放手.html"
+            }
+        ];
+
+        // 👆👆👆 修改结束 👆👆👆
+
+        // ================= 自动生成代码逻辑 (无需修改) =================
+        const container = document.getElementById('cards-container');
+
+        topics.forEach((item, index) => {
+            // 定义不同卡片的装饰色块 (循环使用)
+            const colors = ['bg-teal-500', 'bg-cyan-500', 'bg-emerald-500', 'bg-sky-500'];
+            const colorClass = colors[index % colors.length];
+
+            const cardHTML = `
+                <a href="${item.link}" target="_blank" class="topic-card block bg-white rounded-2xl border border-slate-100 p-8 relative overflow-hidden group h-full flex flex-col">
+                    
+                    <div class="absolute top-0 left-0 w-full h-1.5 ${colorClass} opacity-80"></div>
+
+                    <div class="relative z-10 flex-grow">
+                        <h2 class="font-brand text-2xl text-slate-800 mb-3 group-hover:text-teal-600 transition-colors">
+                            ${item.title}
+                        </h2>
+                        
+                        <p class="text-slate-500 text-sm leading-relaxed mb-6">
+                            ${item.desc}
+                        </p>
+                    </div>
+                    
+                    <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Chapter ${index + 1}</span>
+                        <div class="flex items-center text-teal-600 font-bold text-sm group-hover:translate-x-1 transition-transform">
+                            阅读指南 <span class="ml-1 text-lg">→</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    </script>
+</body>
+</html>

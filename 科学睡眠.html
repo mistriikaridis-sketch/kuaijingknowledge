@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>睡眠黑客：科学作息指南</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 昼夜节律配色 (Circadian Rhythm) */
+            --bg-day: #E3F2FD;       /* 晨曦白 */
+            --bg-night: #1A237E;     /* 深夜蓝 */
+            --card-bg: #FFFFFF;
+            --text-day: #1565C0;     /* 日间文字 */
+            --text-night: #EDE7F6;   /* 夜间文字 (用于暗色块) */
+            
+            --color-sun: #FFB300;    /* 太阳黄 - 觉醒/皮质醇 */
+            --color-moon: #3949AB;   /* 月亮蓝 - 睡眠/褪黑素 */
+            --color-alert: #D32F2F;  /* 警示红 - 节律紊乱 */
+            --color-clock: #212121;  /* 时钟黑 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 3px;
+            --shadow-offset: 8px;
+            --card-shadow: 0 10px 25px rgba(26, 35, 126, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(180deg, var(--bg-day) 0%, #E8EAF6 50%, #C5CAE9 100%);
+            color: #37474F;
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px; /* 宽屏设定 */
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            line-height: 1.3;
+        }
+
+        h1 { 
+            font-size: 3.8rem; 
+            margin-bottom: 10px; 
+            background: -webkit-linear-gradient(45deg, var(--color-sun), var(--color-moon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h3 { font-size: 2.2rem; margin-bottom: 25px; color: var(--color-moon); }
+        p { margin-bottom: 20px; }
+
+        /* ---------------- Header ---------------- */
+        .header {
+            text-align: center;
+            background: #fff;
+            padding: 80px 40px;
+            border-top: 8px solid var(--color-sun);
+            border-bottom: 8px solid var(--color-moon);
+        }
+
+        .header-tag {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: #F5F5F5;
+            color: #555;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            height: 150px;
+        }
+        
+        @keyframes rotate-sun-moon { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes tick { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+
+        .anim-rotate { transform-origin: center; animation: rotate-sun-moon 10s linear infinite; }
+        .anim-tick { transform-origin: center bottom; animation: tick 2s steps(12) infinite; }
+        
+        /* ---------------- Panel 1: The Internal Clock ---------------- */
+        .clock-viz {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px 0;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .plant-experiment {
+            background: #E8F5E9;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px dashed #4CAF50;
+            text-align: center;
+            width: 250px;
+        }
+
+        /* ---------------- Panel 2: The Nobel Prize Science ---------------- */
+        .nobel-box {
+            background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
+            color: #5D4037;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(253, 185, 49, 0.4);
+        }
+
+        .medal {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #FFF;
+            background: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        /* ---------------- Panel 3: Hormones & Schedule ---------------- */
+        .hormone-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .hormone-bar {
+            height: 60px;
+            background: #F5F5F5;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-weight: bold;
+        }
+
+        .hormone-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 30px;
+            opacity: 0.3;
+        }
+
+        /* ---------------- Panel 4: Myth Busting (Owl) ---------------- */
+        .myth-box {
+            border: 3px solid var(--color-moon);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .myth-header {
+            background: var(--color-moon);
+            color: #fff;
+            padding: 15px 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .myth-content {
+            padding: 30px;
+        }
+
+        .btn-reveal {
+            background: #fff;
+            color: var(--color-moon);
+            border: 2px solid #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .hidden-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            margin-top: 0;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .hidden-answer.active {
+            max-height: 500px;
+            margin-top: 20px;
+            padding-top: 20px;
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 2px dashed #B0BEC5;
+            color: #78909C;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-box">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#37474F" stroke-width="2"/>
+                <g class="anim-rotate">
+                    <circle cx="50" cy="10" r="8" fill="#FFB300"/> <circle cx="50" cy="90" r="8" fill="#3949AB"/> <circle cx="50" cy="50" r="35" fill="none" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+                </g>
+                <line x1="50" y1="50" x2="50" y2="25" stroke="#37474F" stroke-width="4" stroke-linecap="round"/>
+                <line x1="50" y1="50" x2="70" y2="50" stroke="#37474F" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <h1>科学作息法</h1>
+        <h3>早睡早起 vs 睡到自然醒？</h3>
+        <div class="header-tag">你的身体里藏着一个时钟</div>
+    </header>
+
+    <section class="card">
+        <h3>⏰ 身体知道几点了</h3>
+        <p>这不是玄学，是存在于每个细胞里的<strong>“生物钟”</strong>。早在1700年，科学家就发现即使在全黑的房间里，含羞草叶子依然会按时开合。</p>
+        
+        <div class="clock-viz">
+            <div class="plant-experiment">
+                <div style="font-size:3rem;">🌿</div>
+                <p style="font-size:0.9rem; margin:0;"><strong>植物实验</strong><br>无光照也能按时作息</p>
+            </div>
+            <div class="plant-experiment" style="background:#FFF3E0; border-color:#FFB300;">
+                <div style="font-size:3rem;">🧗</div>
+                <p style="font-size:0.9rem; margin:0;"><strong>山洞实验</strong><br>人类周期 ≈ 24h15m</p>
+            </div>
+        </div>
+        <p><strong>结论：</strong> 我们不是被闹钟叫醒的，是被体内那套精密的分子机制“启动”的。</p>
+    </section>
+
+    <section class="card">
+        <h3>🏆 诺贝尔奖认证的真理</h3>
+        <p>2017年诺贝尔生理学奖颁给了发现“昼夜节律分子机制”的三位科学家。</p>
+        
+        <div class="nobel-box">
+            <div class="medal">🏅</div>
+            <div>
+                <strong>核心发现：</strong><br>
+                如果不按生物钟生活（如熬夜、倒班），身体的激素、体温、代谢就会全线崩溃，增加糖尿病等风险。
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h3>⚙️ 身体的自动程序</h3>
+        <p>当你规律作息时，身体会像贴心管家一样提前为你准备好一切：</p>
+
+        <div class="hormone-chart">
+            <div class="hormone-bar">
+                <div class="hormone-fill" style="background:var(--color-sun); width:80%;"></div>
+                <span style="z-index:1;">🌅 早晨：皮质醇激增 (动力/升温)</span>
+            </div>
+            <div class="hormone-bar">
+                <div class="hormone-fill" style="background:#81C784; width:60%;"></div>
+                <span style="z-index:1;">🍽️ 餐前：胰岛素分泌 (备餐)</span>
+            </div>
+            <div class="hormone-bar">
+                <div class="hormone-fill" style="background:var(--color-moon); width:90%;"></div>
+                <span style="z-index:1;">🌃 夜晚：褪黑素分泌 (安睡/修复)</span>
+            </div>
+        </div>
+        <p><strong>这就是为什么“早睡早起”也能“自然醒”：</strong> 只要规律，身体会在闹钟响之前就停止分泌睡眠荷尔蒙。</p>
+    </section>
+
+    <section class="card myth-box">
+        <div class="myth-header">
+            <span>🦉 迷思：我是天生夜猫子？</span>
+            <button class="btn-reveal" onclick="toggleAnswer('owl-answer')">点击揭秘</button>
+        </div>
+        <div class="myth-content">
+            <p>很多人认为晚睡是基因决定的，改不了。真的是这样吗？</p>
+            
+            <div id="owl-answer" class="hidden-answer">
+                <p><strong>科罗拉多大学露营实验：</strong></p>
+                <p>把一群“夜猫子”带到没有电灯的野外露营。仅过了<strong>2天</strong>，所有人都能在晚上10点前入睡了。</p>
+                <p class="highlight" style="background:#FFFDE7; padding:10px; border-radius:8px;">
+                    <strong>结论：</strong> 所谓的“夜猫子”，大多是被现代灯光和手机屏幕“骗”了生物钟。只要调整光照，谁都能早睡早起。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>“顺应天时，内稳外顺。没有什么比规律更养生。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function toggleAnswer(id) {
+        const content = document.getElementById(id);
+        const isActive = content.classList.contains('active');
+        const btn = content.previousElementSibling?.querySelector('.btn-reveal') || content.parentElement.previousElementSibling.querySelector('.btn-reveal');
+        
+        content.classList.toggle('active');
+        
+        if (!isActive) {
+            btn.innerText = "收起内容";
+            // Haptic feedback
+            if (navigator.vibrate) navigator.vibrate(20);
+        } else {
+            btn.innerText = "点击揭秘";
+        }
+    }
+</script>
+
+</body>
+</html>

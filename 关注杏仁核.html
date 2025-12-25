@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>神经黑客：杏仁核去火指南</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 静谧神经网络配色 (Calm Neuron) */
+            --bg-color: #F3F0FF;      /* 浅紫灰背景 */
+            --card-bg: #FFFFFF;
+            --text-color: #2D3436;
+            --border-color: #6C5CE7;  /* 神经元紫 */
+            
+            --color-panic: #FF7675;   /* 恐慌红 - 杏仁核过载 */
+            --color-calm: #00CEC9;    /* 镇静蓝 - 前额叶控制 */
+            --color-neuron: #A29BFE;  /* 连接色 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 3px;
+            --shadow-offset: 8px;
+            --card-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(var(--color-neuron) 1px, transparent 1px),
+                radial-gradient(var(--color-neuron) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: var(--text-color);
+            line-height: 1.8;
+            font-size: 19px; /* 基准字号 */
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px; /* 宽屏设定 */
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        /* 标题系统 */
+        h1, h2, h3 {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            line-height: 1.3;
+        }
+
+        h1 { 
+            font-size: 3.8rem; 
+            margin-bottom: 10px; 
+            color: var(--border-color);
+        }
+        
+        h3 { font-size: 2.2rem; margin-bottom: 25px; color: var(--color-panic); }
+        h3.calm-title { color: var(--color-calm); }
+        p { margin-bottom: 20px; }
+
+        /* ---------------- Header ---------------- */
+        .header {
+            text-align: center;
+            background: #fff;
+            padding: 80px 40px;
+            border-top: 10px solid var(--border-color);
+        }
+
+        .header-tag {
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: var(--color-neuron);
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* ---------------- SVG 动画区 ---------------- */
+        .icon-box {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            height: 150px;
+        }
+        
+        @keyframes pulse-red { 0% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.8; } }
+        @keyframes connect { 0% { stroke-dashoffset: 20; } 100% { stroke-dashoffset: 0; } }
+
+        .anim-panic { transform-origin: center; animation: pulse-red 0.8s ease-in-out infinite; }
+        .anim-flow { stroke-dasharray: 5; animation: connect 1s linear infinite; }
+
+        /* ---------------- Panel 1: Brain Anatomy ---------------- */
+        .brain-map {
+            position: relative;
+            margin: 40px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            background: #F8F9FA;
+            border-radius: 15px;
+            border: 2px dashed var(--color-neuron);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .label-box {
+            position: absolute;
+            background: #fff;
+            border: 2px solid;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+
+        /* ---------------- Panel 2: The Hijack ---------------- */
+        .hijack-alert {
+            background: #FFF5F5;
+            border-left: 10px solid var(--color-panic);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* ---------------- Panel 3: 6-Second Rule (Interactive) ---------------- */
+        .cooling-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .countdown-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 8px solid var(--color-neuron);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px auto;
+            font-size: 4rem;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            color: var(--color-neuron);
+            position: relative;
+            background: #fff;
+            transition: all 0.5s;
+        }
+
+        .countdown-circle.active {
+            border-color: var(--color-calm);
+            color: var(--color-calm);
+            box-shadow: 0 0 30px var(--color-calm);
+            transform: scale(1.1);
+        }
+
+        .btn-cool {
+            background: var(--border-color);
+            color: #fff;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            font-family: 'ZCOOL KuaiLe', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-cool:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-cool:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .breathing-text {
+            height: 30px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: var(--color-calm);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* ---------------- Footer ---------------- */
+        .footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 2px dashed #B2BEC3;
+            color: #636E72;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header class="card header">
+        <div class="icon-box">
+            <svg width="150" height="150" viewBox="0 0 100 100">
+                <path d="M20 50 Q20 20 50 20 Q80 20 80 50 Q80 80 50 80 Q20 80 20 50" fill="none" stroke="#2D3436" stroke-width="3"/>
+                <circle cx="50" cy="65" r="10" fill="#FF7675" class="anim-panic"/>
+                <path d="M45 60 L35 50 M55 60 L65 50 M50 75 L50 85" stroke="#FF7675" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <h1>杏仁核去火指南</h1>
+        <div class="header-tag">学会给大脑的“报警器”断电</div>
+    </header>
+
+    <section class="card">
+        <h3>🔥 职业倦怠的“幕后黑手”</h3>
+        <p>感到情绪枯竭、一点就炸？这不仅仅是心情不好，是你的<strong>杏仁核 (Amygdala)</strong> 在过度放电。</p>
+        <p><strong>研究发现：</strong> 疲惫或睡眠不足时，杏仁核的活跃度会飙升 <strong>60%</strong>。它就像一个坏掉的烟雾报警器，一直响个不停，引发“战斗或逃跑”的应激反应。</p>
+        
+        <div class="hijack-alert">
+            <strong>⚠️ 杏仁核劫持 (Amygdala Hijack)：</strong><br>
+            当杏仁核过度活跃时，它会切断与理智大脑的联系。你会做出非理性的举动（比如突然对同事发火），事后又后悔不已。
+        </div>
+    </section>
+
+    <section class="card">
+        <h3>🧠 大脑里的“油门”与“刹车”</h3>
+        <p>健康的大脑需要两个部位的完美配合：</p>
+        
+        <div class="brain-map">
+            <svg width="100%" height="100%" viewBox="0 0 400 200">
+                <path d="M50 150 Q50 50 150 50 L250 50 Q350 50 350 150 Z" fill="#fff" stroke="#ccc" stroke-width="2"/>
+                
+                <path d="M100 100 L300 100" stroke="#A29BFE" stroke-width="4" stroke-dasharray="10" class="anim-flow"/>
+                
+                <circle cx="100" cy="100" r="15" fill="#00CEC9"/>
+                <circle cx="300" cy="100" r="15" fill="#FF7675"/>
+            </svg>
+            
+            <div class="label-box" style="left: 20px; top: 20px; border-color: #00CEC9; color: #00CEC9;">
+                前额叶皮层<br>(刹车/理智)
+            </div>
+            <div class="label-box" style="right: 20px; top: 20px; border-color: #FF7675; color: #FF7675;">
+                杏仁核<br>(油门/情绪)
+            </div>
+        </div>
+        
+        <p><strong>坏消息：</strong> 压力会切断这条连接线。这就是为什么你在压力大时容易失控。<br>
+        <strong>好消息：</strong> 这种损伤是<strong>可逆</strong>的。洛克菲勒大学研究表明，只要压力缓解（哪怕只是考完试），神经连接就能自我修复。</p>
+    </section>
+
+    <section class="card" style="border-color: var(--color-calm);">
+        <h3 class="calm-title">🧊 实操：六秒冷却术</h3>
+        <p>当你感觉到胃部紧绷、语调变高时，说明杏仁核正在被触发。此时你需要<strong>“黄金六秒”</strong>来夺回控制权。</p>
+        <p>原理：强迫理智脑工作（数数、呼吸），从而抑制情绪脑。</p>
+
+        <div class="cooling-container">
+            <div id="countdown" class="countdown-circle">6</div>
+            <div id="breath-text" class="breathing-text">准备开始...</div>
+            
+            <button id="btn-cool" class="btn-cool" onclick="startCoolDown()">
+                🌬️ 启动冷却程序
+            </button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>“不要被你的杏仁核绑架。做你自己大脑的驾驶员。”</p>
+    </footer>
+
+</div>
+
+<script>
+    function startCoolDown() {
+        const circle = document.getElementById('countdown');
+        const text = document.getElementById('breath-text');
+        const btn = document.getElementById('btn-cool');
+        let timeLeft = 6;
+
+        // Disable button
+        btn.disabled = true;
+        btn.innerText = "正在冷却中...";
+        circle.classList.add('active');
+        text.style.opacity = 1;
+
+        // Initial Haptic
+        if (navigator.vibrate) navigator.vibrate(50);
+
+        const interval = setInterval(() => {
+            timeLeft--;
+            circle.innerText = timeLeft;
+
+            // Breathing instructions
+            if (timeLeft > 3) {
+                text.innerText = "👃 深吸气...";
+            } else if (timeLeft > 0) {
+                text.innerText = "👄 慢呼气...";
+            } else {
+                text.innerText = "✨ 冷却完成";
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                circle.innerText = "😊";
+                btn.innerText = "再次启动";
+                btn.disabled = false;
+                circle.classList.remove('active');
+                
+                // Success Haptic
+                if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
+                
+                setTimeout(() => {
+                    text.style.opacity = 0;
+                    circle.innerText = "6";
+                }, 2000);
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>

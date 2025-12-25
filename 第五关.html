@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零售实战 Ep.5：精益成本控制</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zcool+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --yellow: #FFC000;
+            --cyan: #00A99D;
+            --orange: #FF6B35;
+            --red: #D32F2F;
+            --green: #4CAF50;
+            --white: #FFF9F0;
+            --black: #2B2B2B;
+            --brown: #8D6E63; /* 纸箱色 */
+            --grey: #9E9E9E;   /* 工业灰 */
+            --border: 3px solid var(--black);
+            --shadow: 6px 6px 0px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--grey);
+            background-image: radial-gradient(#fff 15%, transparent 15%);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--black);
+            margin: 0;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-top: 20px; 
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px; 
+            background: var(--white);
+            border: var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transform: rotate(-1deg);
+        }
+
+        h1 {
+            font-family: 'Zcool KuaiLe';
+            font-size: 3rem;
+            margin: 0;
+            color: var(--brown);
+            text-shadow: 2px 2px 0 var(--black);
+            line-height: 1.2;
+        }
+
+        .panel {
+            background: var(--white);
+            border: var(--border);
+            border-radius: 16px;
+            margin-bottom: 40px; 
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
+            position: relative; 
+        }
+
+        .panel-tag {
+            position: absolute;
+            top: -16px; 
+            left: 20px;
+            background: var(--black);
+            color: var(--white);
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            transform: rotate(-2deg);
+            font-weight: bold;
+            border: 2px solid var(--white);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 互动展示 */
+        .vs-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .vs-item {
+            flex: 1;
+            border: 2px dashed #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .vs-item:hover { border-color: var(--orange); background: #FFF3E0; }
+        
+        .vs-detail { display: none; margin-top: 5px; font-size: 0.85rem; color: #666; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>零售实战 Ep.5</h1>
+        <p style="font-weight:bold; margin-top:10px; font-size: 1.1rem;">📉 极简主义成本控制</p>
+    </header>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">精益思维 (Lean)</div>
+            <p>商业的本质是<strong>低买高卖</strong>，不是买一堆漂亮的设备。</p>
+            <p>在没有赚到第一分利润之前，每一分投入到非货品上的钱，都是<strong>浪费</strong>。</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-text">
+            <div class="panel-tag">设备替代方案</div>
+            <p>点击下方卡片，查看低成本替代方案：</p>
+            
+            <div class="vs-box">
+                <div class="vs-item" onclick="toggleDetail(this)">
+                    ❌ <strong>专业售货车</strong><br>
+                    <span style="color:var(--red)">¥2000+</span>
+                    <div class="vs-detail">太重、难搬运、回本慢</div>
+                </div>
+                <div class="vs-item" style="border-color:var(--green); background:#E8F5E9;" onclick="toggleDetail(this)">
+                    ✅ <strong>露营推车</strong><br>
+                    <span style="color:var(--green)">¥150</span>
+                    <div class="vs-detail">轻便、多用途、立即回本</div>
+                </div>
+            </div>
+
+            <div class="vs-box">
+                <div class="vs-item" onclick="toggleDetail(this)">
+                    ❌ <strong>定制灯箱</strong><br>
+                    <span style="color:var(--red)">¥300+</span>
+                    <div class="vs-detail">制作周期长，改字麻烦</div>
+                </div>
+                <div class="vs-item" style="border-color:var(--green); background:#E8F5E9;" onclick="toggleDetail(this)">
+                    ✅ <strong>手写板</strong><br>
+                    <span style="color:var(--green)">¥5</span>
+                    <div class="vs-detail">硬纸板+马克笔，随时改价</div>
+                </div>
+            </div>
+            
+            <div style="margin-top:20px; padding:10px; background:#eee; border-radius:8px;">
+                <label>输入你想买的新设备价格：</label>
+                <div style="display:flex; margin-top:5px;">
+                    <input type="number" id="new-price" placeholder="例如：500" style="padding:8px; flex:1;">
+                    <button onclick="calcSave()" style="padding:8px 15px; background:var(--black); color:white; border:none; cursor:pointer;">计算节省</button>
+                </div>
+                <p id="result" style="color:var(--orange); font-weight:bold; margin-top:10px; display:none;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel" style="background:var(--black); color:var(--white);">
+        <div class="panel-text">
+            <h2 style="color:var(--yellow); font-family:'Zcool KuaiLe'">📝 终极挑战</h2>
+            <p><strong>0成本启动实验：</strong></p>
+            <ul style="margin-top:10px; padding-left:20px; line-height:1.8;">
+                <li>找一块家里的野餐布/防潮垫。</li>
+                <li>带上你选好的产品（甚至是家里的闲置物品）。</li>
+                <li>去允许经营的公园或市集尝试。</li>
+                <li><strong>禁止购买新设备！</strong> 验证你的产品是否有自然流量。</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function calcSave() {
+        const price = document.getElementById('new-price').value;
+        if(price) {
+            const save = Math.floor(price * 0.6); // 假设省60%
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `通过闲置复用，节省约 <strong>${save}</strong> 元！<br>这笔资金可用于进货迭代。`;
+            if(navigator.vibrate) navigator.vibrate(20);
+        }
+    }
+
+    function toggleDetail(element) {
+        const detail = element.querySelector('.vs-detail');
+        const isHidden = detail.style.display === 'none' || detail.style.display === '';
+        
+        // 重置所有
+        document.querySelectorAll('.vs-detail').forEach(el => el.style.display = 'none');
+        
+        if(isHidden) {
+            detail.style.display = 'block';
+            if(navigator.vibrate) navigator.vibrate(15);
+        }
+    }
+</script>
+
+</body>
+</html>

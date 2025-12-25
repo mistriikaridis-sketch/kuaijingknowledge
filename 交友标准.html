@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交友标准：拒绝油腻（优化版）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* 配色方案：清爽与警示 (Fresh & Alert) */
+            --bg-color: #00b894;       /* 清爽薄荷绿 (去油) */
+            --dot-color: #55efc4;      /* 浅绿波点 */
+            --card-bg: #fff;           /* 纯白卡片 */
+            --text-color: #2d3436;     /* 深灰文字 */
+            --border-color: #2d3436;   /* 粗边框色 */
+            
+            --accent-red: #d63031;     /* 批判红 (诤友) */
+            --accent-yellow: #fdcb6e;  /* 油腻黄 (警示) */
+            --accent-blue: #0984e3;    /* 自省蓝 */
+            
+            --shadow-hard: 8px 8px 0px var(--border-color);
+            --border-width: 4px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 20%, transparent 20%);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            /* 优化点：增加全局行高和字间距 */
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            /* 优化点：加宽容器至 800px */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 字体风格 */
+        h1, h2, h3, .subtitle, .section-tag, .btn-action, .golden-sentence {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            /* 优化点：标题类字体字间距加大 */
+            letter-spacing: 0.12em;
+        }
+
+        /* 卡片基础样式 */
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px; /* 增加内边距 */
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-hard);
+            position: relative;
+            transition: transform 0.2s;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        /* 顶部标题区 */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 20px;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: white;
+            text-shadow: 6px 6px 0px var(--border-color);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+            line-height: 1.3;
+            padding: 10px;
+        }
+
+        .subtitle {
+            display: inline-block;
+            background: var(--text-color);
+            color: white;
+            padding: 10px 30px;
+            font-size: 1.6rem;
+            transform: rotate(1deg);
+            border: 3px solid white;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.2);
+        }
+
+        /* 确保标题显示完整 */
+        h2, h3 {
+            line-height: 1.5;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* SVG 动画 */
+        .hike {
+            animation: hike 3s infinite ease-in-out;
+        }
+
+        @keyframes hike {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* 章节标题 */
+        .section-tag {
+            position: absolute;
+            top: -25px;
+            left: -15px;
+            padding: 12px 35px;
+            color: white;
+            border: 3px solid var(--border-color);
+            transform: rotate(-3deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
+        }
+
+        /* 强调文本框 */
+        .highlight-box {
+            background: #fff;
+            border-left: 8px solid var(--border-color);
+            padding: 25px;
+            margin: 30px 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* 交互按钮 */
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            margin-top: 35px;
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            font-size: 1.6rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 6px 6px 0px rgba(255,255,255,0.5);
+            transition: all 0.1s;
+            border: 3px solid white;
+        }
+
+        .btn-action:active {
+            transform: translate(3px, 3px);
+            box-shadow: 3px 3px 0px rgba(255,255,255,0.5);
+        }
+
+        /* 隐藏内容 */
+        .hidden-content {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #f1f2f6;
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 列表样式 */
+        ul.retro-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.retro-list li {
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 1.15rem;
+        }
+        ul.retro-list li::before {
+            content: '🧼';
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            top: 2px;
+        }
+
+        /* 底部 */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            margin-bottom: 40px;
+        }
+
+        /* 底部金句样式 */
+        .golden-sentence {
+            display: inline-block;
+            font-size: 2rem;
+            background: white;
+            padding: 20px 40px;
+            border: 5px solid var(--border-color);
+            transform: rotate(1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            color: var(--text-color);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5em;
+        }
+
+        /* 友谊对比框 */
+        .friend-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
+        }
+        .friend-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>交友标准</h1>
+        <div class="subtitle">益友 vs 损友</div>
+    </header>
+
+    <div class="card">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <svg width="120" height="100" viewBox="0 0 120 100">
+                <path d="M10,90 L60,10 L110,90 Z" fill="none" stroke="#2d3436" stroke-width="4"/>
+                <circle cx="45" cy="40" r="5" fill="#d63031" class="hike"/>
+                <path d="M45,45 L45,60 M35,50 L55,50 M45,60 L35,75 M45,60 L55,75" stroke="#2d3436" stroke-width="3" class="hike"/>
+                <line x1="60" y1="10" x2="60" y2="-10" stroke="#2d3436" stroke-width="2"/>
+                <path d="M60,-10 L80,-5 L60,0" fill="#fdcb6e" stroke="#2d3436" stroke-width="2"/>
+            </svg>
+        </div>
+        <h2 style="text-align: center;">人到中年，半山腰的危机</h2>
+        <p>中年正处在半山腰。往上看是圣人，往下看是笑脸。</p>
+        <p>你可以往上走“会当凌绝顶”，也可以往下出溜，变成标准的<strong>“油腻猥琐中年男”</strong>。</p>
+        <div class="highlight-box">
+            曾国藩说：“尚在中年，正可圣可狂之际。”
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-red);">01 互相箴规</div>
+        <h3>🌵 你需要一个“扎心”的朋友</h3>
+        <p>在交友这件事上，曾国藩的标准极其硬核：<strong>能骂你、能挑你毛病的人。</strong></p>
+        
+        <div class="friend-box" style="background: #fab1a0;">
+            <div style="display:flex; align-items:center;">
+                <span class="friend-icon">🍬</span>
+                <div>
+                    <strong>普通朋友</strong><br>
+                    <span style="font-size:0.9rem">互相夸奖，长朋友自是之心。</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="friend-box" style="background: #ffeaa7;">
+            <div style="display:flex; align-items:center;">
+                <span class="friend-icon">🔪</span>
+                <div>
+                    <strong>成事之友 (益友)</strong><br>
+                    <span style="font-size:0.9rem">互相挑刺，以过相砭，以善相养。</span>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: 1rem; color: #666; margin-top: 15px;">虽然大家都喜欢被夸（我也一样），但想成事，必须有人在你飘的时候拉你一把。</p>
+    </div>
+
+    <div class="card">
+        <div class="section-tag" style="background: var(--accent-blue);">02 去油指南</div>
+        <h3>🧼 如何避免成为“油腻男/女”？</h3>
+        <p>除了朋友的督促，自我管理更重要。这是一份经过验证的<strong>“防油腻自查清单”</strong>。</p>
+
+        <button class="btn-action" onclick="toggleContent('content1', this)" style="background: var(--text-color);">
+            🚿 点击开启：十条去油心法
+        </button>
+
+        <div id="content1" class="hidden-content">
+            <ul class="retro-list">
+                <li><strong>1. 控制体重：</strong> 哪怕不是树了，成了柴，柴也不能比树重。</li>
+                <li><strong>2. 不断学习：</strong> 别觉得这辈子学够了。</li>
+                <li><strong>3. 动起来：</strong> 别总瘫在沙发上，远离“三高”。</li>
+                <li><strong>4. 闭嘴谈性：</strong> 当众谈性 = 油腻巅峰。</li>
+                <li><strong>5. 不忆往昔：</strong> 别总提当年勇，好汉不提当年。</li>
+                <li><strong>6. 不好为人师：</strong> 管住嘴，别总想教育晚辈。</li>
+                <li><strong>7. 不添麻烦：</strong> 给别人添麻烦真的很油腻。</li>
+                <li><strong>8. 保持购物：</strong> 保持对新事物的欲望，买点新电子产品。</li>
+                <li><strong>9. 保持清洁：</strong> 年轻脏是不羁，中年脏是真脏。每天洗澡。</li>
+                <li><strong>10. 尊重习惯：</strong> 别鄙视保温杯，该喝热水就喝热水。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="golden-sentence">
+            “以过相砭，以善相养”
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    function toggleContent(id, btn) {
+        var content = document.getElementById(id);
+        
+        // 震动反馈
+        if (navigator.vibrate) {
+            navigator.vibrate(20);
+        }
+
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            // 恢复按钮文字
+            if(id === 'content1') btn.innerHTML = "🚿 点击开启：十条去油心法";
+            btn.style.transform = "scale(1)";
+        } else {
+            content.style.display = "block";
+            btn.innerHTML = "👆 收起内容";
+            // 自动滚动到内容处
+            content.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+    }
+</script>
+
+</body>
+</html>

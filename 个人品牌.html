@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：个人品牌 (IP)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* 网红波普配色 */
+            --bg-color: #FFF5F7;      /* 浅玫粉背景 */
+            --card-bg: #FFFFFF;
+            --border-color: #252A34;  /* 深黑蓝硬边框 */
+            
+            --color-brand: #FF2E63;   /* 荧光玫红 */
+            --color-trust: #08D9D6;   /* 蒂芙尼蓝 */
+            --color-value: #F9ED69;   /* 高光黄 */
+            
+            --border-width: 4px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#FFC4D0 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #252A34;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-brand); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .highlight { 
+            background: var(--color-value); 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-weight: bold; 
+            border: 1px solid black;
+        }
+
+        footer { 
+            text-align: center; 
+            margin-top: 40px; 
+            padding: 20px; 
+            background: var(--border-color); 
+            color: white; 
+            border-radius: 12px; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>个人品牌 (IP)</h1>
+        <p style="font-weight:bold;">Personal Branding</p>
+    </header>
+
+    <section class="card">
+        <h2>⭐ 为什么要做 IP？</h2>
+        <p>在超级个体时代，IP 是你最强的<strong>信任杠杆</strong>。</p>
+        <p>同样的产品，有 IP 的人可以卖出溢价；同样的服务，有 IP 的人不需要推销。</p>
+    </section>
+
+    <section class="card" style="border-color: var(--color-trust);">
+        <h3 style="color:var(--color-trust);">📢 输出倒逼输入</h3>
+        <p>如何建立 IP？不是等你厉害了再分享，而是<strong>通过分享让自己变厉害</strong>。</p>
+        
+        <div style="background:#FAFAFA; padding:15px; border-radius:8px; margin-top:15px; border: 1px dashed #ccc;">
+            <p style="margin:0 0 10px 0; font-size:0.9rem; text-align:center;">难而正确的事：</p>
+            <div style="display:flex; justify-content:space-around; flex-wrap:wrap; gap:10px; margin-top:20px;">
+                <span class="highlight">📖 阅读</span>
+                <span class="highlight">🤔 思考</span>
+                <span class="highlight">📝 写作</span>
+                <span class="highlight">🔄 复盘</span>
+                <span class="highlight">🏃 运动</span>
+            </div>
+            <p style="margin-top:20px; text-align:center; color:#666; font-size: 0.9rem;">
+                这就是让你受用一生的长期价值系统。
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p style="font-family:'ZCOOL KuaiLe'; font-size:1.5rem;">“写不出来的最大原因，<br>是因为读得太少！”</p>
+        <p style="color:var(--color-value); font-size:1.2rem; margin-top:10px;">以结果为导向，拒绝自嗨。</p>
+    </footer>
+
+</div>
+
+</body>
+</html>

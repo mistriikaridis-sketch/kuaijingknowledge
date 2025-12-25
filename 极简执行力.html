@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商业实战：极简执行力</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* 涡轮增压配色 (Turbo Charge Pop) */
+            --bg-color: #FFF3E0;      /* 能量橙背景 */
+            --dot-color: #FFCC80;     /* 深橙波点 */
+            --card-bg: #FFFFFF;
+            --border-color: #1A1A1D;  /* 重工黑边框 */
+            
+            --color-fire: #FF5200;    /* 火焰橙 - 行动/紧迫 */
+            --color-track: #2979FF;   /* 赛道蓝 - 逻辑/学习 */
+            --color-gold: #FFEA00;    /* 警示黄 - 价值/高亮 */
+            --color-go: #00E676;      /* 通行绿 - 启动 */
+
+            /* 宽屏版视觉规范 */
+            --border-width: 4px;
+            --shadow-offset: 6px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--dot-color) 2px, transparent 2px);
+            background-size: 20px 20px;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #1A1A1D;
+            padding: 20px;
+        }
+
+        .container { max-width: 600px; margin: 0 auto; }
+
+        h1 { font-family: 'ZCOOL KuaiLe'; color: var(--color-fire); margin-bottom: 5px; }
+
+        .card {
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .motivation-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;
+        }
+        .mot-card {
+            border: 2px solid black; padding: 15px; text-align: center; border-radius: 8px; background: #E0F7FA;
+        }
+
+        footer { text-align: center; margin-top: 40px; padding: 20px; background: var(--color-fire); color: white; border-radius: 12px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align:center; margin-bottom:40px;">
+        <h1>极简执行力</h1>
+        <p style="font-weight:bold;">Execution Is Everything</p>
+    </header>
+
+    <section class="card">
+        <h2>🔥 完成优于完美</h2>
+        <p>所有的焦虑，都来自“想太多，做得少”。</p>
+        <div style="background:#FAFAFA; padding:15px; border-left:4px solid var(--color-fire); margin-top:15px;">
+            <ul style="list-style:none; padding:0; margin:0;">
+                <li style="margin-bottom:10px;">❌ <strong>完美主义者：</strong> 做PPT、搞Logo、想口号...两周过去了还没开始。</li>
+                <li>✅ <strong>实战派：</strong> 只有想法 -> 发个朋友圈测试 -> 有人问 -> 马上交付。</li>
+            </ul>
+        </div>
+        <div style="margin-top:15px; font-size:0.9rem; color:#666;">
+            <strong>商业结果不需要PPT。</strong> 你需要的是立刻采取行动，验证想法，产生第一笔反馈。
+        </div>
+    </section>
+
+    <section class="card" style="border-color: var(--color-track);">
+        <h3>⛽ 动力加注站</h3>
+        <p>为什么拖延？因为目标不清晰，或者...动力不足。</p>
+        
+        <div class="motivation-grid">
+            <div class="mot-card">
+                <div style="font-size:2.5rem;">💸</div>
+                <strong>价值驱动</strong>
+                <p style="font-size:0.9rem;">动力不足时，算算这件事背后能创造多少价值。</p>
+            </div>
+            <div class="mot-card" style="background:#FFFDE7;">
+                <div style="font-size:2.5rem;">❤️</div>
+                <strong>兴趣驱动</strong>
+                <p style="font-size:0.9rem;">写出30件感兴趣的事，选最喜欢的那件开干。</p>
+            </div>
+        </div>
+        
+        <div style="margin-top:20px; border:2px dashed #000; padding:15px; border-radius:10px; background:#F0F4C3;">
+            <span style="font-weight:bold;">💡 拖延症公式：</span><br>
+            拖延 = 目标模糊 + 完美主义
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-text">“想，都是问题。<br>做，才是答案。”</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
